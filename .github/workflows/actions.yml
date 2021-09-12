@@ -20,12 +20,15 @@ jobs:
     - name: 🔨 Build Project
       run: sh ./deployment/develop/deploy.sh
     
-    # - name: 📂 Sync files
-    #   uses: SamKirkland/FTP-Deploy-Action@4.1.0
-    #   with:
-    #     server: ftp.samkirkland.com
-    #     username: myFtpUserName
-    #     password: ${{ secrets.password }}
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      with:
+        server: ${{ secrets.FTP_HOST }}
+        username: ${{ secrets.FTP_USERNAME }}
+        password: ${{ secrets.FTP_PASSWORD }}
+        port: ${{ secrets.FTP_PORT }}
+        local-dir: ./build
+        server-dir: ~/doantotnghiep/develop
     
 
   # production-deploy:

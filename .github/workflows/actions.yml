@@ -28,7 +28,7 @@ jobs:
         password: ${{ secrets.FTP_PASSWORD }}
         port: ${{ secrets.FTP_PORT }}
         local-dir: ./build/
-        server-dir: ~/doantotnghiep/develop/
+        server-dir: ./develop/frontend/
     
 
   # production-deploy:

@@ -27,8 +27,8 @@ jobs:
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
         port: ${{ secrets.FTP_PORT }}
-        local-dir: ./build
-        server-dir: ~/doantotnghiep/develop
+        local-dir: ./build/
+        server-dir: ~/doantotnghiep/develop/
     
 
   # production-deploy:

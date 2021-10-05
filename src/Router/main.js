@@ -29,6 +29,7 @@ const RouteMain = () => {
                         <AppLayout>
                             <Switch>
                                 <HomeScreen exact path="/"/>
+                                <HomeScreen exact path="/home"/>
                             </Switch>
                         </AppLayout>
                     </Route>

@@ -1,8 +1,8 @@
 import axios from "axios";
 
 export const Api = axios.create({
-    baseURL: "http://demoapi.wtf/api",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  });
+  baseURL: "http://beecoffee.wtf/api",
+  headers: {
+    "Content-Type": "application/json",
+  },
+});

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const CategoryScreenAuth = (props) => {
+const ListProductScreen = (props) => {
   return (
     <>
       {props.data.map((item, index) => (
@@ -16,17 +16,18 @@ const CategoryScreenAuth = (props) => {
               style={{ objectFit: "cover" }}
             />
           </td>
+          <td>{item.price}</td>
+          <td>{item.description}</td>
+          <td>{item.point}</td>
+          <td>{item.cate_id}</td>
           <td>
             <button
               onClick={() => props.onDelete(item.id)}
               className="btn btn-danger"
             >
-              delete
+              Delete
             </button>
-            <Link
-              to={`/admin/categories/${item.id}`}
-              className="btn btn-warning"
-            >
+            <Link to={`/admin/products/${item.id}`} className="btn btn-warning">
               update
             </Link>
           </td>
@@ -36,4 +37,4 @@ const CategoryScreenAuth = (props) => {
   );
 };
 
-export default CategoryScreenAuth;
+export default ListProductScreen;

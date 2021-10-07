@@ -1,22 +1,22 @@
 import { Api } from "./api";
 
 export const all = () => {
-  const url = `/category`;
+  const url = `/product`;
   return Api.get(url);
 };
 export const update = (item) => {
-  const url = `/category/${item.id}`;
+  const url = `/product/${item.id}`;
   return Api.put(url, item);
 };
 export const show = (id) => {
-  const url = `/category/${id}`;
+  const url = `/product/${id}`;
   return Api.get(url);
 };
 export const remove = (id) => {
-  const url = `/category/${id}`;
+  const url = `/product/${id}`;
   return Api.delete(url);
 };
 export const create = (item) => {
-  const url = `/category/create`;
+  const url = `/product/create`;
   return Api.post(url, item);
 };

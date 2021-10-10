@@ -42,6 +42,22 @@ const NavAuth = () => {
                 <span data-feather="shopping-cart" />
                 <i class="fas fa-align-left"></i> Categories
               </NavLink>
+              <NavLink
+                className="nav-link text-white"
+                to="/admin/building"
+                activeClassName="active"
+              >
+                <span data-feather="shopping-cart" />
+                <i class="fas fa-align-left"></i> building
+              </NavLink>
+              <NavLink
+                className="nav-link text-white"
+                to="/admin/classroom"
+                activeClassName="active"
+              >
+                <span data-feather="shopping-cart" />
+                <i class="fas fa-align-left"></i> classroom
+              </NavLink>
             </li>
 
             <li className="nav-item">

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Api = axios.create({
-  baseURL: "http://beecoffee.wtf/api",
+  baseURL: "http://127.0.0.1:8000/api",
   headers: {
     "Content-Type": "application/json",
   },

@@ -42,22 +42,6 @@ const NavAuth = () => {
                 <span data-feather="shopping-cart" />
                 <i class="fas fa-align-left"></i> Categories
               </NavLink>
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/building"
-                activeClassName="active"
-              >
-                <span data-feather="shopping-cart" />
-                <i class="fas fa-align-left"></i> building
-              </NavLink>
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/classroom"
-                activeClassName="active"
-              >
-                <span data-feather="shopping-cart" />
-                <i class="fas fa-align-left"></i> classroom
-              </NavLink>
             </li>
 
             <li className="nav-item">
@@ -88,6 +72,26 @@ const NavAuth = () => {
               >
                 <span data-feather="users" />
                 <i class="far fa-image"></i> Banner
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link text-white"
+                to="/admin/toppings"
+                activeClassName="active"
+              >
+                <span data-feather="users" />
+                <i class="fas fa-coffee"></i> Topping
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link text-white"
+                to="/admin/types"
+                activeClassName="active"
+              >
+                <span data-feather="users" />
+                <i class="fas fa-coffee"></i> types
               </NavLink>
             </li>
           </ul>

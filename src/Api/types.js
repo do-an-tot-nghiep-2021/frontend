@@ -1,22 +1,22 @@
 import { Api } from "./api";
 
-export const all = () => {
+export const alltype = () => {
   const url = `/type`;
   return Api.get(url);
 };
-export const update = (item) => {
+export const updatetype = (item) => {
   const url = `/type/${item.id}`;
   return Api.put(url, item);
 };
-export const show = (id) => {
+export const showtype = (id) => {
   const url = `/type/${id}`;
   return Api.get(url);
 };
-export const remove = (id) => {
+export const removetype = (id) => {
   const url = `/type/${id}`;
   return Api.delete(url);
 };
-export const create = (item) => {
+export const createtype = (item) => {
   const url = `/type/create`;
   return Api.post(url, item);
 };

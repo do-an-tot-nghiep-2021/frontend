@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useParams, useHistory } from 'react-router-dom';
 import ClipLoader from "react-spinners/ClipLoader";
-import { show, update } from "../../../../Api/category";
+import { showcategory, updatecategory } from "../../../../Api/category";
 import useUpload from '../../../../hooks/upload/useUpload';
 
 const UpdateFormScreen = () => {
@@ -58,7 +58,7 @@ const UpdateFormScreen = () => {
                 data.image = preview;
             }
 
-            await update(data);
+            await updatecategory(data);
 
             history.push('/admin/categories');
         } catch (error) {
@@ -67,7 +67,7 @@ const UpdateFormScreen = () => {
     }
 
     useEffect(async () => {
-        const respons = await show(id);
+        const respons = await showcategory(id);
         console.log(respons.data)
         const category = respons.data;
         console.log(category)

@@ -1,22 +1,22 @@
 import { Api } from "./api";
 
-export const all = () => {
+export const alltopping = () => {
   const url = `/topping`;
   return Api.get(url);
 };
-export const update = (item) => {
+export const updatetopping = (item) => {
   const url = `/topping/${item.id}`;
   return Api.put(url, item);
 };
-export const show = (id) => {
+export const showtopping = (id) => {
   const url = `/topping/${id}`;
   return Api.get(url);
 };
-export const remove = (id) => {
+export const removetopping = (id) => {
   const url = `/topping/${id}`;
   return Api.delete(url);
 };
-export const create = (item) => {
+export const createtopping = (item) => {
   const url = `/topping/create`;
   return Api.post(url, item);
 };

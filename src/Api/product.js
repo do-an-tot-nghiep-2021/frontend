@@ -1,22 +1,22 @@
 import { Api } from "./api";
 
-export const all = () => {
+export const allproduct = () => {
   const url = `/product`;
   return Api.get(url);
 };
-export const update = (item) => {
+export const updateproduct = (item) => {
   const url = `/product/${item.id}`;
   return Api.put(url, item);
 };
-export const show = (id) => {
+export const showproduct = (id) => {
   const url = `/product/${id}`;
   return Api.get(url);
 };
-export const remove = (id) => {
+export const removeproduct = (id) => {
   const url = `/product/${id}`;
   return Api.delete(url);
 };
-export const create = (item) => {
+export const createproduct = (item) => {
   const url = `/product/create`;
   return Api.post(url, item);
 };

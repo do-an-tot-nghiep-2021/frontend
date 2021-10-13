@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { all, remove } from "../../../../Api/category";
+import { allcategory, removecategory } from "../../../../Api/category";
 import CategoryScreenAuth from "../../screens/category/list";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ const CategoryListAuth = () => {
   useEffect(() => {
     const getCategories = async () => {
       try {
-        const { data } = await all();
+        const { data } = await allcategory();
         setCategories(data);
       } catch (error) {
         console.log(error);
@@ -20,7 +20,7 @@ const CategoryListAuth = () => {
   console.log(Categories);
   const onHandleDelete = async (id) => {
     try {
-      await remove(id);
+      await removecategory(id);
       const newCategories = Categories.filter((item) => item.id !== id);
       setCategories(newCategories);
     } catch (error) {

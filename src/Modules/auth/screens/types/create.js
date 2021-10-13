@@ -1,9 +1,7 @@
 import { useHistory } from "react-router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { create } from "../../../../Api/types";
-// import ClipLoader from "react-spinners/ClipLoader";
-// import useUpload from "../../../../hooks/upload/useUpload";
+import { createtype } from "../../../../Api/types";
 
 const CreateToppingScreen = () => {
   const history = useHistory();
@@ -12,67 +10,14 @@ const CreateToppingScreen = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data, e) => {
         try{
-            await create(data);
+            await createtype(data);
             e.target.reset();
-            await history.push('/admin/types')
+            history.push('/admin/types')
         }catch(error){
             console.log(error);
         }
     }
-//   const { loading, handleUpload } = useUpload();
-
-//   const handleInputUploadChange = async (e) => {
-//     const file = e.target.files.length > 0 ? e.target.files[0] : null;
-
-//     if (file === null) {
-//       setPreview("");
-//       return;
-//     }
-
-//     const url = await handleUpload(file);
-
-//     setPreview(url);
-//   };
-
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//   } = useForm();
-//   const onSubmit = async (data) => {
-//     try {
-//       if (preview) {
-//         data.image = preview;
-//       }
-//       await create(data);
-//       // console.log(data, "data add");
-//       history.push("/admin/categories");
-//     } catch (error) {
-//       console.log(error);
-//     }
-//   };
-
-//   const renderPreview = () => {
-//     if (loading) {
-//       return (
-//         <div className="form-group mb-2">
-//           <ClipLoader color="#000000" size={35} />
-//         </div>
-//       );
-//     }
-
-//     if (preview !== "") {
-//       return (
-//         <div className="form-group mb-5">
-//           <img width="120" src={preview} className="mt-2 mb-5  rounded" />
-//         </div>
-//       );
-//     }
-
-//     return null;
-//   };
-
-  return (
+return (
     <div>
       <h4>Create types</h4>
       <form id="form-add" onSubmit={handleSubmit(onSubmit)}>

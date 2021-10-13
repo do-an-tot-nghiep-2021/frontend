@@ -57,23 +57,24 @@ const NavAuth = () => {
             <li className="nav-item">
               <NavLink
                 className="nav-link text-white"
-                to="/admin/user"
+                to="/admin/building"
                 activeClassName="active"
               >
                 <span data-feather="users" />
-                <i class="fas fa-user-circle"></i> User
+                <i class="fas fa-user-circle"></i> Building
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
                 className="nav-link text-white"
-                to="/admin/setting"
+                to="/admin/classroom"
                 activeClassName="active"
               >
                 <span data-feather="users" />
-                <i class="far fa-image"></i> Banner
+                <i class="far fa-image"></i> Classroom
               </NavLink>
             </li>
+            
             <li className="nav-item">
               <NavLink
                 className="nav-link text-white"

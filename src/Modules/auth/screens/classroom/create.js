@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router';
 import { useForm } from 'react-hook-form';
 
-import { all } from '../../../../Api/building';
-import { create } from '../../../../Api/classroom';
+import { allbuilding } from '../../../../Api/building';
+import { createclass } from '../../../../Api/classroom';
 
 const CreateClassroomScreen = () => {
     const history = useHistory();
@@ -13,7 +13,7 @@ const CreateClassroomScreen = () => {
     useEffect(() =>{
         const getBuildings = async () =>{
             try {
-                const { data } = await all();
+                const { data } = await allbuilding();
                 setBuildings(data);
             } catch (error) {
                 console.log(error);
@@ -25,7 +25,7 @@ const CreateClassroomScreen = () => {
     const onSubmit = async (data) => {
         try {
             console.log("data",data);
-            await create(data);
+            await createclass(data);
             history.push("/admin/classroom");
         } catch (error) {
             console.log(error);

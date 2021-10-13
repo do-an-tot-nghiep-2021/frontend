@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { all, remove } from "../../../../Api/topping";
-// import ListProductScreen from "../../screens/toppings/list";
+import { alltopping, removetopping } from "../../../../Api/topping";
 import { Link } from "react-router-dom";
 import ToppingScreenAuth from "../../screens/topping/list";
 
@@ -9,7 +8,7 @@ const ListToppingComponent = () => {
   useEffect(() => {
     const getToppings = async () => {
       try {
-        const { data } = await all();
+        const { data } = await alltopping();
         setToppings(data);
       } catch (error) {
         console.log(error);
@@ -21,7 +20,7 @@ const ListToppingComponent = () => {
   // console.log(Toppings);
   const onHandleDelete = async (id) => {
     try {
-      await remove(id);
+      await removetopping(id);
       const newToppings = Toppings.filter((items) => items.id !== id);
       setToppings(newToppings);
     } catch (error) {
@@ -46,7 +45,6 @@ const ListToppingComponent = () => {
           </tr>
         </thead>
         <tbody>
-          {/* <ListProductScreen data={Toppings} onDelete={onHandleDelete} /> */}
           <ToppingScreenAuth data={Toppings} onDelete={onHandleDelete} />
         </tbody>
       </table>

@@ -18,6 +18,13 @@ import UpdateToppingScreen from "../Modules/auth/screens/topping/update";
 import ListTypesComponent from "../Modules/auth/components/types";
 import CreateTypesScreen from "../Modules/auth/screens/types/create";
 import UpdateTypesScreen from "../Modules/auth/screens/types/update";
+import BuildingListAuth from "../Modules/auth/components/building";
+import CreateBuildingScreen from "../Modules/auth/screens/building/create";
+import { updatebuilding } from "../Api/building";
+import UpdateBuildingScreen from "../Modules/auth/screens/building/update";
+import CreateClassroomScreen from "../Modules/auth/screens/classroom/create";
+import UpdateClassroomScreen from "../Modules/auth/screens/classroom/update";
+import ClassroomListAuth from "../Modules/auth/components/classroom";
 const RouteMain = () => {
   return (
     <>
@@ -31,12 +38,15 @@ const RouteMain = () => {
               "/admin/products/:id",
               "/admin/toppings/:id",
               "/admin/types/:id",
+              "/admin/building/:id",
+              "/admin/classroom/:id",
             ]}
           >
             <AuthLayout>
               <Switch>
                 <DashboardScreen exact path="/admin" />
                 <DashboardScreen exact path="/admin/dashboars" />
+
                 <CategoryListAuth exact path="/admin/categories" />
                 <CreateFormScreen exact path="/admin/categories/create" />
                 <UpdateFormScreen exact path="/admin/categories/:id" />
@@ -52,6 +62,16 @@ const RouteMain = () => {
                 <ListTypesComponent exact path="/admin/types" />
                 <CreateTypesScreen exact path="/admin/types/create" />
                 <UpdateTypesScreen exact path="/admin/types/:id" />
+
+                <BuildingListAuth exact path="/admin/building" />
+                <CreateBuildingScreen exact path="/admin/building/create" />
+                <UpdateBuildingScreen exact path="/admin/building/:id" />
+
+                <ClassroomListAuth exact path="/admin/classroom" />
+                <CreateClassroomScreen exact path="/admin/classroom/create" />
+                <UpdateClassroomScreen exact path="/admin/classroom/:id" />
+
+                
               </Switch>
             </AuthLayout>
           </Route>

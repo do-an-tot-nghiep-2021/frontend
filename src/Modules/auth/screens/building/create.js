@@ -1,14 +1,14 @@
 import React from 'react'
 import { useHistory } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { create } from '../../../../Api/building';
+import { createbuilding } from '../../../../Api/building';
 
 const CreateBuildingScreen = () => {
     const history = useHistory();
     const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = async (data) =>{
         try {
-            await create(data);
+            await createbuilding(data);
             history.push("/admin/building");
         } catch (error) {
             console.log(error);

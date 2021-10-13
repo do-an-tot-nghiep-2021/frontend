@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { all, remove } from "../../../../Api/product";
+import { allproduct, removeproduct } from "../../../../Api/product";
 import ListProductScreen from "../../screens/product/list";
 import { Link } from "react-router-dom";
 
@@ -8,7 +8,7 @@ const ListProductComponent = () => {
   useEffect(() => {
     const getProducts = async () => {
       try {
-        const { data } = await all();
+        const { data } = await allproduct();
         setProducts(data);
       } catch (error) {
         console.log(error);
@@ -20,7 +20,7 @@ const ListProductComponent = () => {
   console.log(Products);
   const onHandleDelete = async (id) => {
     try {
-      await remove(id);
+      await removeproduct(id);
       const newProducts = Products.filter((item) => item.id !== id);
       setProducts(newProducts);
     } catch (error) {

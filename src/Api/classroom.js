@@ -1,23 +1,23 @@
 import { Api } from "./api";
 
-export const all = () => {
+export const allclass = () => {
   const url = `/classroom`;
   return Api.get(url);
 };
-export const update = (item) => {
+export const updateclass = (item) => {
   const url = `/classroom/${item.id}`;
   return Api.put(url, item);
 };
-export const show = (id) => {
+export const showclass = (id) => {
   const url = `/classroom/${id}`;
   return Api.get(url);
 };
-export const remove = (id) => {
+export const removeclass = (id) => {
   const url = `/classroom/${id}`;
   return Api.delete(url);
 };
 
-export const create = (item) => {
+export const createclass = (item) => {
   const url = `/classroom/create`;
   return Api.post(url, item);
 };

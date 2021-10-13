@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { all, remove } from "../../../../Api/types";
-// import ListProductScreen from "../../screens/toppings/list";
+import { alltype, removetype } from "../../../../Api/types";
 import { Link } from "react-router-dom";
 import TypesScreenAuth from "../../screens/types/list";
 
@@ -9,7 +8,7 @@ const ListTypesComponent = () => {
   useEffect(() => {
     const getTypes = async () => {
       try {
-        const { data } = await all();
+        const { data } = await alltype();
         setTypes(data);
       } catch (error) {
         console.log(error);
@@ -21,7 +20,7 @@ const ListTypesComponent = () => {
   console.log(Types);
   const onHandleDelete = async (id) => {
     try {
-      await remove(id);
+      await removetype(id);
       const newTypes = Types.filter((items) => items.id !== id);
       setTypes(newTypes);
     } catch (error) {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useHistory, useParams } from 'react-router';
 import { useForm } from 'react-hook-form';
-import { show, update } from '../../../../Api/building';
+import { showbuilding, updatebuilding } from '../../../../Api/building';
 
 const UpdateBuildingScreen = () => {
     const history = useHistory();
@@ -10,7 +10,7 @@ const UpdateBuildingScreen = () => {
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) =>{
         try {
-            await update(data);
+            await updatebuilding(data);
             history.push("/admin/building");
         } catch (error) {
             console.log(error);
@@ -18,7 +18,7 @@ const UpdateBuildingScreen = () => {
     }
 
     useEffect(async () => {
-        const respons = await show(id);
+        const respons = await showbuilding(id);
         console.log(respons.data)
         const building = respons.data;
         reset(building);

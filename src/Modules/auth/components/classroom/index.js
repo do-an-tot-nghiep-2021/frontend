@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import { all, remove } from "../../../../Api/classroom";
+import { allclass, removeclass } from "../../../../Api/classroom";
 import { Link } from "react-router-dom";
 import ClassroomScreenAuth from '../../screens/classroom/list';
 
@@ -11,7 +11,7 @@ const ClassroomListAuth = () => {
     useEffect(() =>{
         const getClassroom = async () =>{
             try {
-                const { data } = await all();
+                const { data } = await allclass();
                 setClassrooms(data);
                 
             } catch (error) {
@@ -23,7 +23,7 @@ const ClassroomListAuth = () => {
     
     const onHandleDelete = async (id) =>{
         try {
-            await remove(id);
+            await removeclass(id);
             const newClassroom = classrooms.filter(item => item.id !== id)
             setClassrooms(newClassroom);
         } catch (error) {

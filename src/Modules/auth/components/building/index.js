@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState, useEffect } from "react";
-import { all, remove } from "../../../../Api/building";
+import { allbuilding, removebuilding } from "../../../../Api/building";
 import { Link } from "react-router-dom";
 import BuildingScreenAuth from '../../screens/building/list';
 
@@ -11,7 +11,7 @@ const BuildingListAuth = () => {
     useEffect(() =>{
         const getBuildings = async () =>{
             try {
-                const { data } = await all();
+                const { data } = await allbuilding();
                 setBuildings(data);
                 
             } catch (error) {
@@ -23,7 +23,7 @@ const BuildingListAuth = () => {
     // console.log("object",buildings);
     const onHandleDelete = async (id) =>{
         try {
-            await remove(id);
+            await removebuilding(id);
             const newbuildings = buildings.filter(item => item.id !== id)
             setBuildings(newbuildings);
         } catch (error) {

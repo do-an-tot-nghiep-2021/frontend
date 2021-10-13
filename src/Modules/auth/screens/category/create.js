@@ -1,7 +1,7 @@
 import { useHistory } from "react-router";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { create } from "../../../../Api/category";
+import { createcategory } from "../../../../Api/category";
 import ClipLoader from "react-spinners/ClipLoader";
 import useUpload from "../../../../hooks/upload/useUpload";
 
@@ -33,7 +33,7 @@ const CreateFormScreen = () => {
       if (preview) {
         data.image = preview;
       }
-      await create(data);
+      await createcategory(data);
       // console.log(data, "data add");
       history.push("/admin/categories");
     } catch (error) {

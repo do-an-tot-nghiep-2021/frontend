@@ -2,14 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useParams, useHistory } from "react-router-dom";
 import ClipLoader from "react-spinners/ClipLoader";
-import { show, update } from "../../../../Api/product";
-import { all } from "../../../../Api/category";
+import { showproduct, updateproduct } from "../../../../Api/product";
+import { allcategory } from "../../../../Api/category";
 import useUpload from "../../../../hooks/upload/useUpload";
 
 const UpdateProductScreen = () => {
   const history = useHistory();
   let { id } = useParams();
-  //   console.log(id, "id product");
   const {
     register,
     reset,
@@ -25,7 +24,7 @@ const UpdateProductScreen = () => {
   useEffect(() => {
     const getCategory = async () => {
       try {
-        const { data } = await all();
+        const { data } = await allcategory();
         setCategory(data);
         // console.log(data);
       } catch (error) {
@@ -58,7 +57,7 @@ const UpdateProductScreen = () => {
         data.image = preview;
       }
 
-      await update(data);
+      await updateproduct(data);
 
       history.push("/admin/products");
     } catch (error) {
@@ -69,7 +68,7 @@ const UpdateProductScreen = () => {
   // Code update product
 
   useEffect(async () => {
-    const respons = await show(id);
+    const respons = await showproduct(id);
     const product = respons.data;
     console.log(product);
 

@@ -1,4 +1,9 @@
+import { Link } from "react-router-dom";
+import { formatNumber } from "../../../Helpers/utils";
+import { useCart } from '../../../hooks/useCart';
+
 const NavApp = () => {
+  const {  itemCount, total } = useCart();
   return (
     <>
       <nav className="site-header sticky-top py-1">
@@ -23,9 +28,9 @@ const NavApp = () => {
               <path d="M14.31 8l5.74 9.94M9.69 8h11.48M7.38 12l5.74-9.94M9.69 16L3.95 6.06M14.31 16H2.83m13.79-4l-5.74 9.94" />
             </svg>
           </a>
-          <a className="py-2 d-none d-md-inline-block" href="#">
-            Tour
-          </a>
+          <Link className="py-2 d-none d-md-inline-block" to="/">
+            Home
+          </Link>
           <a className="py-2 d-none d-md-inline-block" href="#">
             Product
           </a>
@@ -38,12 +43,14 @@ const NavApp = () => {
           <a className="py-2 d-none d-md-inline-block" href="#">
             Support
           </a>
-          <a className="py-2 d-none d-md-inline-block" href="/admin">
+          <Link className="py-2 d-none d-md-inline-block" to="/admin">
             Admin
-          </a>
-          <a className="py-2 d-none d-md-inline-block" href="#">
-            Cart
-          </a>
+          </Link>
+          <Link className="py-2 d-none d-md-inline-block" to="/cart">
+            Cart 
+            <span className="bg-danger text-light pl-1 pr-1 rounded">{itemCount}</span>
+            <span>total price: {formatNumber(total)}</span>
+          </Link>
         </div>
       </nav>
     </>

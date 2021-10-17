@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import HomeScreen from "../Modules/app/screens/home/homepage";
 import DashboardScreen from "../Modules/auth/screens/dashboard/dash";
 import AppLayout from "../Layouts/app/index";
 import AuthLayout from "../Layouts/auth/index";
@@ -20,11 +19,12 @@ import CreateTypesScreen from "../Modules/auth/screens/types/create";
 import UpdateTypesScreen from "../Modules/auth/screens/types/update";
 import BuildingListAuth from "../Modules/auth/components/building";
 import CreateBuildingScreen from "../Modules/auth/screens/building/create";
-import { updatebuilding } from "../Api/building";
 import UpdateBuildingScreen from "../Modules/auth/screens/building/update";
 import CreateClassroomScreen from "../Modules/auth/screens/classroom/create";
 import UpdateClassroomScreen from "../Modules/auth/screens/classroom/update";
 import ClassroomListAuth from "../Modules/auth/components/classroom";
+import HomePageComponentApp from "../Modules/app/components/home";
+import Cart from "../Modules/app/screens/cart";
 const RouteMain = () => {
   return (
     <>
@@ -79,7 +79,8 @@ const RouteMain = () => {
           <Route>
             <AppLayout>
               <Switch>
-                <HomeScreen exact path="/" />
+                <HomePageComponentApp exact path="/" />
+                <Cart exact path="/cart"/>
               </Switch>
             </AppLayout>
           </Route>

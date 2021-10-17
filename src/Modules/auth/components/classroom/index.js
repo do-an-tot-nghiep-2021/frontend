@@ -40,7 +40,7 @@ const ClassroomListAuth = () => {
                     <tr>
                         <th scope="col">#</th>
                         <th scope="col">Name</th>
-                        <th scope="col">building_id</th>
+                        <th scope="col">Building</th>
                         <th scope="col" width="200">
                             Action
                         </th>

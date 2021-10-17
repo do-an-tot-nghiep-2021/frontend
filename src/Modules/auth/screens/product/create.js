@@ -123,7 +123,7 @@ const CreateProductScreen = () => {
       <h4>Create Product</h4>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
-          <div className="col-4">
+          <div className="col-6">
             <div className="mb-3">
               <label className="form-label">Name</label>
               <input
@@ -139,7 +139,7 @@ const CreateProductScreen = () => {
               )}
             </div>
           </div>
-          <div className="col-4">
+          <div className="col-6">
             <div className="mb-3">
               <label className="form-label">Price</label>
               <input
@@ -155,22 +155,7 @@ const CreateProductScreen = () => {
               )}
             </div>
           </div>
-          <div className="col-4">
-            <div className="mb-3">
-              <label className="form-label">Point</label>
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Point product ..."
-                {...register("point", { required: true })}
-              />
-              {errors.name && (
-                <span className="d-block text-danger mt-3">
-                  This field is required
-                </span>
-              )}
-            </div>
-          </div>
+          
           <div className="col-6">
             <div className="mb-3">
               <label className="form-label">Description</label>

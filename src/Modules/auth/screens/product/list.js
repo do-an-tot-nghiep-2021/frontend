@@ -1,12 +1,18 @@
 import { Link } from "react-router-dom";
+import NumberFormat from 'react-number-format';
 
 const ListProductScreen = (props) => {
+
   return (
     <>
       {props.data.map((item, index) => (
         <tr key={index}>
-          <th scope="row">{index + 1}</th>
-          <td>{item.name}</td>
+          <th scope="row">
+            {index + 1}
+          </th>
+          <td>
+            {item.name}
+          </td>
           <td>
             <img
               src={item.image}
@@ -16,10 +22,35 @@ const ListProductScreen = (props) => {
               style={{ objectFit: "cover" }}
             />
           </td>
-          <td>{item.price}</td>
-          <td>{item.description}</td>
-          <td>{item.point}</td>
-          <td>{item.cate_id}</td>
+          <td>
+            <NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} suffix={'đ'} />
+          </td>
+          <td>
+            {item.category?.name || 'N/A'}
+          </td>
+
+          <td>
+            {item.product_topping.map((item,index)=>(
+              <span style={{border: '1px solid gray', 
+                      borderRadius: '5px', 
+                      padding: '2px', 
+                      marginRight: '3px'}}
+                    key={index}>{item.name}
+              </span>
+            ))}
+          </td>
+
+          <td>
+            {item.product_type.map((item,index)=>(
+              <span style={{border: '1px solid gray', 
+                          borderRadius: '5px', 
+                          padding: '2px', 
+                          marginRight: '3px'}} 
+                    key={index}>{item.name}
+              </span>
+            ))}
+          </td>
+
           <td>
             <button
               onClick={() => props.onDelete(item.id)}

@@ -17,7 +17,6 @@ const ListProductComponent = () => {
     getProducts();
   }, []);
 
-  console.log(Products);
   const onHandleDelete = async (id) => {
     try {
       await removeproduct(id);
@@ -40,10 +39,10 @@ const ListProductComponent = () => {
             <th scope="col">Name</th>
             <th scope="col">Image</th>
             <th scope="col">Price</th>
-            <th scope="col">Description</th>
-            <th scope="col">Point</th>
-            <th scope="col">Categoris_id</th>
-            <th scope="col" width="150">
+            <th scope="col">Category</th>
+            <th scope="col">Topping</th>
+            <th scope="col">Type</th>
+            <th scope="col" width="100">
               Action
             </th>
           </tr>

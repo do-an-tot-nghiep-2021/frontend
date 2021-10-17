@@ -8,7 +8,7 @@ const AppLayout = (props) => {
             <NavApp/>
             <BannerApp/>
             {props.children}
-            <FooterApp/>
+            <FooterApp />
         </>
     )
 }

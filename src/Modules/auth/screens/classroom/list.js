@@ -8,7 +8,7 @@ const ClassroomScreenAuth = (props) => {
                 <tr key={index}>
                     <th scope="row">{index + 1}</th>
                     <td>{item.name}</td>
-                    <td>{item.building_id}</td>
+                    <td>{item.building?.name || 'N/A'}</td>
                     <td>
                         <button
                             onClick={() => props.onDelete(item.id)}

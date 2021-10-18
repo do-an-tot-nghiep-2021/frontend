@@ -1,5 +1,6 @@
 import './home.css'
 import NumberFormat from 'react-number-format';
+import { Link } from 'react-router-dom';
 import { useCart } from '../../../../hooks/useCart';
 
 const HomeScreen = ({ product }) => {
@@ -16,7 +17,11 @@ const HomeScreen = ({ product }) => {
                         <img className="card-img-top" src={product.image} alt="Card image cap" style={{ width: '100%', height: '250px', objectFit: 'cover' }} />
                         <div className="card-body">
                             <span>{product.category.name}</span>
-                            <h5 className="card-title">{product.name}</h5>
+                            <h5 className="card-title">
+                                <Link to={`/product/${product.id}`} className="text-dark">
+                                    {product.name}
+                                </Link>
+                            </h5>
                             <p className="card-text">{product.description}</p>
                             <div className="d-flex justify-content-between">
                                 {
@@ -32,11 +37,14 @@ const HomeScreen = ({ product }) => {
                                         onClick={() => addProduct(product)}
                                         className="btn btn-primary btn-sm">Add to cart</button>
                                 }
-                                <span className="pt-2 font-weight-bold"><NumberFormat value={product.price} displayType={'text'} thousandSeparator={true} suffix={'đ'} /></span>
+                                <span className="pt-2 font-weight-bold">
+                                    <NumberFormat value={product.price} displayType={'text'} thousandSeparator={true} suffix={'đ'} />
+                                </span>
                             </div>
                         </div>
                     </div>
                 </div>
+                
 
     )
 }

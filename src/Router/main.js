@@ -25,6 +25,7 @@ import UpdateClassroomScreen from "../Modules/auth/screens/classroom/update";
 import ClassroomListAuth from "../Modules/auth/components/classroom";
 import HomePageComponentApp from "../Modules/app/components/home";
 import Cart from "../Modules/app/screens/cart";
+import DetailProductComponentApp from "../Modules/app/components/detailProduct";
 const RouteMain = () => {
   return (
     <>
@@ -76,11 +77,16 @@ const RouteMain = () => {
             </AuthLayout>
           </Route>
 
-          <Route>
+          <Route exact
+            path={[
+              "/:path?",
+              "/product/:id",
+            ]}>
             <AppLayout>
               <Switch>
                 <HomePageComponentApp exact path="/" />
                 <Cart exact path="/cart"/>
+                <DetailProductComponentApp exact path="/product/:id" />
               </Switch>
             </AppLayout>
           </Route>

@@ -1,0 +1,12 @@
+.bg-image {
+    background-image: url("https://img4.thuthuatphanmem.vn/uploads/2020/12/25/background-ca-phe-don-gian-ma-dep_034344301.jpg");
+    background-position: center;
+    height: 705px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.form-login {
+    width: 500px;
+    margin: auto;
+    padding-top: 200px;
+}

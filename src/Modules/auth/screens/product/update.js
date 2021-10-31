@@ -101,8 +101,8 @@ const UpdateProductScreen = () => {
   useEffect(async () => {
     const respons = await showproduct(id);
     const product = respons.data;
-    const topping_product = product.product_topping;
-    const toppingID = topping_product.map((value) => value.id);
+    console.log(product)
+    
     
     if (product.image) {
       setPreview(product.image);
@@ -111,9 +111,7 @@ const UpdateProductScreen = () => {
     reset(product);
   }, [id]);
 
-  const onChecked = () => {
-
-  }
+  
   // Code view img
 
   const renderPreview = () => {
@@ -214,8 +212,9 @@ const UpdateProductScreen = () => {
                   <input
                     type="checkbox"
                     value={item.id}
+                    defaultChecked={1}
                     {...register("product_topping", { required: false })}
-                    onChange = {() => onChecked()}
+                    
                   />
                   {item.name}
                 </section>

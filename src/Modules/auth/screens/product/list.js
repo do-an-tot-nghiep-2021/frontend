@@ -31,7 +31,9 @@ const ListProductScreen = (props) => {
 
           <td>
             {item.product_topping.map((item,index)=>(
-              <span style={{border: '1px solid gray', 
+              <span style={{border: '1px solid gray',
+                      fontSize: '13px',
+                      backgroundColor: '#80808059', 
                       borderRadius: '5px', 
                       padding: '2px', 
                       marginRight: '3px'}}
@@ -43,6 +45,8 @@ const ListProductScreen = (props) => {
           <td>
             {item.product_type.map((item,index)=>(
               <span style={{border: '1px solid gray', 
+                          fontSize: '13px',
+                          backgroundColor: '#80808059',
                           borderRadius: '5px', 
                           padding: '2px', 
                           marginRight: '3px'}} 

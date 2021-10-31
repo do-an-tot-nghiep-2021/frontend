@@ -20,10 +20,15 @@ const DetailProductComponentApp = () => {
         getProducts();
     }, [id]);
 
-    console.log(products)
+    
 
     return (
-        <DetailProductScreenApp product={products} />
+        <DetailProductScreenApp 
+            product={products} 
+            cate={products.category} 
+            type={products.product_type}
+            topping={products.product_topping}
+        />
     )
 }
 

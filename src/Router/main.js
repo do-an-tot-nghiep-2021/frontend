@@ -26,6 +26,8 @@ import ClassroomListAuth from "../Modules/auth/components/classroom";
 import HomePageComponentApp from "../Modules/app/components/home";
 import Cart from "../Modules/app/screens/cart";
 import DetailProductComponentApp from "../Modules/app/components/detailProduct";
+import LoginAuth from "../Modules/account/auth/login";
+import AccountLayout from "../Layouts/account";
 const RouteMain = () => {
   return (
     <>
@@ -51,7 +53,7 @@ const RouteMain = () => {
                 <CategoryListAuth exact path="/admin/categories" />
                 <CreateFormScreen exact path="/admin/categories/create" />
                 <UpdateFormScreen exact path="/admin/categories/:id" />
-                
+
                 <ListProductComponent exact path="/admin/products" />
                 <CreateProductScreen exact path="/admin/products/create" />
                 <UpdateProductScreen exact path="/admin/products/:id" />
@@ -59,7 +61,7 @@ const RouteMain = () => {
                 <ListToppingComponent exact path="/admin/toppings" />
                 <CreateToppingScreen exact path="/admin/toppings/create" />
                 <UpdateToppingScreen exact path="/admin/toppings/:id" />
-               
+
                 <ListTypesComponent exact path="/admin/types" />
                 <CreateTypesScreen exact path="/admin/types/create" />
                 <UpdateTypesScreen exact path="/admin/types/:id" />
@@ -72,11 +74,10 @@ const RouteMain = () => {
                 <CreateClassroomScreen exact path="/admin/classroom/create" />
                 <UpdateClassroomScreen exact path="/admin/classroom/:id" />
 
-                
+
               </Switch>
             </AuthLayout>
           </Route>
-
           <Route exact
             path={[
               "/:path?",
@@ -85,10 +86,23 @@ const RouteMain = () => {
             <AppLayout>
               <Switch>
                 <HomePageComponentApp exact path="/" />
-                <Cart exact path="/cart"/>
+                <Cart exact path="/cart" />
                 <DetailProductComponentApp exact path="/product/:id" />
+                
               </Switch>
             </AppLayout>
+          </Route>
+
+          <Route exact
+            path={[
+              "/login/:path?",
+              "/product/:id",
+            ]}>
+            <AccountLayout>
+              <Switch>
+                <LoginAuth exact path="/login/admin" />
+              </Switch>
+            </AccountLayout>
           </Route>
         </Switch>
       </Router>

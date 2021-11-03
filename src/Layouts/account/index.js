@@ -1,7 +1,7 @@
-import "./bg.css"
+import "./accountLayout.css"
 const AccountLayout = (props) => {
     return (
-        <div className="bg-image">
+        <div className="body-account">
            {props.children} 
         </div>
     )

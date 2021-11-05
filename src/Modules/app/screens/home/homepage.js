@@ -1,4 +1,3 @@
-import './home.css'
 import NumberFormat from 'react-number-format';
 import { Link } from 'react-router-dom';
 import { useCart } from '../../../../hooks/useCart';
@@ -12,7 +11,7 @@ const HomeScreen = ({ product }) => {
     }
 
     return (
-        <div className="col-md-4 col-sm-4 col-xs-12 wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style={{ visibility: 'visible', animationDuration: '1000ms', animationDelay: '300ms', animationName: 'fadeInDown' }}>
+        <div className="col-12 col-sm-6 col-xl-4 wow fadeInDown animated" data-wow-duration="1000ms" data-wow-delay="300ms" style={{ visibility: 'visible', animationDuration: '1000ms', animationDelay: '300ms', animationName: 'fadeInDown' }}>
             <div className="shop-main-list">
                 <div className="shop">
                     <img src={product.image} alt="" />

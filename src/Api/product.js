@@ -20,3 +20,7 @@ export const createproduct = (item) => {
   const url = `/product/create`;
   return Api.post(url, item);
 };
+export const producttopping = (id) => {
+  const url = `/product/toping/{id}`;
+  return Api.post(url);
+};

@@ -49,48 +49,6 @@
   vertical-align: middle;
 }
 
-/* .cofee {
-    background: url(/img/coffee.png) no-repeat center center;
-    width: 33px;
-    height: 42px;
-  }
-  
-  .milk {
-    background: url(/img/milk.png) no-repeat center center;
-    width: 21px;
-    height: 46px;
-  }
-  
-  .milk {
-    background: url(/img/milk.png) no-repeat center center;
-    width: 33px;
-    height: 46px;
-  }
-  
-  .cocktail {
-    background: url(/img/cocktail.png) no-repeat center center;
-    width: 39px;
-    height: 42px;
-  }
-  
-  .bewerages {
-    background: url(/img/bewerages.png) no-repeat center center;
-    width: 32px;
-    height: 43px;
-  }
-  
-  .tea {
-    background: url(/img/tea.png) no-repeat center center;
-    width: 39px;
-    height: 39px;
-  }
-  
-  .cake {
-    background: url(/img/cake.png) no-repeat center center;
-    width: 35px;
-    height: 35px;
-  } */
-
 .custom-icon {
   display: table-cell;
   vertical-align: middle;
@@ -374,7 +332,7 @@ h5 strong {
 
 .shop {
   position: relative;
-  width: 255px;
+  /* width: 255px; */
   height: 220px;
 }
 
@@ -397,7 +355,7 @@ h5 strong {
 
 .shop img {
   position: absolute;
-  width: 255px;
+  width: 100%;
   height: 220px;
   left: 0;
   border-radius: 20px;
@@ -488,6 +446,7 @@ h5 strong {
   padding: 90px 0 60px;
   color: #ffffff;
   font-size: 13px;
+  background-color: #1d1313ed;
 }
 
 .footer-part .logo {
@@ -515,7 +474,6 @@ h5 strong {
   font-size: 15px;
 }
 
-.footer-social,
 .footer-social li {
   margin: 0px;
   padding: 0px;
@@ -689,6 +647,7 @@ input[type="text"] {
   border-radius: 30px;
   font-family: "Quicksand", sans-serif;
   font-weight: 700;
+  cursor: pointer;
 }
 
 .filter-btn:hover {

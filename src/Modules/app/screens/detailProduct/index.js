@@ -6,15 +6,21 @@ import { useState } from "react";
 const DetailProductScreenApp = ({ product, cate, type, topping }) => {
     const [count, setCount] = useState(0);
     const { id } = useParams();
-    const { addProduct, cartItems, increase } = useCart();
-
-    const isInCart = (product) => {
-        return !!cartItems.find((item) => item.id === product.id);
-    };
-
+    const { addProduct } = useCart();
+    const {register, handleSubmit, formState: {errors}} = useForm();
+    const onSubmit = async (data) =>{
+        const newProduct = {
+            ...product,
+            topping : data.topping
+        }
+        addProduct(newProduct)
+    }
     return (
         <>
             <div className="product-detail">
+            <form onSubmit={handleSubmit(onSubmit)}>
+            
+            
                 <div className="container">
                     <div className="row">
                         <div className="col-md-6 col-sm-6 col-xs-12">
@@ -52,22 +58,10 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                                     <i className="fas fa-plus" onClick={() => setCount(count + 1)} />
                                 </span>
                             </div>
-                            {
-                                isInCart(product) &&
-                                <a className="btn-large filter-btn" onClick={() => increase(product)}>
-                                    <i className="fa fa-shopping-bag" aria-hidden="true" /> Add to
-                                    Cart
-                                </a>
-                            }
-
-                            {
-                                !isInCart(product) &&
-                                <a className="btn-large filter-btn" onClick={() => addProduct(product)}>
-                                    <i className="fa fa-shopping-bag" aria-hidden="true" /> Add to
-                                    Cart
-                                </a>
-
-                            }
+                            <button type="submit" className="btn-large filter-btn">
+                                <i className="fa fa-shopping-bag" aria-hidden="true" /> Add to
+                                Cart
+                            </button>
 
                             <div className="share-tag">
                                 <div className="row">
@@ -89,17 +83,23 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                             </div>
                             <div className="topping_product">
                                 <div className="row">
-                                    {topping && topping.map((item) => (
-                                        <div className="col-3" key={item.id}>
-                                            <input type="checkbox" /> {item.name}
-                                        </div>
-                                    ))}
+                                {topping && topping.map((item, index) => (
+                                    <section key={index}>
+                                    <input
+                                        type="checkbox"
+                                        value={item.name}
+                                        {...register("topping", { required: false })}
+                                    />
+                                    {item.name}
+                                    </section>
+                                ))}
 
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                </form>
             </div>
         </>
     );

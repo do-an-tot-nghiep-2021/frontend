@@ -332,7 +332,7 @@ h5 strong {
 
 .shop {
   position: relative;
-  /* width: 255px; */
+  width: 100%;
   height: 220px;
 }
 
@@ -362,9 +362,22 @@ h5 strong {
   object-fit: cover;
 }
 
+.btn-outline-primary {
+  color: #ffffff;
+  background-color: black;
+  border-color: #090909;
+  border-radius: 20px !important;
+  width: 100px;
+}
+
+.btn-outline-primary:hover {
+  background-color: #c8a37d;
+  color: #fff;
+}
+
 .button {
   position: absolute;
-  width: 255px;
+  width: 100%;
   left: 0;
   top: 100px;
   text-align: center;
@@ -724,15 +737,58 @@ a {
   .mobile-none {
     display: none;
   }
-  .pagination {
-    margin-right: 20px;
+
+  .list {
+    padding-left: 0 !important;
   }
+
   .blog-left-categories {
+    text-align: center;
+    margin: 30px 0;
+  }
+
+  .blog-left-categories .list li {
+    list-style: none;
+    padding-left: 0 !important;
+  }
+
+  .blog-left-categories ul {
+    margin-left: 0 !important;
+  }
+
+  .blog-left-filter {
+    display: none;
+  }
+
+  .best-deals-product {
     text-align: center;
   }
 
-  .blog-left-categories ul li {
-    list-style: none;
-    padding-left: 0 !important;
+  .shop-main-list {
+    margin-bottom: 20px;
+    margin-top: 20px;
+  }
+
+  .popular-tag {
+    margin-bottom: 20px;
+  }
+
+  .popular-tag h5 {
+    margin-bottom: 20px;
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .best-deal-right {
+    display: none;
+  }
+
+  .best-deals-product h5 {
+    text-align: center;
+  }
+
+  .shop-main-list {
+    margin-bottom: 20px;
+    margin-top: 20px;
   }
 }

@@ -10,9 +10,14 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
     const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = async (data) =>{
         const newProduct = {
-            ...product,
+            id: product.id,
+            name : product.name,
+            image : product.image,
+            price : product.price,
+            quantity : count+1,
             topping : data.topping
         }
+        console.log(newProduct)
         addProduct(newProduct)
     }
     return (
@@ -44,7 +49,7 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                             <p className="desc-detail">
                                 {product.description}
                             </p>
-                            <h3 className="text-coffee">{formatNumber(product.price)}</h3>
+                            <h3 className="text-coffee">{formatNumber((product.price)*(count+1))}</h3>
                             <div className="price-textbox">
                                 {(count < 1) ? <span className="minus-text">
                                     <i className="fas fa-minus" />
@@ -53,7 +58,7 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                                         <i className="fas fa-minus" onClick={() => setCount(count - 1)} />
                                     </span>
                                 }
-                                <input type="text" name="txt" value={count + 1} />
+                                <input type="text" value={count + 1} />
                                 <span className="plus-text">
                                     <i className="fas fa-plus" onClick={() => setCount(count + 1)} />
                                 </span>

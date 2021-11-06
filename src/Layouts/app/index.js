@@ -7,7 +7,7 @@ const AppLayout = (props) => {
     <div className="body-app">
       <NavApp />
       <div className="body-website">
-        <div className="container">{props.children}</div>
+        <div className="container-fluid">{props.children}</div>
       </div>
 
       <FooterApp />

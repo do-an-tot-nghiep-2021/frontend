@@ -28,6 +28,7 @@ import Cart from "../Modules/app/screens/cart";
 import DetailProductComponentApp from "../Modules/app/components/detailProduct";
 import LoginAuth from "../Modules/account/auth/login";
 import AccountLayout from "../Layouts/account";
+import Register from "../Modules/account/register";
 const RouteMain = () => {
   return (
     <>
@@ -96,11 +97,12 @@ const RouteMain = () => {
           <Route exact
             path={[
               "/login/:path?",
-              "/product/:id",
+              "/register/:path?",
             ]}>
             <AccountLayout>
               <Switch>
                 <LoginAuth exact path="/login/admin" />
+                <Register exact path="/register/customer" />
               </Switch>
             </AccountLayout>
           </Route>

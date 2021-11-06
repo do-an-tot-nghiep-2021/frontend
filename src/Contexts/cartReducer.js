@@ -7,7 +7,10 @@ export const sumItems = cartItems => {
     Storage(cartItems);
     let itemCount = cartItems.reduce((total, product) => total + product.quantity, 0);
     let total = cartItems.reduce((total, product) => total + product.price * product.quantity, 0);
-    return { itemCount, total }
+    let building = 'toa p';
+    let classroom = 'p101';
+    let payment = '1';
+    return { itemCount, total, building, classroom, payment }
 }
 
 export const CartReducer = (state, action) => {
@@ -26,7 +29,7 @@ export const CartReducer = (state, action) => {
                 topping : action.payload.topping,
                 price : action.payload.price,
                 idItem: Math.random().toString(36).substr(2, 9),
-                quantity: action.payload.quantity
+                quantity: action.payload.quantity,
             })
             return {
                 ...state,

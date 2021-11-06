@@ -3,12 +3,15 @@ import { useForm } from "react-hook-form";
 import { useCart } from "../../../../hooks/useCart";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import { showtopping } from "../../../../Api/topping"
+
 const DetailProductScreenApp = ({ product, cate, type, topping }) => {
     const [count, setCount] = useState(0);
     const { id } = useParams();
     const { addProduct } = useCart();
     const {register, handleSubmit, formState: {errors}} = useForm();
     const onSubmit = async (data) =>{
+        console.log(data)
         const newProduct = {
             id: product.id,
             name : product.name,
@@ -17,7 +20,6 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
             quantity : count+1,
             topping : data.topping
         }
-        console.log(newProduct)
         addProduct(newProduct)
     }
     return (
@@ -89,13 +91,16 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                             <div className="topping_product">
                                 <div className="row">
                                 {topping && topping.map((item, index) => (
-                                    <section key={index}>
-                                    <input
-                                        type="checkbox"
-                                        value={item.name}
-                                        {...register("topping", { required: false })}
-                                    />
-                                    {item.name}
+                                    <section key={index} className="mr-2">
+                                        <input
+                                            type="checkbox"
+                                            value={item.name}
+                                            {...register("topping", { required: false })}
+                                        />
+                                        <br/>
+                                        {item.name}<br/>
+                                        {item.price}
+                                        
                                     </section>
                                 ))}
 

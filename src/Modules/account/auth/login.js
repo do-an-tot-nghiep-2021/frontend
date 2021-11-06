@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { useHistory } from "react-router";
 import { authenticate } from "../../../Api/account";
 import { isAuthenticated } from "../../../Api/account";
+import { Link } from "react-router-dom";
 const LoginAuth = () => {
     const history = useHistory();
     const { register, handleSubmit, formState: { errors } } = useForm();
@@ -60,6 +61,7 @@ const LoginAuth = () => {
                             </span>
                         )}
                     </div>
+                    <Link to="/register/customer">Neu ban chua co tai khoan hay dang ky ngay!</Link><br/>
                     <button type="submit" className="btn btn-primary">
                         Login
                     </button>

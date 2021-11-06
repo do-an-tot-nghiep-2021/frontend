@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const Api = axios.create({
-  baseURL: "http://dev-backend.tk/api",
+  baseURL: "http://demoapi.wtf/api",
   headers: {
     "Content-Type": "application/json",
   },

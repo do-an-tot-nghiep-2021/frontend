@@ -8,6 +8,10 @@ export const logoutadmin = (token) => {
   const url = `/admin/logout`;
   return Api.post(url, token)
 };
+export const registeraccount = (user) => {
+  const url = `/register`;
+  return Api.post(url, user)
+};
 export const authenticate = (data, next) => {
   if (typeof window !== "undefined") {
     localStorage.setItem("user", JSON.stringify(data));

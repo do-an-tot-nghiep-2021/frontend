@@ -41,7 +41,6 @@ const CartItem = ({ product }) => {
                     className="btn btn-primary btn-sm mr-2 mb-1">
                     <i class="fas fa-plus"></i>
                 </button>
-
                 {
                     product.quantity > 1 &&
                     <button

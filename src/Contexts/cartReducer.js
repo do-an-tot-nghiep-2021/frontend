@@ -20,9 +20,13 @@ export const CartReducer = (state, action) => {
             //     })
             // } 
             state.cartItems.push({
-                ...action.payload,
+                id : action.payload.id,
+                image : action.payload.image,
+                name : action.payload.name,
+                topping : action.payload.topping,
+                price : action.payload.price,
                 idItem: Math.random().toString(36).substr(2, 9),
-                quantity: 1
+                quantity: action.payload.quantity
             })
             return {
                 ...state,

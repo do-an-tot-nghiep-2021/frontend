@@ -29,6 +29,7 @@ import DetailProductComponentApp from "../Modules/app/components/detailProduct";
 import LoginAuth from "../Modules/account/auth/login";
 import AccountLayout from "../Layouts/account";
 import Register from "../Modules/account/register";
+import CheckOrderComponents from "../Modules/app/components/checkorder";
 const RouteMain = () => {
   return (
     <>
@@ -83,11 +84,13 @@ const RouteMain = () => {
             path={[
               "/:path?",
               "/product/:id",
+              "/checkorder/:id",
             ]}>
             <AppLayout>
               <Switch>
                 <HomePageComponentApp exact path="/" />
                 <Cart exact path="/cart" />
+                <CheckOrderComponents exact path="/checkorder/:id" />
                 <DetailProductComponentApp exact path="/product/:id" />
                 
               </Switch>

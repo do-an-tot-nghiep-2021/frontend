@@ -34,9 +34,9 @@ const NavApp = () => {
           <Link className="py-2 d-none d-md-inline-block" to="/login">
             Login
           </Link>
-          <a className="py-2 d-none d-md-inline-block" href="#">
-            Features
-          </a>
+          <Link className="py-2 d-none d-md-inline-block" to="/checkorder/1">
+            Checkorder
+          </Link>
           <a className="py-2 d-none d-md-inline-block" href="#">
             Enterprise
           </a>

@@ -3,8 +3,6 @@ import { formatNumber } from '../../../../Helpers/utils';
 import { useCart } from '../../../../hooks/useCart';
 import { Link } from 'react-router-dom';
 const CartItem = ({ product }) => {
-    console.log(product)
-    const topping = product.topping;
     const { increase, decrease, removeProduct } = useCart();
 
     return (
@@ -20,15 +18,15 @@ const CartItem = ({ product }) => {
                 <p className="mb-1">Price: {formatNumber(product.price)} </p>
             </div>
             <div className="col-sm-3 p-2 text-center ">
-            {topping && topping.map((item, index) => (
+            {product.topping && product.topping.map((item, index) => (
                     <span
-                    style={{border: '1px solid gray',
-                    fontSize: '13px',
-                    backgroundColor: '#80808059', 
-                    borderRadius: '5px', 
-                    padding: '2px', 
-                    marginRight: '3px'}} 
-                    key={index}>{item}
+                        style={{border: '1px solid gray',
+                        fontSize: '13px',
+                        backgroundColor: '#80808059', 
+                        borderRadius: '5px', 
+                        padding: '2px', 
+                        marginRight: '3px'}} 
+                        key={index}>{item}
                     </span>
                 ))}
             </div>

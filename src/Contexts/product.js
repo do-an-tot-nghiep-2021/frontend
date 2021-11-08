@@ -1,5 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
-import { allproduct } from '../Api/product';
+import { allproductapp } from '../Api/product';
 export const ProductsContext = createContext()
 
 const ProductsContextProvider = ({children}) => {
@@ -9,7 +9,7 @@ const ProductsContextProvider = ({children}) => {
     useEffect(() => {
         const getProducts = async () => {
         try {
-            const { data } = await allproduct();
+            const { data } = await allproductapp();
             setProducts(data);
         } catch (error) {
             console.log(error);

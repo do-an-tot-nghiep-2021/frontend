@@ -4,6 +4,10 @@ export const allproduct = () => {
   const url = `/product`;
   return Api.get(url);
 };
+export const allproductapp = () => {
+  const url = `/product/app`;
+  return Api.get(url);
+};
 export const updateproduct = (item) => {
   const url = `/product/${item.id}`;
   return Api.put(url, item);

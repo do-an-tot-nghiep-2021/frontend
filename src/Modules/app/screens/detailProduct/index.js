@@ -90,7 +90,9 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                             </div>
                             <div className="topping_product">
                                 <div className="row">
+
                                 {topping && topping.map((item, index) => (
+
                                     <section key={index} className="mr-2">
                                         <input
                                             type="checkbox"
@@ -103,7 +105,7 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                                         
                                     </section>
                                 ))}
-
+                                
                                 </div>
                             </div>
                         </div>

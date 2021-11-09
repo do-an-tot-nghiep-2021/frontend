@@ -39,6 +39,7 @@ const ListToppingComponent = () => {
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Price</th>
+            <th scope="col">Status</th>
             <th scope="col" width="150">
               Action
             </th>

@@ -31,28 +31,48 @@ const UpdateToppingScreen = () => {
     return (
         <div>
             <h4>Update product</h4>
-            <form onSubmit={handleSubmit(onSubmit)}>
-                <div className="form-group mb-2">
-                    <input type="text"
-                        name="name"
-                        className="form-control"
-                        {...register("name", { required: true })}
-                    />
-                    {errors.name && <span className="text-danger">This field is required</span>}
-                </div>
-                <div className="form-group mb-2">
-                    <input type="text"
-                        name="price"
-                        className="form-control"
-                        {...register("price", { required: true })}
-                    />
-                    {errors.price && <span className="text-danger">This field is required</span>}
-                </div>
+            <form id="form-add" onSubmit={handleSubmit(onSubmit)}>
+        <div className="mb-3">
+          <label className="form-label">Name</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter name"
+            {...register("name", { required: true })}
+          />
+          {errors.name && (
+            <span className="d-block text-danger mt-3">
+              This field is required
+            </span>
+          )}
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Price</label>
+          <input
+            type="text"
+            className="form-control"
+            placeholder="Enter price"
+            {...register("price", { required: true })}
+          />
+          {errors.price && (
+            <span className="d-block text-danger mt-3">
+              This field is required
+            </span>
+          )}
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Status</label><br />
 
-                
-
-                <button type="submit" className="btn btn-primary mt-2">update</button>
-            </form>
+          <select {...register("status", { required: true })}>
+            <option value="0">hết hàng</option>
+            <option value="1">còn hàng</option>
+            
+          </select>
+        </div>
+        <button type="submit" className="btn btn-primary mt-5">
+          create
+        </button>
+      </form>
         </div>
     )
 }

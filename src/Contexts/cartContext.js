@@ -1,5 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 import { CartReducer, sumItems } from './cartReducer';
+import {sendorder} from '../Api/order';
+
 
 export const CartContext = createContext()
 
@@ -32,6 +34,7 @@ const CartContextProvider = ({children}) => {
 
     const handleCheckout = () => {
         console.log('CHECKOUT', state);
+        sendorder(state);
         dispatch({type: 'CHECKOUT'})
     }
 

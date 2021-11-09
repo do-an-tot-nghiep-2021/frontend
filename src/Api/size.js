@@ -12,7 +12,7 @@ export const showsize = (id) => {
   const url = `/size/${id}`;
   return Api.get(url);
 };
-export const removesize= (id) => {
+export const removesize = (id) => {
   const url = `/size/${id}`;
   return Api.delete(url);
 };

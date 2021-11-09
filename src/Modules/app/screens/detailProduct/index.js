@@ -90,9 +90,9 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                             </div>
                             <div className="topping_product">
                                 <div className="row">
-                                {
-                                
-                                topping && topping.filter(item => item.status == 1).map((item, index) => (
+
+                                {topping && topping.map((item, index) => (
+
                                     <section key={index} className="mr-2">
                                         <input
                                             type="checkbox"

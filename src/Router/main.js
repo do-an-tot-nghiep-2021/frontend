@@ -31,6 +31,8 @@ import AccountLayout from "../Layouts/account";
 import SizeListAuth from "../Modules/auth/components/size";
 import CreateSizeScreen from "../Modules/auth/screens/size/create";
 import UpdateSizeScreen from "../Modules/auth/screens/size/update";
+import Register from "../Modules/account/register";
+import CheckOrderComponents from "../Modules/app/components/checkorder";
 const RouteMain = () => {
   return (
     <>
@@ -89,11 +91,13 @@ const RouteMain = () => {
             path={[
               "/:path?",
               "/product/:id",
+              "/checkorder/:id",
             ]}>
             <AppLayout>
               <Switch>
                 <HomePageComponentApp exact path="/" />
                 <Cart exact path="/cart" />
+                <CheckOrderComponents exact path="/checkorder/:id" />
                 <DetailProductComponentApp exact path="/product/:id" />
                 
               </Switch>
@@ -103,11 +107,12 @@ const RouteMain = () => {
           <Route exact
             path={[
               "/login/:path?",
-              "/product/:id",
+              "/register/:path?",
             ]}>
             <AccountLayout>
               <Switch>
                 <LoginAuth exact path="/login/admin" />
+                <Register exact path="/register/customer" />
               </Switch>
             </AccountLayout>
           </Route>

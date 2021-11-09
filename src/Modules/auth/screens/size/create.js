@@ -1,20 +1,18 @@
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
-import { createtopping } from "../../../../Api/topping";
+import { createsize, createsizee } from "../../../../Api/size";
 import * as React from 'react';
 
-const CreateToppingScreen = () => {
+const CreateSizeScreen = () => {
   const history = useHistory();
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
 
   const onSubmit = async (data) => {
-
+    console.log(data)
     try {
-
-      await createtopping(data);
-      console.log("object", data)
-      history.push('/admin/toppings')
+      await createsize(data);
+      history.push('/admin/size')
     } catch (error) {
       console.log(error);
     }
@@ -23,7 +21,7 @@ const CreateToppingScreen = () => {
 
   return (
     <div>
-      <h4>Create topping</h4>
+      <h4>Create size</h4>
       <form id="form-add" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
           <label className="form-label">Name</label>
@@ -53,15 +51,7 @@ const CreateToppingScreen = () => {
             </span>
           )}
         </div>
-        <div className="mb-3">
-          <label className="form-label">Status</label><br />
-
-          <select {...register("status", { required: true })}>
-            <option value="0">hết hàng</option>
-            <option value="1">còn hàng</option>
-            
-          </select>
-        </div>
+        
         <button type="submit" className="btn btn-primary mt-5">
           create
         </button>
@@ -70,4 +60,4 @@ const CreateToppingScreen = () => {
   );
 };
 
-export default CreateToppingScreen;
+export default CreateSizeScreen;

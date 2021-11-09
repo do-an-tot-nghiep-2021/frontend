@@ -28,6 +28,9 @@ import Cart from "../Modules/app/screens/cart";
 import DetailProductComponentApp from "../Modules/app/components/detailProduct";
 import LoginAuth from "../Modules/account/auth/login";
 import AccountLayout from "../Layouts/account";
+import SizeListAuth from "../Modules/auth/components/size";
+import CreateSizeScreen from "../Modules/auth/screens/size/create";
+import UpdateSizeScreen from "../Modules/auth/screens/size/update";
 const RouteMain = () => {
   return (
     <>
@@ -43,6 +46,7 @@ const RouteMain = () => {
               "/admin/types/:id",
               "/admin/building/:id",
               "/admin/classroom/:id",
+              "/admin/size/:id"
             ]}
           >
             <AuthLayout>
@@ -74,7 +78,10 @@ const RouteMain = () => {
                 <CreateClassroomScreen exact path="/admin/classroom/create" />
                 <UpdateClassroomScreen exact path="/admin/classroom/:id" />
 
-
+                <SizeListAuth exact path="/admin/size" />
+                <CreateSizeScreen exact path="/admin/size/create" />
+                <UpdateSizeScreen exact path="/admin/size/:id" />
+                
               </Switch>
             </AuthLayout>
           </Route>

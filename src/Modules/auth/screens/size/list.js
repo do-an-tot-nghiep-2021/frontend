@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import NumberFormat from 'react-number-format';
 
-const ToppingScreenAuth = (props) => {
+const SizeScreenAuth = (props) => {
+    console.log('props', props)
   return (
     <>
       {props.data.map((item, index) => (
@@ -10,7 +11,7 @@ const ToppingScreenAuth = (props) => {
             <td scope="col">{index + 1}</td>
              <td scope="col">{item.name}</td>
             <td scope="col"><NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} suffix={'đ'} /></td>
-            <td scope="col">{item.status == 1 ? 'Còn hàng' : 'Hết hàng'}</td>
+          
             <td>
                 <button
                 onClick={() => props.onDelete(item.id)}
@@ -19,7 +20,7 @@ const ToppingScreenAuth = (props) => {
                 delete
                 </button>
                 <Link
-                to={`/admin/toppings/${item.id}`}
+                to={`/admin/size/${item.id}`}
                 className="btn btn-warning"
                 >
                 update
@@ -31,5 +32,4 @@ const ToppingScreenAuth = (props) => {
   );
 };
 
-export default  ToppingScreenAuth
-    ;
+export default  SizeScreenAuth;

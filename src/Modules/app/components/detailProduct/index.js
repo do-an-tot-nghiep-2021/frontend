@@ -18,9 +18,7 @@ const DetailProductComponentApp = () => {
         }
         };
         getProducts();
-    }, [id]);
-
-    
+    }, [id]);    
 
     return (
         <DetailProductScreenApp 

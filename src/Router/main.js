@@ -14,6 +14,14 @@ import ListToppingComponent from "../Modules/auth/components/topping";
 import CreateToppingScreen from "../Modules/auth/screens/topping/create";
 import UpdateToppingScreen from "../Modules/auth/screens/topping/update";
 
+import ListActiveComponent from "../Modules/auth/components/active";
+import CreateActiveScreen from "../Modules/auth/screens/active/create";
+import UpdateActiveScreen from "../Modules/auth/screens/active/update";
+
+import ListOrderComponent from "../Modules/auth/components/order";
+import CreateOrderScreen from "../Modules/auth/screens/order/create";
+import UpdateOrderScreen from "../Modules/auth/screens/order/update";
+
 import ListTypesComponent from "../Modules/auth/components/types";
 import CreateTypesScreen from "../Modules/auth/screens/types/create";
 import UpdateTypesScreen from "../Modules/auth/screens/types/update";
@@ -48,7 +56,9 @@ const RouteMain = () => {
               "/admin/types/:id",
               "/admin/building/:id",
               "/admin/classroom/:id",
-              "/admin/size/:id"
+              "/admin/size/:id",
+              "/admin/actives/:id",
+              "/admin/orders/:id",
             ]}
           >
             <AuthLayout>
@@ -83,7 +93,14 @@ const RouteMain = () => {
                 <SizeListAuth exact path="/admin/size" />
                 <CreateSizeScreen exact path="/admin/size/create" />
                 <UpdateSizeScreen exact path="/admin/size/:id" />
-                
+
+                <ListActiveComponent exact path="/admin/actives" />
+                <CreateActiveScreen exact path="/admin/actives/create" />
+                <UpdateActiveScreen exact path="/admin/actives/:id" />
+              
+                <ListOrderComponent exact path="/admin/orders" />
+                <CreateOrderScreen exact path="/admin/orders/create" />
+                <UpdateOrderScreen exact path="/admin/orders/:id" />
               </Switch>
             </AuthLayout>
           </Route>

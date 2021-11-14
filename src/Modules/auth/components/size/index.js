@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { allsize, removesize } from "../../../../Api/size";
 import { Link } from "react-router-dom";
 import SizeScreenAuth from "../../screens/size/list";
+import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
+import Swal from "sweetalert2";
 
 const ListSizeComponent = () => {
   const [sizes, setSizes] = useState([]);
@@ -17,12 +19,28 @@ const ListSizeComponent = () => {
     getSizes();
   }, []);
 
-  console.log(sizes);
   const onHandleDelete = async (id) => {
     try {
-      await removesize(id);
-      const newSizes = sizes.filter((items) => items.id !== id);
-      setSizes(newSizes);
+      Swal.fire({
+        title: 'Do you want to remove the size?',
+        showCancelButton: true,
+        confirmButtonText: 'Delete!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const item = {
+            id: id,
+            token: TokenAccount.getToken(),
+            user: SetUser.getUser()
+          }
+          removesize(item)
+          Swal.fire('Delete Success!', '', 'success')
+          const newSizes = sizes.filter((items) => items.id !== id);
+          setSizes(newSizes);
+          
+        } 
+      })
+      
+      
     } catch (error) {
       console.log(error);
     }

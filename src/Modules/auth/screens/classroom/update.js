@@ -7,6 +7,8 @@ import { allbuilding } from '../../../../Api/building';
 const UpdateClassroomScreen = () => {
     const history = useHistory();
     const { id } = useParams();
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const [buildings, setBuildings] = useState([]);
 
@@ -26,12 +28,41 @@ const UpdateClassroomScreen = () => {
     const onSubmit = async (data) => {
         try {
            
-            await updateclass(data);
-            history.push("/admin/classroom");
+            await updateclass(data).then((response) => {
+                if (!response.data) {
+                    setError("Ten da ton tai");
+                    setSuccess(false);
+                }else{
+                    setError("")
+                    setSuccess(true);
+                }
+            });;
         } catch (error) {
             console.log(error);
         }
     }
+
+    const showSuccess = () => {
+        return (
+          <div
+            className="alert alert-info"
+            style={{ display: success ? "block" : "none" }}
+          >
+            Bạn đã tạo thành công.
+          </div>
+        );
+      };
+    
+      const showError = () => {
+        return (
+          <span
+            className="text-danger"
+            style={{ display: error ? "block" : "none" }}
+          >
+            {error}
+          </span>
+        );
+      };
 
     useEffect(async () => {
         const respons = await showclass(id);
@@ -44,6 +75,7 @@ const UpdateClassroomScreen = () => {
     return (
         <>
             <h4>update classroom</h4>
+            {showSuccess()}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
                     <label className="form-label">Name</label>
@@ -58,6 +90,7 @@ const UpdateClassroomScreen = () => {
                             This field is required
                         </span>
                     )}
+                    {showError()}
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Building</label>

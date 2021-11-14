@@ -8,6 +8,8 @@ import useUpload from "../../../../hooks/upload/useUpload";
 const CreateFormScreen = () => {
   const history = useHistory();
   const [preview, setPreview] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const { loading, handleUpload } = useUpload();
 
   const handleInputUploadChange = async (e) => {
@@ -33,9 +35,15 @@ const CreateFormScreen = () => {
       if (preview) {
         data.image = preview;
       }
-      await createcategory(data);
-      // console.log(data, "data add");
-      history.push("/admin/categories");
+      await createcategory(data).then((response) => {
+        if (!response.data) {
+            setError("Ten da ton tai");
+            setSuccess(false);
+        }else{
+            setError("")
+            setSuccess(true);
+        }
+      })
     } catch (error) {
       console.log(error);
     }
@@ -61,9 +69,32 @@ const CreateFormScreen = () => {
     return null;
   };
 
+  const showSuccess = () => {
+    return (
+      <div
+        className="alert alert-info"
+        style={{ display: success ? "block" : "none" }}
+      >
+        Bạn đã tạo thành công.
+      </div>
+    );
+  };
+
+  const showError = () => {
+    return (
+      <span
+        className="text-danger"
+        style={{ display: error ? "block" : "none" }}
+      >
+        {error}
+      </span>
+    );
+  };
+
   return (
     <div>
       <h4>Create product</h4>
+      {showSuccess()}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
           <label className="form-label">Name</label>
@@ -78,6 +109,7 @@ const CreateFormScreen = () => {
               This field is required
             </span>
           )}
+          {showError()}
         </div>
         <div className="mb-3">
           <div className="custom-file">

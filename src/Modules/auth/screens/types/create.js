@@ -5,21 +5,44 @@ import { createtype } from "../../../../Api/types";
 
 const CreateToppingScreen = () => {
   const history = useHistory();
-  const [preview, setPreview] = useState("");
-  const [AddTopping, setAddTopping] = useState([]);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data, e) => {
         try{
-            await createtype(data);
-            e.target.reset();
-            history.push('/admin/types')
+            await createtype(data).then((response) => {
+              if (!response.data) {
+                  setError("Ten da ton tai");
+                  setSuccess(false);
+              }else{
+                  setError("")
+                  setSuccess(true);
+              }
+            })
         }catch(error){
             console.log(error);
         }
     }
+
+    const showSuccess = () => {
+      return (
+          <div className="alert alert-info" style={{ display: success ? "block" : "none" }}>
+              Bạn đã tạo thành công.
+          </div>
+      );
+  };
+
+  const showError = () => {
+      return (
+          <span className="text-danger" style={{ display: error ? "block" : "none" }}>
+              {error}
+          </span>
+      );
+  };
 return (
     <div>
       <h4>Create types</h4>
+      {showSuccess()}
       <form id="form-add" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
           <label className="form-label">Name</label>
@@ -34,6 +57,7 @@ return (
               This field is required
             </span>
           )}
+          {showError()}
         </div>
       
         

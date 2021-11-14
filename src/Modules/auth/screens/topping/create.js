@@ -1,29 +1,51 @@
+import React, { useState, useEffect } from 'react'
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { createtopping } from "../../../../Api/topping";
-import * as React from 'react';
 
 const CreateToppingScreen = () => {
   const history = useHistory();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
-
   const onSubmit = async (data) => {
-
     try {
-
-      await createtopping(data);
-      console.log("object", data)
-      history.push('/admin/toppings')
+      await createtopping(data).then((response) => {
+        if (!response.data) {
+            setError("Ten da ton tai");
+            setSuccess(false);
+        }else{
+            setError("")
+            setSuccess(true);
+        }
+      })
     } catch (error) {
       console.log(error);
     }
   }
 
+  const showSuccess = () => {
+    return (
+        <div className="alert alert-info" style={{ display: success ? "block" : "none" }}>
+            Bạn đã tạo thành công.
+        </div>
+    );
+};
+
+const showError = () => {
+    return (
+        <span className="text-danger" style={{ display: error ? "block" : "none" }}>
+            {error}
+        </span>
+    );
+};
+
 
   return (
     <div>
       <h4>Create topping</h4>
+      {showSuccess()}
       <form id="form-add" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
           <label className="form-label">Name</label>
@@ -38,6 +60,7 @@ const CreateToppingScreen = () => {
               This field is required
             </span>
           )}
+          {showError()}
         </div>
         <div className="mb-3">
           <label className="form-label">Price</label>
@@ -53,15 +76,7 @@ const CreateToppingScreen = () => {
             </span>
           )}
         </div>
-        <div className="mb-3">
-          <label className="form-label">Status</label><br />
-
-          <select {...register("status", { required: true })}>
-            <option value="0">hết hàng</option>
-            <option value="1">còn hàng</option>
-            
-          </select>
-        </div>
+      
         <button type="submit" className="btn btn-primary mt-5">
           create
         </button>

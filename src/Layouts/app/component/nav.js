@@ -31,10 +31,10 @@ const NavApp = () => {
           <Link className="py-2 d-none d-md-inline-block" to="/">
             Home
           </Link>
-          <Link className="py-2 d-none d-md-inline-block" to="/login">
+          <Link className="py-2 d-none d-md-inline-block" to="/login/account">
             Login
           </Link>
-          <Link className="py-2 d-none d-md-inline-block" to="/checkorder/1">
+          <Link className="py-2 d-none d-md-inline-block" to="/checkorder">
             Checkorder
           </Link>
           <a className="py-2 d-none d-md-inline-block" href="#">

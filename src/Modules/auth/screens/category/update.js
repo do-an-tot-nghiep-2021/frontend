@@ -9,7 +9,8 @@ const UpdateFormScreen = () => {
 
     const history = useHistory();
     let { id } = useParams();
-    console.log(id, 'haha')
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const [preview, setPreview] = useState('');
 
@@ -58,9 +59,16 @@ const UpdateFormScreen = () => {
                 data.image = preview;
             }
 
-            await updatecategory(data);
+            await updatecategory(data).then((response) => {
+                if (!response.data) {
+                    setError("Ten da ton tai");
+                    setSuccess(false);
+                }else{
+                    setError("")
+                    setSuccess(true);
+                }
+              })
 
-            history.push('/admin/categories');
         } catch (error) {
             console.log(error)
         }
@@ -79,9 +87,32 @@ const UpdateFormScreen = () => {
         reset(category);
     }, [id]);
 
+    const showSuccess = () => {
+        return (
+          <div
+            className="alert alert-info"
+            style={{ display: success ? "block" : "none" }}
+          >
+            Bạn đã tạo thành công.
+          </div>
+        );
+      };
+    
+      const showError = () => {
+        return (
+          <span
+            className="text-danger"
+            style={{ display: error ? "block" : "none" }}
+          >
+            {error}
+          </span>
+        );
+      };
+
     return (
         <div>
             <h4>Update product</h4>
+            {showSuccess()}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group mb-2">
                     <input type="text"
@@ -90,6 +121,7 @@ const UpdateFormScreen = () => {
                         {...register("name", { required: true })}
                     />
                     {errors.name && <span className="text-danger">This field is required</span>}
+                    {showError()}
                 </div>
                 <div className="form-group mb-2">
                     <div className="custom-file">

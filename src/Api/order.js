@@ -5,9 +5,9 @@ export const sendorder = (cartItem) => {
   return Api.post(url, cartItem)
 };
 
-export const getorder = (id) => {
-  const url = `/order/${id}`;
-  return Api.get(url);
+export const getorder = (data) => {
+  const url = `/order/customer`;
+  return Api.post(url, data);
 };
 
 

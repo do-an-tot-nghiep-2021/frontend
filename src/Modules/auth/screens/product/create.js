@@ -11,6 +11,8 @@ import { alltype } from "../../../../Api/types";
 const CreateProductScreen = () => {
   const history = useHistory();
   const [preview, setPreview] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   const { loading, handleUpload } = useUpload();
 
   // Code view category
@@ -90,9 +92,16 @@ const CreateProductScreen = () => {
       if (preview) {
         data.image = preview;
       }
-      await createproduct(data);
-      history.push("/admin/products");
-    } catch (error) {
+      await createproduct(data).then((response) => {
+        if (!response.data) {
+            setError("Ten da ton tai");
+            setSuccess(false);
+        }else{
+            setError("")
+            setSuccess(true);
+        }
+      })}
+      catch (error) {
       console.log(error);
     }
   };
@@ -118,9 +127,32 @@ const CreateProductScreen = () => {
     return null;
   };
 
+  const showSuccess = () => {
+    return (
+      <div
+        className="alert alert-info"
+        style={{ display: success ? "block" : "none" }}
+      >
+        Bạn đã tạo thành công.
+      </div>
+    );
+  };
+
+  const showError = () => {
+    return (
+      <span
+        className="text-danger"
+        style={{ display: error ? "block" : "none" }}
+      >
+        {error}
+      </span>
+    );
+  };
+
   return (
     <div>
       <h4>Create Product</h4>
+      {showSuccess()}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
           <div className="col-6">
@@ -137,6 +169,7 @@ const CreateProductScreen = () => {
                   This field is required
                 </span>
               )}
+              {showError()}
             </div>
           </div>
           <div className="col-6">

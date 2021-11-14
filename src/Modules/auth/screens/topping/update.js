@@ -9,13 +9,21 @@ const UpdateToppingScreen = () => {
     const history = useHistory();
     let { id } = useParams();
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
-    
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
 
 
     const onSubmit = async (data) => {
         try {
-            await updatetopping(data);
-            history.push('/admin/toppings');
+            await updatetopping(data).then((response) => {
+              if (!response.data) {
+                  setError("Ten da ton tai");
+                  setSuccess(false);
+              }else{
+                  setError("")
+                  setSuccess(true);
+              }
+            })
         } catch (error) {
             console.log(error)
         }
@@ -27,10 +35,25 @@ const UpdateToppingScreen = () => {
         const topping = respons.data;
         reset(topping);
     }, [id]);
+    const showSuccess = () => {
+      return (
+          <div className="alert alert-info" style={{ display: success ? "block" : "none" }}>
+              Bạn đã tạo thành công.
+          </div>
+      );
+  };
 
+  const showError = () => {
+      return (
+          <span className="text-danger" style={{ display: error ? "block" : "none" }}>
+              {error}
+          </span>
+      );
+  };
     return (
         <div>
             <h4>Update product</h4>
+            {showSuccess()}
             <form id="form-add" onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
           <label className="form-label">Name</label>
@@ -45,6 +68,7 @@ const UpdateToppingScreen = () => {
               This field is required
             </span>
           )}
+          {showError()}
         </div>
         <div className="mb-3">
           <label className="form-label">Price</label>

@@ -12,6 +12,10 @@ export const showbuilding = (id) => {
   const url = `/building/${id}`;
   return Api.get(url);
 };
+export const getclassbuilding = (id) => {
+  const url = `/building/class/${id}`;
+  return Api.get(url);
+};
 export const removebuilding = (id) => {
   const url = `/building/${id}`;
   return Api.delete(url);

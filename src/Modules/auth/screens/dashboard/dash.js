@@ -1,10 +1,9 @@
-import { getUserLogin } from "../../../../Api/account"
+import { SetUser } from "../../../../hooks/useAccount"
 const DashboardScreen = () => {
-    // const { user } = getUserLogin();
-    // console.log(user)
+    const user = SetUser.getUser();
     return (
         <div>
-            Dashboard
+           
         </div>
     )
 }

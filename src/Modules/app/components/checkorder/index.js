@@ -1,65 +1,146 @@
 import React, { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useParams, useHistory } from 'react-router-dom';
 import { getorder } from '../../../../Api/order';
-import { formatNumber } from '../../../../Helpers/utils'
+import { formatNumber } from '../../../../Helpers/utils';
+import { TokenAccount, SetUser } from '../../../../hooks/useAccount';
+import ModalLogin from '../../../../hooks/ModalLogin';
+import CheckOrderScreenApp from '../../screens/checkorder';
 const CheckOrderComponents = () => {
-    const history = useHistory();
-    let { id } = useParams();
-    const [order, setOrder] = useState([])
-    useEffect(async () => {
-        const respons = await getorder(id);
-        setOrder(respons.data)
-        // console.log(respons.data)
-        // const topping = respons.data;
-        // reset(topping);
-    }, [id]);
-    console.log(order)
+    const [orders, setOrders] = useState([])
+    const [newData, setNewData] = useState({})
+    const [modalOpen, setModalOpen] = useState(false);
+
+          
+        useEffect(async () => {
+            if (SetUser.getUser()) { 
+                const data = {
+                    token : TokenAccount.getToken(), 
+                    id : SetUser.getUser().id,
+                }
+                const respons = await getorder(data);
+                setOrders(respons.data)
+            } 
+        }, []);
+
+        useEffect(async () => {
+            const respons = await getorder(newData);
+            setOrders(respons.data)
+        }, [newData]);
+
+        const status1 = () => {
+            if (SetUser.getUser()) { 
+                const data = {
+                    token : TokenAccount.getToken(), 
+                    id : SetUser.getUser().id,
+                }
+            setNewData(data)   
+            }  
+        }
+
+        const status2 = () => {
+            if (SetUser.getUser()) { 
+                const data = {
+                    token : TokenAccount.getToken(), 
+                    id : SetUser.getUser().id,
+                    status : 1
+                }
+            setNewData(data)   
+            }  
+        }
+
+        const status3 = () => {
+            if (SetUser.getUser()) { 
+                const data = {
+                    token : TokenAccount.getToken(), 
+                    id : SetUser.getUser().id,
+                    status : 2
+                }
+            setNewData(data)   
+            }  
+        }
+
+        
+
+        const status4 = () => {
+            if (SetUser.getUser()) { 
+                const data = {
+                    token : TokenAccount.getToken(), 
+                    id : SetUser.getUser().id,
+                    status : 3
+                }
+            setNewData(data)   
+            }  
+        }
+
+        const status5 = () => {
+            if (SetUser.getUser()) { 
+                const data = {
+                    token : TokenAccount.getToken(), 
+                    id : SetUser.getUser().id,
+                    status : 4
+                }
+            setNewData(data)   
+            }  
+        }
+
+        const status6 = () => {
+            if (SetUser.getUser()) { 
+                const data = {
+                    token : TokenAccount.getToken(), 
+                    id : SetUser.getUser().id,
+                    status : 5
+                }
+            setNewData(data)   
+            }  
+        }
+    
+    
     return (
-        <div className="container">
-            <table className="table">
-                <thead >
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Địa chỉ</th>
-                        <th scope="col" className="text-center">Thông tin đơn hàng</th>
-                        <th scope="col">Tổng tiền</th>
-                        <th scope="col" className="text-center">Trạng thái</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row"></th>
-                        <td>{order.building}, {order.classroom}</td>
-                        <td>
-                            {order.detail && order.detail.map((item) => (
-                                <div className="row mb-2" key={item.id}>
-                                    <div className="col-2">
-                                        <img src={item.image} width="55" className=" rounded" />
-                                    </div>
-                                    <div className="col-6">
-                                        <span>{item.name}</span><br/>
-                                        {item.topping && item.topping.map((key)=> (
-                                            <span key={key.id}>{key.name}, </span>
-                                        ))}
-                                    </div>
-                                    <div className="col-2">
-                                        x {item.quantity}
-                                    </div>
-                                    <div className="col-2">
-                                        {formatNumber((item.quantity)*(item.price))}
-                                    </div>
-                                </div>
-                            ))}
-                        </td>
-                        <td>{formatNumber(order.price_total)}</td>
-                        <td><span className="text-danger">{(order.status != 1) ? 'NAV' : "Đơn hàng chưa được xác nhận"}</span></td>
-                    </tr>
+        <>
+        {SetUser.getUser() ?
+            <div className="container-fluid">
+                <div className="row text-center bg-primary text-light pt-2 pb-2">
+                    <div className="col-2">
+                        <span style={{cursor : 'pointer'}} onClick={status1}>Tất cả</span>
+                    </div>
+                    <div className="col-2">
+                        <span style={{cursor : 'pointer'}} onClick={status2}>Đang chờ xử lý</span>
+                    </div>
+                    <div className="col-2">
+                        <span style={{cursor : 'pointer'}} onClick={status3}>Đang chờ nhân viên giao hàng</span>
+                    </div>
+                    <div className="col-2">
+                        <span style={{cursor : 'pointer'}} onClick={status4}>Đang vận chuyển</span>
+                    </div>
+                    <div className="col-2">
+                        <span style={{cursor : 'pointer'}} onClick={status5}>Thành công</span>
+                    </div>
+                    <div className="col-2">
+                        <span style={{cursor : 'pointer'}} onClick={status6}>Đã hủy</span>
+                    </div>
+                </div>
+                <table className="table">
+                    <thead >
+                        <tr>
+                            <th scope="col">Địa chỉ</th>
+                            <th scope="col" className="text-center">Thông tin đơn hàng</th>
+                            <th scope="col">Tổng tiền</th>
+                            <th scope="col" >Trạng thái</th>
+                            <th scope="col" >Phương thức thanh toán</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <CheckOrderScreenApp orders={orders} />
+                    </tbody>
+                </table>
 
-                </tbody>
-            </table>
+            </div>
+        :
+            <p className="text-danger text-center">Bạn chưa đăng nhập hãy đăng nhập tại <span style={{cursor: 'pointer'}} className="text-primary" onClick={() => {
+                setModalOpen(true);
+            }} >đây</span></p>}
+            {modalOpen && <ModalLogin setOpenModal={setModalOpen} />} 
 
-        </div>
+        </>
     )
 }
 

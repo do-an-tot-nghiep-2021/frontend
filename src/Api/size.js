@@ -12,9 +12,9 @@ export const showsize = (id) => {
   const url = `/size/${id}`;
   return Api.get(url);
 };
-export const removesize = (id) => {
-  const url = `/size/${id}`;
-  return Api.delete(url);
+export const removesize = (item) => {
+  const url = `/size/delete/${item.id}`;
+  return Api.put(url, item);
 };
 export const createsize = (item) => {
   const url = `/size/create`;

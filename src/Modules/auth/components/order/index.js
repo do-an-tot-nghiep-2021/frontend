@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { allorder, removeorder } from "../../../../Api/order";
-import { Link } from "react-router-dom";
 import OrderScreenAuth from "../../screens/order/list";
 
 const ListOrderComponent = () => {
@@ -16,6 +15,7 @@ const ListOrderComponent = () => {
     };
     getOrders();
   }, []);
+  console.log(Orders)
 
   // console.log(Toppings);
   const onHandleDelete = async (id) => {
@@ -30,25 +30,7 @@ const ListOrderComponent = () => {
 
   return (
     <>
-      <Link to="/admin/orders/create" className="btn btn-primary mb-2">
-        Create
-      </Link>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Status</th>
-            <th scope="col" width="150">
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <OrderScreenAuth data={Orders} onDelete={onHandleDelete} />
-        </tbody>
-      </table>
+      <OrderScreenAuth data={Orders} onDelete={onHandleDelete} />
     </>
   );
 };

@@ -10,6 +10,8 @@ import useUpload from "../../../../hooks/upload/useUpload";
 
 const UpdateProductScreen = () => {
   const history = useHistory();
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
   let { id } = useParams();
   const {
     register,
@@ -89,15 +91,42 @@ const UpdateProductScreen = () => {
         data.image = preview;
       }
 
-      await updateproduct(data);
+      await updateproduct(data).then((response) => {
+        if (!response.data) {
+            setError("Ten da ton tai");
+            setSuccess(false);
+        }else{
+            setError("")
+            setSuccess(true);
+        }
+      })
 
-      history.push("/admin/products");
     } catch (error) {
       console.log(error);
     }
   };
 
-  
+  const showSuccess = () => {
+    return (
+      <div
+        className="alert alert-info"
+        style={{ display: success ? "block" : "none" }}
+      >
+        Bạn đã tạo thành công.
+      </div>
+    );
+  };
+
+  const showError = () => {
+    return (
+      <span
+        className="text-danger"
+        style={{ display: error ? "block" : "none" }}
+      >
+        {error}
+      </span>
+    );
+  };
   useEffect(async () => {
     const respons = await showproduct(id);
     const product = respons.data;
@@ -137,6 +166,7 @@ const UpdateProductScreen = () => {
   return (
     <div>
       <h4>Update product</h4>
+      {showSuccess()}
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="row">
           <div className="col-6">
@@ -153,6 +183,7 @@ const UpdateProductScreen = () => {
                   This field is required
                 </span>
               )}
+              {showError()}
             </div>
           </div>
           <div className="col-6">
@@ -212,7 +243,6 @@ const UpdateProductScreen = () => {
                   <input
                     type="checkbox"
                     value={item.id}
-                    defaultChecked={1}
                     {...register("product_topping", { required: false })}
                     
                   />

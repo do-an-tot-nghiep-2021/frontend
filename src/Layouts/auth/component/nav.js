@@ -105,16 +105,7 @@ const NavAuth = () => {
                 <i class="fas fa-coffee"></i> size
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/actives"
-                activeClassName="active"
-              >
-                <span data-feather="users" />
-                <i class="fas fa-coffee"></i> active
-              </NavLink>
-            </li>
+            
           </ul>
         </div>
       </nav>

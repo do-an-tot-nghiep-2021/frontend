@@ -14,9 +14,6 @@ import ListToppingComponent from "../Modules/auth/components/topping";
 import CreateToppingScreen from "../Modules/auth/screens/topping/create";
 import UpdateToppingScreen from "../Modules/auth/screens/topping/update";
 
-import ListActiveComponent from "../Modules/auth/components/active";
-import CreateActiveScreen from "../Modules/auth/screens/active/create";
-import UpdateActiveScreen from "../Modules/auth/screens/active/update";
 
 import ListOrderComponent from "../Modules/auth/components/order";
 import CreateOrderScreen from "../Modules/auth/screens/order/create";
@@ -41,6 +38,7 @@ import CreateSizeScreen from "../Modules/auth/screens/size/create";
 import UpdateSizeScreen from "../Modules/auth/screens/size/update";
 import Register from "../Modules/account/register";
 import CheckOrderComponents from "../Modules/app/components/checkorder";
+import AddressUser from "../Modules/app/screens/checkout/address";
 const RouteMain = () => {
   return (
     <>
@@ -57,7 +55,6 @@ const RouteMain = () => {
               "/admin/building/:id",
               "/admin/classroom/:id",
               "/admin/size/:id",
-              "/admin/actives/:id",
               "/admin/orders/:id",
             ]}
           >
@@ -94,10 +91,6 @@ const RouteMain = () => {
                 <CreateSizeScreen exact path="/admin/size/create" />
                 <UpdateSizeScreen exact path="/admin/size/:id" />
 
-                <ListActiveComponent exact path="/admin/actives" />
-                <CreateActiveScreen exact path="/admin/actives/create" />
-                <UpdateActiveScreen exact path="/admin/actives/:id" />
-              
                 <ListOrderComponent exact path="/admin/orders" />
                 <CreateOrderScreen exact path="/admin/orders/create" />
                 <UpdateOrderScreen exact path="/admin/orders/:id" />
@@ -108,28 +101,27 @@ const RouteMain = () => {
             path={[
               "/:path?",
               "/product/:id",
-              "/checkorder/:id",
+              "/checkorder",
             ]}>
             <AppLayout>
               <Switch>
                 <HomePageComponentApp exact path="/" />
                 <Cart exact path="/cart" />
-                <CheckOrderComponents exact path="/checkorder/:id" />
+                <CheckOrderComponents exact path="/checkorder" />
                 <DetailProductComponentApp exact path="/product/:id" />
-                
+                <AddressUser exact path="/checkout" />                
               </Switch>
             </AppLayout>
           </Route>
 
           <Route exact
             path={[
-              "/login/:path?",
-              "/register/:path?",
+              "/:path?/:path?",
             ]}>
             <AccountLayout>
               <Switch>
-                <LoginAuth exact path="/login/admin" />
-                <Register exact path="/register/customer" />
+                <LoginAuth exact path="/login/account" />
+                <Register exact path="/register/account" />
               </Switch>
             </AccountLayout>
           </Route>

@@ -15,7 +15,7 @@ const Register = () => {
             style={{ display: success ? "block" : "none" }}
           >
             Bạn đã tạo tài khoản thành công. Click để{" "}
-            <Link to="/login/admin">đăng nhập</Link>
+            <Link to="/login/account">đăng nhập</Link>
           </div>
         );
       };

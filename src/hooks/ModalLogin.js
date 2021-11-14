@@ -1,13 +1,13 @@
-import { login, getUser } from "../../../Api/account"
+import React from "react";
+import "./modal.css";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useHistory } from "react-router";
-import { TokenAccount, SetUser } from "../../../hooks/useAccount";
+import { login, getUser } from "../Api/account";
+import { TokenAccount, SetUser } from "./useAccount";
 import { Link } from "react-router-dom";
 
-const LoginAuth = () => {
-    const history = useHistory();
+function ModalLogin({ setOpenModal }) {
     const { register, handleSubmit, formState: { errors } } = useForm();
-
     const onSubmit = async (data) => {
         try {
             await login(data).then((user) => {
@@ -15,22 +15,25 @@ const LoginAuth = () => {
             });
             getUser(localStorage.getItem('token')).then((userToken) => {
                 SetUser.saveUser(userToken.data)
-                history.push("/admin")
+                setOpenModal(false)
             });
         } catch (error) {
             console.log(error)
         }
         
     }
-    const IsTokenAccess = localStorage.getItem("token") !== null
-    if (IsTokenAccess) {
-        
-    }
     
-
-    return (
-        <>
-            <div className="form-login">
+  return (
+    <div className="modalBackground">
+      <div className="modalContainer">
+        <div className="titleCloseBtn">
+          <button
+            onClick={() => {
+              setOpenModal(false);
+            }}
+          >
+            X
+          </button>
                 <form onSubmit={handleSubmit(onSubmit)}>
                     <div className="form-group">
                         <label className="text-light" >Email</label>
@@ -60,17 +63,18 @@ const LoginAuth = () => {
                             </span>
                         )}
                     </div>
-                    <Link to="/register/account">Neu ban chua co tai khoan hay dang ky ngay!</Link><br/>
-                    <button type="submit" className="btn btn-primary">
+                    <Link to="/register/customer">Neu ban chua co tai khoan hay dang ky ngay!</Link><br/>
+                    <button type="submit" className="btn btn-danger bg-danger">
                         Login
                     </button>
                 </form>
 
 
-            </div>
-
-        </>
-    )
+        </div>
+        
+      </div>
+    </div>
+  );
 }
 
-export default LoginAuth
+export default ModalLogin;

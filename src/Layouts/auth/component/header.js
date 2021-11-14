@@ -1,21 +1,22 @@
 import { Link } from "react-router-dom"
 import { useHistory } from "react-router";
-import { logoutadmin } from "../../../Api/account";
-const HeaderAuth = () => {
+import { logout } from "../../../Api/account";
+import { TokenAccount, SetUser } from "../../../hooks/useAccount";
+const HeaderAuth = ({user}) => {
     const history = useHistory();
-    const logout = (e) => {
-        e.preventDefault();
-        if(localStorage.getItem('accessToken')){
+    const logoutToken = async () => {
+        try {
             const tokenLogout = {
-                token: localStorage.getItem('accessToken')
+                token: TokenAccount.getToken()
             }
-            console.log(tokenLogout)
-            localStorage.removeItem('accessToken')
-            localStorage.removeItem('user')
-            logoutadmin(tokenLogout)
-            history.push("/")
+            TokenAccount.removeToken()
+            SetUser.removeUser()
+            await logout(tokenLogout)
+            history.push("/admin/login")  
+        } catch (error) {
+            console.log(error)
         }
-        
+            
     }
     return (
         <>
@@ -25,7 +26,7 @@ const HeaderAuth = () => {
                 <input className="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search" />
                 <ul className="navbar-nav px-3">
                     <li className="nav-item text-nowrap">
-                    <Link className="nav-link" onClick={logout}>Sign out</Link>
+                    <Link className="nav-link" onClick={logoutToken}>{user.name}</Link>
                     </li>
                 </ul>
             </nav>

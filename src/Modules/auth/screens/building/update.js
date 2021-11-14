@@ -6,12 +6,20 @@ import { showbuilding, updatebuilding } from '../../../../Api/building';
 const UpdateBuildingScreen = () => {
     const history = useHistory();
     const { id } = useParams();
-    console.log(id, 'haha')
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) =>{
         try {
-            await updatebuilding(data);
-            history.push("/admin/building");
+            await updatebuilding(data).then((response) => {
+                if (!response.data) {
+                    setError("Ten da ton tai");
+                    setSuccess(false);
+                }else{
+                    setError("")
+                    setSuccess(true);
+                }
+              })
         } catch (error) {
             console.log(error);
         }
@@ -23,9 +31,27 @@ const UpdateBuildingScreen = () => {
         const building = respons.data;
         reset(building);
     }, [id]);
+
+    const showSuccess = () => {
+        return (
+            <div className="alert alert-info" style={{ display: success ? "block" : "none" }}>
+                Bạn đã tạo thành công.
+            </div>
+        );
+    };
+
+    const showError = () => {
+        return (
+            <span className="text-danger" style={{ display: error ? "block" : "none" }}>
+                {error}
+            </span>
+        );
+    };
+
     return (
         <>
             <h4>Update building</h4>
+            {showSuccess()}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
                     <label className="form-label">Name</label>
@@ -40,6 +66,7 @@ const UpdateBuildingScreen = () => {
                             This field is required
                         </span>
                     )}
+                    {showError()}
                 </div>
                 <button type="submit" className="btn btn-primary mt-5">
                     create

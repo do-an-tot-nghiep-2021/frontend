@@ -12,7 +12,8 @@ const UpdateTypesScreen = () => {
     console.log(id, 'haha')
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const [preview, setPreview] = useState('');
-
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
     const { loading, handleUpload } = useUpload();
 
     const handleInputUploadChange = async (e) => {
@@ -57,10 +58,15 @@ const UpdateTypesScreen = () => {
             if (preview) {
                 data.image = preview;
             }
-
-            await updatetype(data);
-
-            history.push('/admin/types');
+            await updatetype(data).then((response) => {
+                if (!response.data) {
+                    setError("Ten da ton tai");
+                    setSuccess(false);
+                }else{
+                    setError("")
+                    setSuccess(true);
+                }
+              })
         } catch (error) {
             console.log(error)
         }
@@ -78,10 +84,25 @@ const UpdateTypesScreen = () => {
 
         reset(category);
     }, [id]);
+    const showSuccess = () => {
+        return (
+            <div className="alert alert-info" style={{ display: success ? "block" : "none" }}>
+                Bạn đã tạo thành công.
+            </div>
+        );
+    };
 
+    const showError = () => {
+        return (
+            <span className="text-danger" style={{ display: error ? "block" : "none" }}>
+                {error}
+            </span>
+        );
+    };
     return (
         <div>
             <h4>Update product</h4>
+            {showSuccess()}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="form-group mb-2">
                     <input type="text"
@@ -91,6 +112,7 @@ const UpdateTypesScreen = () => {
                     />
                     {errors.name && <span className="text-danger">This field is required</span>}
                 </div>
+                {showError()}
             
               
                 <button type="submit" className="btn btn-primary mt-2">update</button>

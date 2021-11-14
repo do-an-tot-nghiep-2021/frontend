@@ -9,9 +9,9 @@ import CartContextProvider from './Contexts/cartContext';
 
 ReactDOM.render(
   <HelmetProvider>
-    <ProductsContextProvider>
+    <ProductsContextProvider>   
       <CartContextProvider>
-        <RouteMain/>
+          <RouteMain/>
       </CartContextProvider>
     </ProductsContextProvider>
   </HelmetProvider>,

@@ -9,11 +9,12 @@ const CreateClassroomScreen = () => {
     const history = useHistory();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [buildings, setBuildings] = useState([]);
-
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState(false);
     useEffect(() =>{
         const getBuildings = async () =>{
             try {
-                const { data } = await allbuilding();
+                const { data } = await allbuilding()
                 setBuildings(data);
             } catch (error) {
                 console.log(error);
@@ -24,17 +25,47 @@ const CreateClassroomScreen = () => {
     
     const onSubmit = async (data) => {
         try {
-            console.log("data",data);
-            await createclass(data);
-            history.push("/admin/classroom");
+            await createclass(data).then((response) => {
+                if (!response.data) {
+                    setError("Ten da ton tai");
+                    setSuccess(false);
+                }else{
+                    setError("")
+                    setSuccess(true);
+                }
+            });
+            
         } catch (error) {
             console.log(error);
         }
     }
 
+    const showSuccess = () => {
+        return (
+          <div
+            className="alert alert-info"
+            style={{ display: success ? "block" : "none" }}
+          >
+            Bạn đã tạo thành công.
+          </div>
+        );
+      };
+    
+      const showError = () => {
+        return (
+          <span
+            className="text-danger"
+            style={{ display: error ? "block" : "none" }}
+          >
+            {error}
+          </span>
+        );
+      };
+
     return (
         <>
             <h4>Create classroom</h4>
+            {showSuccess()}
             <form onSubmit={handleSubmit(onSubmit)}>
                 <div className="mb-3">
                     <label className="form-label">Name</label>
@@ -49,6 +80,7 @@ const CreateClassroomScreen = () => {
                             This field is required
                         </span>
                     )}
+                    {showError()}
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Building</label>
@@ -57,7 +89,7 @@ const CreateClassroomScreen = () => {
                         {...register("building_id")}
                         defaultValue="0"
                     >
-                        {buildings.map((item, index) => (
+                        {buildings && buildings.map((item, index) => (
                             <option value={item.id} key={index}>
                                 {item.name}
                             </option>

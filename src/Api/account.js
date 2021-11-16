@@ -4,6 +4,14 @@ export const login = (user) => {
   const url = `/login`;
   return Api.post(url, user)
 };
+export const loginwithgoogle = () => {
+  const url = `/google/url`;
+  return Api.get(url)
+};
+export const getDataUserGoogle = (code) => {
+  const url = `/callback/google${code}`;
+  return Api.get(url)
+};
 export const logout = (token) => {
   const url = `/logout`;
   return Api.post(url, token)

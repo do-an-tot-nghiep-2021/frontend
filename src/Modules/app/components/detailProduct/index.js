@@ -19,7 +19,7 @@ const DetailProductComponentApp = () => {
         };
         getProducts();
     }, [id]);    
-
+console.log(products)
     return (
         <DetailProductScreenApp 
             product={products} 

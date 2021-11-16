@@ -12,7 +12,7 @@ const HeaderAuth = ({user}) => {
             TokenAccount.removeToken()
             SetUser.removeUser()
             await logout(tokenLogout)
-            history.push("/admin/login")  
+            history.push("/login/account")  
         } catch (error) {
             console.log(error)
         }

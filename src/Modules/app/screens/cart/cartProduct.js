@@ -7,18 +7,37 @@ const CartProducts = () => {
 
     const { cartItems } = useCart();
 
-    return ( 
-        <div >
-            <div className="card card-body border-0">
+    return (
+        <div className="col-lg-8 col-md-12" >
+            <div className="cart-c-box">
 
-                {
-                    cartItems && cartItems.map(product =>  <CartItem key={product.id} product={product}/>)
-                }
-
+                <div className="ccbt">
+                    <table className="cart-table">
+                        <thead>
+                            <tr>
+                                <th />
+                                <th>Product</th>
+                                <th>Price</th>
+                                <th>Quantity</th>
+                                <th>Total</th>
+                                <th />
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                cartItems && cartItems.map(product => <CartItem key={product.id} product={product} />)
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div className="cart-cuopon-box">
+                    <input type="text" id="coupon" name="coupon" placeholder="Coupon code" />
+                    <input type="submit" className="bfs-btn" defaultValue="Apply Coupon" />
+                </div>
             </div>
         </div>
 
-     );
+    );
 }
- 
+
 export default CartProducts;

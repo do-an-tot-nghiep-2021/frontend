@@ -22,9 +22,9 @@ const ListSizeComponent = () => {
   const onHandleDelete = async (id) => {
     try {
       Swal.fire({
-        title: 'Do you want to remove the size?',
+        title: 'Bạn có chắc chắn muốn xóa size?',
         showCancelButton: true,
-        confirmButtonText: 'Delete!',
+        confirmButtonText: 'Xóa!',
       }).then((result) => {
         if (result.isConfirmed) {
           const item = {
@@ -33,7 +33,7 @@ const ListSizeComponent = () => {
             user: SetUser.getUser()
           }
           removesize(item)
-          Swal.fire('Delete Success!', '', 'success')
+          Swal.fire('Thành công!', '', 'success')
           const newSizes = sizes.filter((items) => items.id !== id);
           setSizes(newSizes);
           

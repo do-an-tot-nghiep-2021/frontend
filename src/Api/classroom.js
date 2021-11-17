@@ -12,9 +12,9 @@ export const showclass = (id) => {
   const url = `/classroom/${id}`;
   return Api.get(url);
 };
-export const removeclass = (id) => {
-  const url = `/classroom/${id}`;
-  return Api.delete(url);
+export const removeclass = (item) => {
+  const url = `/classroom/delete/${item.id}`;
+  return Api.put(url, item);
 };
 
 export const createclass = (item) => {

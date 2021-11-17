@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { alltype, removetype } from "../../../../Api/types";
 import { Link } from "react-router-dom";
 import TypesScreenAuth from "../../screens/types/list";
+import Swal from "sweetalert2";
+import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 
 const ListTypesComponent = () => {
   const [Types, setTypes] = useState([]);
@@ -17,12 +19,28 @@ const ListTypesComponent = () => {
     getTypes();
   }, []);
 
-  console.log(Types);
   const onHandleDelete = async (id) => {
     try {
-      await removetype(id);
-      const newTypes = Types.filter((items) => items.id !== id);
-      setTypes(newTypes);
+      Swal.fire({
+        title: 'Bạn có muốn xóa thuộc tính này?',
+        showCancelButton: true,
+        confirmButtonText: 'Xóa!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const item = {
+            id: id,
+            token: TokenAccount.getToken(),
+            user: SetUser.getUser()
+          }
+          removetype(item);
+          const newTypes = Types.filter((items) => items.id !== id);
+          Swal.fire('Thành công!', '', 'success')
+          setTypes(newTypes);
+          
+          
+        } 
+      })
+      
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +63,6 @@ const ListTypesComponent = () => {
           </tr>
         </thead>
         <tbody>
-          {/* <ListProductScreen data={Toppings} onDelete={onHandleDelete} /> */}
           <TypesScreenAuth data={Types} onDelete={onHandleDelete} />
         </tbody>
       </table>

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { allcategory, removecategory } from "../../../../Api/category";
 import CategoryScreenAuth from "../../screens/category/list";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 
 const CategoryListAuth = () => {
   const [Categories, setCategories] = useState([]);
@@ -17,12 +19,26 @@ const CategoryListAuth = () => {
     getCategories();
   }, []);
 
-  console.log(Categories);
   const onHandleDelete = async (id) => {
     try {
-      await removecategory(id);
-      const newCategories = Categories.filter((item) => item.id !== id);
-      setCategories(newCategories);
+      Swal.fire({
+        title: 'Bạn có muốn xóa building này?',
+        showCancelButton: true,
+        confirmButtonText: 'Xóa!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const item = {
+            id: id,
+            token: TokenAccount.getToken(),
+            user: SetUser.getUser()
+          }
+          removecategory(item)
+          const newCategories = Categories.filter((item) => item.id !== id);
+          Swal.fire('Thành công!', '', 'success')
+          setCategories(newCategories);
+        }
+      })
+
     } catch (error) {
       console.log(error);
     }

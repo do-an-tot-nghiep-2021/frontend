@@ -16,9 +16,9 @@ export const getclassbuilding = (id) => {
   const url = `/building/class/${id}`;
   return Api.get(url);
 };
-export const removebuilding = (id) => {
-  const url = `/building/${id}`;
-  return Api.delete(url);
+export const removebuilding = (item) => {
+  const url = `/building/delete/${item.id}`;
+  return Api.put(url,item);
 };
 export const createbuilding = (item) => {
   const url = `/building/create`;

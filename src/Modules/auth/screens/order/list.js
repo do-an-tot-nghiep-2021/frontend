@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import NumberFormat from 'react-number-format';
 const OrderScreenAuth = ({data}) => {
-  console.log(data)
   return (
     <>
       {data && data.map((items, index) => (

@@ -8,7 +8,7 @@ const FooterApp = () => {
                         <div className="row">
                             <div className="col-md-4">
                                 <div className="f-widget footer-logo-info">
-                                    <img src="assets/img/logo.png" alt="" />
+                                    <img src={process.env.PUBLIC_URL + '/text-logo-footer.png'} alt="" />
                                     <div className="fw-contact">
                                         <p><i className="fa fa-map-marker" aria-hidden="true" />Materfront avenue, street 2005F, USA</p>
                                         <a href="#"><i className="fa fa-phone" aria-hidden="true" />+1 888.387.5000</a>

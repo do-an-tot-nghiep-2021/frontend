@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { alltopping, removetopping } from "../../../../Api/topping";
 import { Link } from "react-router-dom";
 import ToppingScreenAuth from "../../screens/topping/list";
+import Swal from "sweetalert2";
+import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 
 const ListToppingComponent = () => {
   const [Toppings, setToppings] = useState([]);
@@ -17,12 +19,26 @@ const ListToppingComponent = () => {
     getToppings();
   }, []);
 
-  // console.log(Toppings);
   const onHandleDelete = async (id) => {
     try {
-      await removetopping(id);
-      const newToppings = Toppings.filter((items) => items.id !== id);
-      setToppings(newToppings);
+      Swal.fire({
+        title: 'Bạn có muốn xóa topping này?',
+        showCancelButton: true,
+        confirmButtonText: 'Xóa!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          const item = {
+            id: id,
+            token: TokenAccount.getToken(),
+            user: SetUser.getUser()
+          }
+          removetopping(item)
+          const newToppings = Toppings.filter((items) => items.id !== id);
+          Swal.fire('Thành công!', '', 'success')
+          setToppings(newToppings);
+          
+        } 
+      })
     } catch (error) {
       console.log(error);
     }

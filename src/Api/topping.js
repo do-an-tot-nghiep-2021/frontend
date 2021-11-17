@@ -12,9 +12,9 @@ export const showtopping = (id) => {
   const url = `/topping/${id}`;
   return Api.get(url);
 };
-export const removetopping = (id) => {
-  const url = `/topping/${id}`;
-  return Api.delete(url);
+export const removetopping = (item) => {
+  const url = `/topping/delete/${item.id}`;
+  return Api.put(url, item);
 };
 export const createtopping = (item) => {
   const url = `/topping/create`;

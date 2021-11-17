@@ -15,9 +15,7 @@ const ListOrderComponent = () => {
     };
     getOrders();
   }, []);
-  console.log(Orders)
 
-  // console.log(Toppings);
   const onHandleDelete = async (id) => {
     try {
       await removeorder(id);

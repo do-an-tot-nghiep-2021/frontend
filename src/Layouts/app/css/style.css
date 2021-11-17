@@ -3703,6 +3703,7 @@ textarea.df-control {
 
 .footer-logo-info img {
     margin-bottom: 30px;
+    max-width: 50%;
 }
 
 .f-widget .fw-contact {

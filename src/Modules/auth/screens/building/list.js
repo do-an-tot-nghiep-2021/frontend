@@ -2,7 +2,6 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const BuildingScreenAuth = (props) => {
-    console.log("data", props.data);
     return (
         <>
             {props.data.map((item, index) => (

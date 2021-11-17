@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import { allclass, removeclass } from "../../../../Api/classroom";
 import { Link } from "react-router-dom";
 import ClassroomScreenAuth from '../../screens/classroom/list';
+import Swal from 'sweetalert2';
+import { TokenAccount, SetUser } from '../../../../hooks/useAccount';
 
 
 const ClassroomListAuth = () => {
@@ -23,9 +25,24 @@ const ClassroomListAuth = () => {
     
     const onHandleDelete = async (id) =>{
         try {
-            await removeclass(id);
-            const newClassroom = classrooms.filter(item => item.id !== id)
-            setClassrooms(newClassroom);
+            Swal.fire({
+                title: 'Bạn có muốn xóa class này?',
+                showCancelButton: true,
+                confirmButtonText: 'Xóa!',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  const item = {
+                    id: id,
+                    token: TokenAccount.getToken(),
+                    user: SetUser.getUser()
+                  }
+                  removeclass(item)
+                  const newClassroom = classrooms.filter(item => item.id !== id)
+                  Swal.fire('Thành công!', '', 'success')
+                  setClassrooms(newClassroom);
+                  
+                } 
+              })
         } catch (error) {
             
         }

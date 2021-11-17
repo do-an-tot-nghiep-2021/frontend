@@ -2,7 +2,6 @@ import { Link } from "react-router-dom";
 import NumberFormat from 'react-number-format';
 
 const SizeScreenAuth = (props) => {
-    console.log('props', props)
   return (
     <>
       {props.data.map((item, index) => (

@@ -38,11 +38,10 @@ const UpdateOrderScreen = () => {
 
           <select {...register("status", { required: true })} className="form-control">
             <option value="1">Đơn hàng đang chờ xử lý</option>
-            <option value="2">Đơn hàng đã được nhân viên xác nhận</option>
-            <option value="3">Đơn hàng đang chờ nhân viên giao hàng</option>
-            <option value="4">Đơn hàng đang được vận chuyển</option>
-            <option value="5">Đơn hàng đã vận chuyển thành công</option>
-            <option value="6">Đơn hàng đã bị hủy</option>
+            <option value="2">Đơn hàng đang chờ nhân viên giao hàng</option>
+            <option value="3">Đơn hàng đang được vận chuyển</option>
+            <option value="4">Đơn hàng đã vận chuyển thành công</option>
+            <option value="5">Đơn hàng đã bị hủy</option>
           </select>
         </div>
         <button type="submit" className="btn btn-primary mt-5">

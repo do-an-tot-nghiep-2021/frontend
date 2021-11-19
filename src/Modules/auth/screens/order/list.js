@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import NumberFormat from 'react-number-format';
 const OrderScreenAuth = ({data}) => {
+  console.log(data)
   return (
     <>
       {data && data.map((items, index) => (
@@ -13,12 +13,12 @@ const OrderScreenAuth = ({data}) => {
                   <img src={item.image} className="rounded" width="100"/>
                 </div>
                 <div className="col-10">
-                  <span className="font-weight-bold">{item.name}</span><br/>
-                  Topping : 
-                  {item.topping.map((i, k)=>(
-                    <span key={k}>{i.name},</span>
-                  ))}<br/>
-                  <span>Quantity : {item.quantity}</span>
+                  <span className="font-weight-bold">{item.name} {item.type ? `(${item.type})` : ""}</span><br/>
+                  {item.topping != "" ? `Topping :` : "" }
+                    {item.topping.map((i, k)=>(
+                      <span key={k}>{i.name},</span>
+                    ))}
+                  <p style={{fontSize : "12px"}}>Quantity : {item.quantity}</p>
                   
                 </div>
               </div>

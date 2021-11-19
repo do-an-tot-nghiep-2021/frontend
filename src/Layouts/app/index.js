@@ -10,6 +10,7 @@ import "./css/jquery.fancybox.min.css";
 import "./css/animate.css";
 import "./css/style.css";
 import "./css/responsive.css";
+import "./css/bootstrap.min.css";
 
 const AppLayout = (props) => {
   return (<>

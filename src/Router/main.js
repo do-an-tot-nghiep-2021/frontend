@@ -33,9 +33,6 @@ import Cart from "../Modules/app/screens/cart";
 import DetailProductComponentApp from "../Modules/app/components/detailProduct";
 import LoginAuth from "../Modules/account/auth/login";
 import AccountLayout from "../Layouts/account";
-import SizeListAuth from "../Modules/auth/components/size";
-import CreateSizeScreen from "../Modules/auth/screens/size/create";
-import UpdateSizeScreen from "../Modules/auth/screens/size/update";
 import Register from "../Modules/account/register";
 import CheckOrderComponents from "../Modules/app/components/checkorder";
 import AddressUser from "../Modules/app/screens/checkout/address";
@@ -55,6 +52,7 @@ const RouteMain = () => {
               "/admin/building/:id",
               "/admin/classroom/:id",
               "/admin/size/:id",
+              "/admin/size/history/:id",
               "/admin/orders/:id",
             ]}
           >
@@ -86,10 +84,6 @@ const RouteMain = () => {
                 <ClassroomListAuth exact path="/admin/classroom" />
                 <CreateClassroomScreen exact path="/admin/classroom/create" />
                 <UpdateClassroomScreen exact path="/admin/classroom/:id" />
-
-                <SizeListAuth exact path="/admin/size" />
-                <CreateSizeScreen exact path="/admin/size/create" />
-                <UpdateSizeScreen exact path="/admin/size/:id" />
 
                 <ListOrderComponent exact path="/admin/orders" />
                 <CreateOrderScreen exact path="/admin/orders/create" />

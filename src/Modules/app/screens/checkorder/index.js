@@ -19,7 +19,7 @@ const CheckOrderScreenApp = ({orders}) => {
                                                 <img src={product.image} width="55" className=" rounded" />
                                             </div>
                                             <div className="col-6">
-                                                <span className="font-weight-bold">{product.name}</span><br/>
+                                                <span className="font-weight-bold">{product.name} {product.type ? `(${product.type})` : ""}</span><br/>
                                                 {product.topping && product.topping.map((value)=> (
                                                     <span key={value.id}> {value.name}, </span>
                                                 ))}

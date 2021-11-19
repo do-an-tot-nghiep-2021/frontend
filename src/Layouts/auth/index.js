@@ -1,14 +1,15 @@
 import HeaderAuth from "./component/header"
 import NavAuth from "./component/nav"
-import { Route, Redirect } from "react-router"
+import { Redirect } from "react-router"
 import { SetUser } from "../../hooks/useAccount"
-
+import "./css/bootstrap.min.css"
+import "./css/style.css"
 const AuthLayout = (props) => {
     const user = (SetUser.getUser()) != "" ? SetUser.getUser() : "";
     return (
         <>
             {(SetUser.getUser() && SetUser.getUser().role == 10) ?
-            <div>
+            <div className="body-auth">
                 <HeaderAuth user={user}/>
                 <div className="container-fluid">
                     <div className="row">

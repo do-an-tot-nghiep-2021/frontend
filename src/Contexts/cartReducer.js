@@ -18,6 +18,7 @@ export const CartReducer = (state, action) => {
                 image : action.payload.image,
                 name : action.payload.name,
                 topping : action.payload.topping,
+                type : action.payload.type,
                 price : action.payload.price,
                 idItem: Math.random().toString(36).substr(2, 9),
                 quantity: action.payload.quantity,

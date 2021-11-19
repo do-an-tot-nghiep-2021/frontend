@@ -13,9 +13,9 @@ export const getorder = (data) => {
 
 
 
-export const allorder = () => {
+export const allorder = (data) => {
   const url = `/order`;
-  return Api.get(url);
+  return Api.post(url, data);
 };
 export const updateorder= (item) => {
   const url = `/order/${item.id}`;

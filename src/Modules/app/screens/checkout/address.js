@@ -14,6 +14,7 @@ const AddressUser = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const { total, itemCount, handleCheckout, cartItems } = useCart();
     const { register, handleSubmit, formState: { errors } } = useForm();
+    const [noteText,setNoteText] = useState("")
     const history = useHistory();
     useEffect(() => {
         const getBuildings = async () => {
@@ -54,9 +55,9 @@ const AddressUser = () => {
             cartItems: cartItems,
             itemCount: itemCount,
             total: total,
-            payment: data.payment
+            payment: data.payment,
+            note : (noteText ? noteText : "")
         }
-
         try {
             await sendorder(checkoutData).then((response) => {
                 if (!response.data) {
@@ -148,12 +149,23 @@ const AddressUser = () => {
                                                                 ))}
                                                             </select>
                                                             {errors.classroom && (
-                                                            <span className="d-block text-danger mt-3">
-                                                                This field is required
-                                                            </span>
-                                                        )}
+                                                                <span className="d-block text-danger mt-3">
+                                                                    This field is required
+                                                                </span>
+                                                            )}
                                                         </div>
                                                         : ""}
+                                                <div className="col-md-12">
+                                                    <label htmlFor="note">Note</label><br/>
+                                                    <textarea 
+                                                    name="note" 
+                                                    type="text" 
+                                                    placeholder="Ghi chú" 
+                                                    className="df-control"
+                                                    value = {noteText}
+                                                    onChange={e => setNoteText(e.target.value)}
+                                                    ></textarea>
+                                                </div>
 
 
                                                 </div>
@@ -208,6 +220,7 @@ const AddressUser = () => {
                                                         offline
                                                     </label>
                                                 </div>
+
                                                 <input type="submit" className="bfs-btn d-flex flex-row-reverse" defaultValue="BOOK A TABLE" />
                                             </div>
                                         </div>

@@ -11,7 +11,7 @@ export default function useUpload() {
       formData.append("file", file);
 
       const response = await axios.post(
-        "http://demoapi.wtf/api/uploads",
+        "http://dev-backend.tk/api/uploads",
         formData
       );
       setLoading(false);

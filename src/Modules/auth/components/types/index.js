@@ -4,21 +4,33 @@ import { Link } from "react-router-dom";
 import TypesScreenAuth from "../../screens/types/list";
 import Swal from "sweetalert2";
 import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
+import ReactPaginate from "react-paginate";
 
 const ListTypesComponent = () => {
   const [Types, setTypes] = useState([]);
+  const [perPage, setPerPage] = useState(10);
+  const [page, setPage] = useState(0);
+  const [pages, setPages] = useState(0);
+
+
   useEffect(() => {
     const getTypes = async () => {
       try {
         const { data } = await alltype();
-        setTypes(data);
+        setPages(Math.ceil(data.length / perPage ))
+        const items = data.slice(page * perPage, (page + 1) * perPage);
+        setTypes(items)
       } catch (error) {
         console.log(error);
       }
     };
     getTypes();
-  }, []);
-
+  }, [page]);
+  const handlePageClick = (event) => {
+    let page = event.selected;
+    setPage(page)
+  }
+  
   const onHandleDelete = async (id) => {
     try {
       Swal.fire({
@@ -35,12 +47,9 @@ const ListTypesComponent = () => {
           removetype(item);
           const newTypes = Types.filter((items) => items.id !== id);
           Swal.fire('Thành công!', '', 'success')
-          setTypes(newTypes);
-          
-          
+          setTypes(newTypes); 
         } 
       })
-      
     } catch (error) {
       console.log(error);
     }
@@ -66,6 +75,20 @@ const ListTypesComponent = () => {
           <TypesScreenAuth data={Types} onDelete={onHandleDelete} />
         </tbody>
       </table>
+      <div className="row">
+        <div className="col-8"></div>
+        <div className="col-4">
+          <ReactPaginate
+            previousLabel={'<'}
+            nextLabel={'>'}
+            pageCount={pages}
+            onPageChange={handlePageClick}
+            containerClassName={'pagination'}
+            activeClassName={'active'}
+          />
+        </div>
+      </div>
+      
     </>
   );
 };

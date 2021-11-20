@@ -1,5 +1,4 @@
 import React from 'react';
-
 import CartItem from './cartItem';
 import { useCart } from '../../../../hooks/useCart';
 

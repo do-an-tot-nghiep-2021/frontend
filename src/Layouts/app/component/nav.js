@@ -1,9 +1,27 @@
 import { Link } from "react-router-dom";
 import { formatNumber } from "../../../Helpers/utils";
 import { useCart } from '../../../hooks/useCart';
+import { TokenAccount, SetUser } from "../../../hooks/useAccount";
+import { logout } from "../../../Api/account";
+import { useHistory } from "react-router";
 
-const NavApp = () => {
+const NavApp = ({user, token}) => {
   const { itemCount, total } = useCart();
+  const history = useHistory();
+  const logoutToken = async () => {
+    try {
+        const tokenLogout = {
+            token: token
+        }
+        TokenAccount.removeToken()
+        SetUser.removeUser()
+        await logout(tokenLogout)
+        history.push("/login/account")
+    } catch (error) {
+        console.log(error)
+    }
+        
+}
   return (
     <>
       <header className="header-area dfoody-header dfdV2">
@@ -39,50 +57,10 @@ const NavApp = () => {
                         <a href="foodmenu.html">Menu</a>
                       </li>
                       <li>
-                        <a href="blog.html">Blog</a>
-                        <ul>
-                          <li>
-                            <a href="blog.html">Blog</a>
-                          </li>
-                          <li>
-                            <a href="blog-2.html">Blog 2</a>
-                          </li>
-                          <li>
-                            <a href="blog-details.html">Blog Single</a>
-                          </li>
-                        </ul>
+                        <Link to={user ? "" : "/login/account"}>{user ? user.name : "Đăng nhập"}</Link>
                       </li>
                       <li>
-                        <a href="#">Pages</a>
-                        <ul>
-                          <li>
-                            <a href="contact.html">Contact</a>
-                          </li>
-                          <li>
-                            <a href="gallery-1.html">Gallery 1</a>
-                          </li>
-                          <li>
-                            <a href="gallery-2.html">Gallery 2</a>
-                          </li>
-                          <li>
-                            <a href="shop.html">Shop</a>
-                          </li>
-                          <li>
-                            <a href="cart.html">Cart</a>
-                          </li>
-                          <li>
-                            <a href="checkout.html">Checkout</a>
-                          </li>
-                          <li>
-                            <a href="faq.html">FAQ</a>
-                          </li>
-                          <li>
-                            <a href="404.html">404</a>
-                          </li>
-                          <li>
-                            <a href="coming-soon.html">Coming Soon</a>
-                          </li>
-                        </ul>
+                        <Link onClick={logoutToken}>{user ? "Đăng xuất" : ""}</Link>
                       </li>
                     </ul>
                   </div>

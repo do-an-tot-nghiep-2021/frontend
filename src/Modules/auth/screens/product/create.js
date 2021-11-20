@@ -221,24 +221,6 @@ const CreateProductScreen = () => {
               </select>
             </div>
           </div>
-          <div className="col-6">
-            <div className="mb-3">
-              <label className="form-label">Image</label>
-              <div className="custom-file">
-                <input
-                  type="file"
-                  className="custom-file-input"
-                  id="image"
-                  accept="image/*"
-                  onChange={handleInputUploadChange}
-                />
-                <label className="custom-file-label" htmlFor="image">
-                  Choose image
-                </label>
-                {renderPreview()}
-              </div>
-            </div>
-          </div>
           <div className="col-3">
             <div className="mb-3">
               <label className="form-label">Topping</label>
@@ -267,6 +249,24 @@ const CreateProductScreen = () => {
                   {item.name}
                 </section>
               ))}
+            </div>
+          </div>
+          <div className="col-6">
+            <div className="mb-3">
+              <label className="form-label">Image</label>
+              <div className="custom-file">
+                <input
+                  type="file"
+                  className="custom-file-input"
+                  id="image"
+                  accept="image/*"
+                  onChange={handleInputUploadChange}
+                />
+                <label className="custom-file-label" htmlFor="image">
+                  Choose image
+                </label>
+                {renderPreview()}
+              </div>
             </div>
           </div>
         </div>

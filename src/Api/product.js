@@ -8,6 +8,14 @@ export const allproductapp = () => {
   const url = `/product/app`;
   return Api.get(url);
 };
+export const allproductkeword = (item) => {
+  const url = `/product/keyword`;
+  return Api.post(url, item);
+};
+export const allproductcategory = (id) => {
+  const url = `/product/category/${id}`;
+  return Api.get(url);
+};
 export const updateproduct = (item) => {
   const url = `/product/${item.id}`;
   return Api.put(url, item);

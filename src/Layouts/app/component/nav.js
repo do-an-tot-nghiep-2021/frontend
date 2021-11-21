@@ -4,10 +4,28 @@ import { useCart } from '../../../hooks/useCart';
 import { TokenAccount, SetUser } from "../../../hooks/useAccount";
 import { logout } from "../../../Api/account";
 import { useHistory } from "react-router";
+import { allcategory } from "../../../Api/category";
+import { useState, useEffect } from "react";
+
 
 const NavApp = ({user, token}) => {
+  const [category, setSetCategory] = useState([]);
   const { itemCount, total } = useCart();
   const history = useHistory();
+
+  useEffect(() => {
+    const getCategory = async () => {
+    try {
+        const { data } = await allcategory();
+        console.log(data);
+        setSetCategory(data);
+    } catch (error) {
+        console.log(error);
+      }
+    };
+    getCategory();
+}, []);
+
   const logoutToken = async () => {
     try {
         const tokenLogout = {
@@ -49,13 +67,11 @@ const NavApp = ({user, token}) => {
                       <li>
                         <Link to="/">Home</Link>
                       </li>
-                      <li><a href="about.html">About</a></li>
-                      <li>
-                        <a href="reservation.html">Reservation</a>
-                      </li>
-                      <li>
-                        <a href="foodmenu.html">Menu</a>
-                      </li>
+                      { category && category.map((item) => (
+                        <li key={item.id}>
+                           <Link to={`/product/${item.id}/category`}>{item.name}</Link>
+                        </li>
+                      ))}
                       <li>
                         <Link to={user ? "" : "/login/account"}>{user ? user.name : "Đăng nhập"}</Link>
                       </li>

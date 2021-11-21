@@ -96,10 +96,12 @@ const RouteMain = () => {
               "/:path?",
               "/product/:id",
               "/checkorder",
+              "/product/:id/category",
             ]}>
             <AppLayout>
               <Switch>
                 <HomePageComponentApp exact path="/" />
+                <HomePageComponentApp exact path="/product/:id/category" />
                 <Cart exact path="/cart" />
                 <CheckOrderComponents exact path="/checkorder" />
                 <DetailProductComponentApp exact path="/product/:id" />

@@ -6,6 +6,7 @@ import { useCart } from "../../../../hooks/useCart";
 import { sendorder } from "../../../../Api/order";
 import ModalLogin from "../../../../hooks/ModalLogin";
 import { useHistory } from "react-router";
+import Swal from "sweetalert2";
 
 const AddressUser = () => {
     const [buildings, setBuildings] = useState([]);
@@ -59,17 +60,34 @@ const AddressUser = () => {
             note : (noteText ? noteText : "")
         }
         try {
-            await sendorder(checkoutData).then((response) => {
-                if (!response.data) {
-                    console.log('fail')
-                } else {
-                    handleCheckout()
-                    history.push('/cart')
-                }
-            });
+            Swal.fire({
+                title: 'Xác nhận đặt hàng',
+                showCancelButton: true,
+                confirmButtonText: 'Đặt hàng',
+              }).then((result) => {
+                if (result.isConfirmed) {
+                    sendorder(checkoutData).then((response) => {
+                        if (!response.data) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Đặt hàng thất bại',
+                                })
+                        } else {
+                            handleCheckout()
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Đặt hàng thành công',
+                                footer: '<a href="/checkorder">Xem đơn đặt hàng!</a>'
+                                })
+                            history.push('/cart')
+                        }
+                    });
+                } 
+              })
+            
 
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     }
 

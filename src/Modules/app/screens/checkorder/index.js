@@ -28,7 +28,7 @@ const CheckOrderScreenApp = ({orders}) => {
                                                 x {product.quantity}
                                             </div>
                                             <div className="col-2">
-                                                {formatNumber((product.quantity)*(product.price))}
+                                                {formatNumber(product.price)}
                                             </div>
                                         </div>
                                     ))}

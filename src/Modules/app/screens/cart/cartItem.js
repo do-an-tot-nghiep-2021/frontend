@@ -4,7 +4,7 @@ import { useCart } from '../../../../hooks/useCart';
 import { Link } from 'react-router-dom';
 const CartItem = ({ product }) => {
     const { increase, decrease, removeProduct } = useCart();
-
+    console.log(product.topping)
     return (
 
         <tr>
@@ -15,6 +15,17 @@ const CartItem = ({ product }) => {
             </td>
             <td>
                 <p>{product.name}{product.type ? `(${product.type})` : ""}</p>
+                <p>
+                    {
+                        product.topping.length <= 1
+                        ? product.topping
+                        : product.topping.map((item, key)=>(
+                            <span key={key}>
+                                {item},
+                            </span>
+                        ))
+                    }
+                </p>
             </td>
             <td>
                 <p>{formatNumber(product.price)}</p>

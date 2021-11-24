@@ -19,52 +19,51 @@ const Cart = () => {
                 <section className="cart-area">
                     <div className="container">
                         <div className="row">
-                        {
-                            cartItems.length > 0 ?
-                                <CartProducts /> :
-                                <div className="p-3 text-center text-muted">
-                                    Your cart is empty
-                                </div>
-                        }
-                    
-                    {
-                        cartItems.length > 0 &&
-                            <div className="col-lg-4 col-md-12">
-                                <div className="cart-ct-box">
-                                    <div className="ccbt">
-                                        <table className="cart-total-table">
-                                            <thead>
-                                                <tr>
-                                                    <th>Cart Totals</th>
-                                                    <th />
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td>
-                                                        <p>Subtotal</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>{itemCount}</p>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td>
-                                                        <p>Total</p>
-                                                    </td>
-                                                    <td>
-                                                        <p>{formatNumber(total)}</p>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                            {
+                                cartItems.length > 0 ?
+                                    <CartProducts /> :
+                                    <div className="p-3 text-center text-muted">
+                                        Your cart is empty
                                     </div>
-                                    <a href="#" className="btn-style-a" onClick={clearCart}>proceed to checkout</a>
-                                    <Link to="/checkout" className="btn btn-primary mb-2">CHECKOUT</Link>
+                            }
+
+                            {
+                                cartItems.length > 0 &&
+                                <div className="col-lg-4 col-md-12">
+                                    <div className="cart-ct-box">
+                                        <div className="ccbt">
+                                            <table className="cart-total-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Cart Totals</th>
+                                                        <th />
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            <p>Subtotal</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{itemCount}</p>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <p>Total</p>
+                                                        </td>
+                                                        <td>
+                                                            <p>{formatNumber(total)}</p>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <Link to="/checkout" className="btn-style-a">CHECKOUT</Link>
+                                    </div>
                                 </div>
-                            </div>
-                    }
-                    </div>
+                            }
+                        </div>
                     </div>
 
                 </section>

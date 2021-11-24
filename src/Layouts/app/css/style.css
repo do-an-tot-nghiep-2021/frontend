@@ -532,7 +532,7 @@ a.btn-style-b:hover {
     width: auto;
 }
 #dfoodyMenu ul {
-    width: 12em;
+    width: 20em;
 }
 
 /* hamburger icon */
@@ -838,6 +838,8 @@ a.btn-Vplay svg {
     left: 0;
     transition: 0.5s ease;
     z-index: 99;
+    background-color: #fff;
+    box-shadow: 0px 13px 35px -12px rgb(35 35 35 / 15%);
 }
 
 .dfoody-header.navbar-fixed-top {
@@ -1065,6 +1067,60 @@ ul.dfoody-menu li ul li a:hover {
 .ipHeader .dfoody-header-box .gm-box .mt-icons ul.mti-list li > span {
     color: #fff;
 }
+
+.dfoody-menu::after{
+    content: '';
+    clear: both;
+    display: block;
+  }
+  
+  .dfoody-menu a{
+    display: block;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-size: 20px;
+  }
+  
+  .dfoody-menu li{
+    position: relative;
+  }
+  
+ 
+  
+  .dfoody-menu, .dfoody-menu ul{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+  }
+  
+  
+  
+  .dfoody-menu ul{
+    position: absolute;
+  }
+  
+  .dfoody-menu > li ul, .dfoody-menu ul ul{
+    opacity: 0;
+    -webkit-transition: all 0.2s ease-in;
+    -moz-transition: all 0.2s ease-in;
+    transition: all 0.2s ease-in;
+    z-index: -1;
+    visibility: hidden;
+  }
+
+  .dfoody-menu > li:hover > ul{
+    opacity: 1;
+    z-index: 1;
+    visibility: visible;
+  }
+  
+  .dfoody-menu ul > li:hover > ul{
+    opacity: 1;
+    z-index: 1;
+    visibility: visible;
+  }
 
 #addtocart {
     width: 250px;

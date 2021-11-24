@@ -11,11 +11,12 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
     const { addProduct } = useCart();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
+        const price_topping = (data.topping) ? (data.topping.length)*7000 : 0
         const newProduct = {
             id: product.id,
             name: product.name,
             image: product.image,
-            price: product.price,
+            price: product.price + price_topping,
             quantity: count + 1,
             topping: (data.topping ? data.topping : ""),
             type: (data.type ? data.type : "")

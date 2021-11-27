@@ -244,7 +244,7 @@ blockquote {
 blockquote::before {
     color: #4e5665;
     content: "´äì";
-    font-family: FontAwesome;
+    font-family: "Quicksand", sans-serif;
     font-size: 36px;
     left: 20px;
     line-height: 0;
@@ -622,7 +622,40 @@ a.btn-style-b:hover {
 #dfoodyMenu-state:checked ~ #dfoodyMenu {
     display: block;
 }
+.button-google-account {
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    border: none !important;
+    color: #212121 !important;
+}
+.button-google-account div {
+    border-radius: 0px !important;
+    padding: 0px !important;
+}
+.button-google-account span {
+    padding: 0px !important;
+    font-weight: 400 !important;
+}
+.button-google-account span:hover {
+    color: #f7c538;
+    transition: 0.5s;
+}
 
+.button-google-account-logout {
+    box-shadow: none !important;
+    border-radius: 0px !important;
+    border: none !important;
+    color: #212121 !important;
+}
+
+.button-google-account-logout span {
+    padding: 0px !important;
+    font-weight: 400 !important;
+}
+.button-google-account-logout span:hover {
+    color: #f7c538;
+    transition: 0.5s;
+}
 @media (min-width: 768px) {
     /* hide the button in desktop view */
     .dfoodyMenu-btn {

@@ -1,4 +1,6 @@
-import "./accountLayout.css"
+import "./css/stylesheet.css"
+import "./css/bootstrap.min.css"
+
 const AccountLayout = (props) => {
     return (
         <div className="body-account">

@@ -1,45 +1,45 @@
 import { Link } from "react-router-dom";
 import { formatNumber } from "../../../Helpers/utils";
 import { useCart } from '../../../hooks/useCart';
-import { TokenAccount, SetUser } from "../../../hooks/useAccount";
-import { logout } from "../../../Api/account";
-import { useHistory } from "react-router";
+import { SetUserGoogle } from "../../../hooks/useAccount";
 import { allcategory } from "../../../Api/category";
 import { useState, useEffect } from "react";
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { postdatagoogle } from "../../../Api/account";
 
 
-const NavApp = ({user, token}) => {
+const NavApp = ({ user }) => {
   const [category, setSetCategory] = useState([]);
   const { itemCount, total } = useCart();
-  const history = useHistory();
 
   useEffect(() => {
     const getCategory = async () => {
-    try {
+      try {
         const { data } = await allcategory();
-        console.log(data);
         setSetCategory(data);
-    } catch (error) {
+      } catch (error) {
         console.log(error);
       }
     };
     getCategory();
-}, []);
+  }, []);
 
-  const logoutToken = async () => {
-    try {
-        const tokenLogout = {
-            token: token
-        }
-        TokenAccount.removeToken()
-        SetUser.removeUser()
-        await logout(tokenLogout)
-        history.push("/login/account")
-    } catch (error) {
-        console.log(error)
-    }
-        
-}
+  const onLoginSuccess = async (res) => {
+    await postdatagoogle(res.profileObj).then(response => {
+      SetUserGoogle.saveUserGoogle(response.data)
+      window.location.reload(false);
+    })
+  };
+  const onLoginFailure = (res) => {
+    console.log('Login Failed:', res);
+  };
+
+  const onSignoutSuccess = () => {
+    console.clear();
+    SetUserGoogle.removeUserGoogle()
+    window.location.reload(false);
+  };
+
   return (
     <>
       <header className="header-area dfoody-header dfdV2">
@@ -68,43 +68,53 @@ const NavApp = ({user, token}) => {
                         <Link to="/">Home</Link>
                       </li>
                       <li>
-                          <Link to="">Category</Link>
-                          <ul>
-                              { category && category.map((item) => (
-                                <li key={item.id}>
-                                    <Link to={`/product/${item.id}/category`}>{item.name}</Link>
-                                </li>
-                              ))}
-                          </ul>
+                        <Link to="">Category</Link>
+                        <ul>
+                          {category && category.map((item) => (
+                            <li key={item.id}>
+                              <Link to={`/product/${item.id}/category`}>{item.name}</Link>
+                            </li>
+                          ))}
+                        </ul>
                       </li>
                       <li>
-                          <Link to="">{user ? user.name : "Chào, Khách!"}</Link>
-                          
-                            {user ?
-                              <ul>
-                                <li>
-                                  <Link onClick={logoutToken}>Profile</Link>
-                                </li>
-                                <li>
-                                  <Link to="/checkorder">Check order</Link>
-                                </li>
-                                <li>
-                                  <Link onClick={logoutToken}>Đăng xuất</Link>
-                                </li>
-                              </ul>
-                             :
-                              <ul>
-                                <li>
-                                  <Link to="/login/account">Đăng nhập</Link>
-                                </li>
-                                <li>
-                                  <Link to="/register/account">Đăng ký</Link>
-                                </li>
-                              </ul>
-                            }
+                        <Link to="">{user ? user.name :
+                          <GoogleLogin
+                            clientId="753490656345-0j9c0r7sqr7bjk0ro3t31ub5n3i1bm3h.apps.googleusercontent.com"
+                            buttonText="Sign In"
+                            onSuccess={onLoginSuccess}
+                            onFailure={onLoginFailure}
+                            cookiePolicy={'single_host_origin'}
+                            isSignedIn={true}
+                            className="button-google-account"
+
+                          />}
+                        </Link>
+
+                        {user ?
+                          <ul>
+                            <li>
+                              <Link>Profile</Link>
+                            </li>
+                            <li>
+                              <Link to="/checkorder">Check order</Link>
+                            </li>
+                            <li>
+                              <GoogleLogout
+                                clientId="753490656345-0j9c0r7sqr7bjk0ro3t31ub5n3i1bm3h.apps.googleusercontent.com"
+                                buttonText="Sign Out"
+                                onLogoutSuccess={onSignoutSuccess}
+                                className="button-google-account-logout"
+                              >
+                              </GoogleLogout>
+                            </li>
+                          </ul>
+                          :
+                          ""
+                        }
                       </li>
-                      
-                      
+
+
                     </ul>
                   </div>
                   <div className="mt-icons">
@@ -112,11 +122,13 @@ const NavApp = ({user, token}) => {
                       <li>
                         <Link to="/cart">
                           <span id="cart">
-                          {/* <i className="flaticon-shopping-cart" /> */}
-                          <i class="fas fa-shopping-cart"></i>
-                          <span className="badge">{itemCount}</span>
+                            <i class="fas fa-shopping-cart"></i>
+                            <span className="badge">{itemCount}</span>
                           </span>
-                          </Link>
+                        </Link>
+                      </li>
+                      <li>
+                        <span style={{ fontSize : "11px", fontWeight : "500", marginLeft : "2px" }}>Total : {formatNumber(total)}</span>
                       </li>
                     </ul>
                   </div>

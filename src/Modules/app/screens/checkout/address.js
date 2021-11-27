@@ -1,7 +1,7 @@
 import { allbuilding, getclassbuilding } from "../../../../Api/building"
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react"
-import { SetUser } from "../../../../hooks/useAccount";
+import { SetUserGoogle } from "../../../../hooks/useAccount";
 import { useCart } from "../../../../hooks/useCart";
 import { sendorder } from "../../../../Api/order";
 import ModalLogin from "../../../../hooks/ModalLogin";
@@ -50,7 +50,7 @@ const AddressUser = () => {
 
     const onSubmit = async (data) => {
         const checkoutData = {
-            userId: SetUser.getUser().id,
+            userId: SetUserGoogle.getUserGoogle().id,
             building: data.building,
             classroom: data.classroom,
             cartItems: cartItems,
@@ -77,7 +77,6 @@ const AddressUser = () => {
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Đặt hàng thành công',
-                                footer: '<a href="/checkorder">Xem đơn đặt hàng!</a>'
                                 })
                             history.push('/cart')
                         }
@@ -93,7 +92,7 @@ const AddressUser = () => {
 
     return (
         <>
-            {SetUser.getUser() ?
+            {SetUserGoogle.getUserGoogle() ?
                 <section className="checkout-area">
                     <div className="container">
                         <div className="row">
@@ -106,7 +105,7 @@ const AddressUser = () => {
                                                 <div className="row">
                                                     <div className="col-md-6">
                                                         <label htmlFor="fname">Name<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUser.getUser().name} {...register("name")} />
+                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().name} {...register("name")} />
                                                         {errors.name && (
                                                             <span className="d-block text-danger mt-3">
                                                                 This field is required
@@ -115,7 +114,7 @@ const AddressUser = () => {
                                                     </div>
                                                     <div className="col-md-6">
                                                         <label htmlFor="phone">Number Phone<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUser.getUser().phone} {...register("phone")} />
+                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().phone} {...register("phone")} />
                                                         {errors.phone && (
                                                             <span className="d-block text-danger mt-3">
                                                                 This field is required
@@ -124,7 +123,7 @@ const AddressUser = () => {
                                                     </div>
                                                     <div className="col-md-12">
                                                         <label htmlFor="email">Email<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUser.getUser().email} {...register("email")} name="email" />
+                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().email} {...register("email")} name="email" />
                                                         {errors.email && (
                                                             <span className="d-block text-danger mt-3">
                                                                 This field is required

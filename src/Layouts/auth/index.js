@@ -23,7 +23,7 @@ const AuthLayout = (props) => {
                     </div>
                 </div>
                 :
-                <Redirect to={{ pathname: "/" }} />
+                <Redirect to={{ pathname: "/login/account" }} />
             }
         </>
     )

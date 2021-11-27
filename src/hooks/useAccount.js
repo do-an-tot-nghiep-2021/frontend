@@ -43,4 +43,18 @@ const SetUser = {
     }
 }
 
-export { TokenAccount, SetUser }
+const SetUserGoogle = {
+    getUserGoogle() {
+        let user = localStorage.getItem('userGoogle');
+        return JSON.parse(user)
+    },
+    saveUserGoogle(user) {
+        localStorage.setItem('userGoogle', JSON.stringify(user));
+    },
+
+    removeUserGoogle() {
+        localStorage.removeItem('userGoogle')
+    }
+}
+
+export { TokenAccount, SetUser, SetUserGoogle }

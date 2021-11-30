@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { alltype, removetype } from "../../../../Api/types";
 import { Link } from "react-router-dom";
 import TypesScreenAuth from "../../screens/types/list";
@@ -27,6 +27,21 @@ const ListTypesComponent = () => {
     };
     getTypes();
   }, [page]);
+  
+  const refresh = useCallback(() => {
+    const getTypes = async () => {
+      try {
+        const { data } = await alltype();
+        setPages(Math.ceil(data.length / perPage))
+        const items = data.slice(page * perPage, (page + 1) * perPage);
+        setTypes(items)
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getTypes();
+  }, [page])
+
   const handlePageClick = (event) => {
     let page = event.selected;
     setPage(page)
@@ -91,6 +106,7 @@ const ListTypesComponent = () => {
                 <div className="m-section">
                   <div className="m-section__content">
                     <CreateTypeScreen />
+                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                     <table className="table m-table m-table--head-separator-danger">
                       <thead>
                         <tr>

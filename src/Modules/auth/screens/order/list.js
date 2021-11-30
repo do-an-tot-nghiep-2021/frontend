@@ -1,5 +1,4 @@
 import { formatNumber } from "../../../../Helpers/utils";
-import UpdateOrderScreen from "./update";
 import { useState, useEffect } from "react";
 import { useForm } from 'react-hook-form';
 import { showorder, updateorder } from "../../../../Api/order";
@@ -18,7 +17,6 @@ const OrderScreenAuth = ({ data }) => {
       ...data,
       status: status
     }
-    console.log(newData)
     try {
       Swal.fire({
         title: 'Bạn có muốn thay đổi trạng thái đơn hàng?',
@@ -26,12 +24,19 @@ const OrderScreenAuth = ({ data }) => {
         confirmButtonText: 'cập nhật!',
       }).then((result) => {
         if (result.isConfirmed) {
-          updateorder(newData)
-          window.location.reload(false);
+          updateorder(newData).then(response => {
+            console.log(response)
+            if (!response.data) {
+              Swal.fire(response.data.message, '', 'error')
+            }
+            if (response.data) {
+              Swal.fire('Thành công!', '', 'success')
+            }
+          })
         }
       })
     } catch (error) {
-      console.log(error)
+      Swal.fire('Không thể gửi request', '', 'error')
     }
   }
   useEffect(async () => {
@@ -69,7 +74,7 @@ const OrderScreenAuth = ({ data }) => {
                     <div className="modal-body">
                       <div className="mb-3">
                         <label className="form-label">Status</label><br />
-                        <select {...register("status", { required: true })} onChange={handleChange}  className="form-control">
+                        <select {...register("status", { required: true })} onChange={handleChange} className="form-control">
                           <option value="1">Đơn hàng đang chờ xử lý</option>
                           <option value="2">Đơn hàng đang chờ nhân viên giao hàng</option>
                           <option value="3">Đơn hàng đang được vận chuyển</option>

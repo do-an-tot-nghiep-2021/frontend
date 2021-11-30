@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { allbuilding, removebuilding } from "../../../../Api/building";
 import { Link } from "react-router-dom";
 import BuildingScreenAuth from '../../screens/building/list';
@@ -22,6 +22,18 @@ const BuildingListAuth = () => {
         }
         getBuildings();
     }, []);
+
+    const refresh = useCallback(() => {
+        const getBuildings = async () => {
+          try {
+            const { data } = await allbuilding();
+            setBuildings(data);
+          } catch (error) {
+            console.log(error);
+          }
+        };
+        getBuildings();
+      }, [])
 
     const onHandleDelete = async (id) => {
         try {
@@ -82,6 +94,7 @@ const BuildingListAuth = () => {
                                 <div className="m-section">
                                     <div className="m-section__content">
                                         <CreateBuildingScreen />
+                                        <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                                         <table className="table m-table m-table--head-separator-danger">
                                             <thead>
                                                 <tr>

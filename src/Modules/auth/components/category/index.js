@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useCallback } from "react";
 import { allcategory, removecategory } from "../../../../Api/category";
 import CategoryScreenAuth from "../../screens/category/list";
 import { Link } from "react-router-dom";
@@ -8,6 +9,7 @@ import CreateFormScreen from "../../screens/category/create";
 
 const CategoryListAuth = () => {
   const [Categories, setCategories] = useState([]);
+  // const forceUpdate = React.useCallback(() => updateState(Categories), [Categories]);
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -44,6 +46,18 @@ const CategoryListAuth = () => {
     }
   };
 
+  const refresh = useCallback(() => {
+    const getCategories = async () => {
+      try {
+        const { data } = await allcategory();
+        setCategories(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getCategories();
+  }, [])
+
   return (
     <>
       <div className="m-subheader">
@@ -79,6 +93,7 @@ const CategoryListAuth = () => {
                 <div className="m-section">
                   <div className="m-section__content">
                     <CreateFormScreen />
+                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                     <table className="table m-table m-table--head-separator-danger">
                       <thead>
                         <tr>

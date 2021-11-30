@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { allproduct, removeproduct } from "../../../../Api/product";
 import ListProductScreen from "../../screens/product/list";
 import { Link } from "react-router-dom";
@@ -19,7 +19,17 @@ const ListProductComponent = () => {
     };
     getProducts();
   }, []);
-
+  const refresh = useCallback(() => {
+    const getProducts = async () => {
+      try {
+        const { data } = await allproduct();
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getProducts();
+  }, [])
   const onHandleDelete = async (id) => {
     try {
       Swal.fire({
@@ -79,6 +89,7 @@ const ListProductComponent = () => {
                 <div className="m-section">
                   <div className="m-section__content">
                     <CreateProductScreen />
+                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                     <table className="table m-table m-table--head-separator-danger">
                       <thead>
                         <tr>

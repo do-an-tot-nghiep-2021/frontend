@@ -24,9 +24,9 @@ export const showproduct = (id) => {
   const url = `/product/${id}`;
   return Api.get(url);
 };
-export const removeproduct = (id) => {
-  const url = `/product/${id}`;
-  return Api.delete(url);
+export const removeproduct = (item) => {
+  const url = `/product/delete/${item.id}`;
+  return Api.put(url,item);
 };
 export const createproduct = (item) => {
   const url = `/product/create`;

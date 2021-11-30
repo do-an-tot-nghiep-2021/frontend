@@ -5,6 +5,7 @@ import TypesScreenAuth from "../../screens/types/list";
 import Swal from "sweetalert2";
 import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 import ReactPaginate from "react-paginate";
+import CreateTypeScreen from "../../screens/types/create";
 
 const ListTypesComponent = () => {
   const [Types, setTypes] = useState([]);
@@ -17,7 +18,7 @@ const ListTypesComponent = () => {
     const getTypes = async () => {
       try {
         const { data } = await alltype();
-        setPages(Math.ceil(data.length / perPage ))
+        setPages(Math.ceil(data.length / perPage))
         const items = data.slice(page * perPage, (page + 1) * perPage);
         setTypes(items)
       } catch (error) {
@@ -30,7 +31,7 @@ const ListTypesComponent = () => {
     let page = event.selected;
     setPage(page)
   }
-  
+
   const onHandleDelete = async (id) => {
     try {
       Swal.fire({
@@ -47,8 +48,8 @@ const ListTypesComponent = () => {
           removetype(item);
           const newTypes = Types.filter((items) => items.id !== id);
           Swal.fire('Thành công!', '', 'success')
-          setTypes(newTypes); 
-        } 
+          setTypes(newTypes);
+        }
       })
     } catch (error) {
       console.log(error);
@@ -57,38 +58,58 @@ const ListTypesComponent = () => {
 
   return (
     <>
-      <Link to="/admin/types/create" className="btn btn-primary mb-2">
-        Create
-      </Link>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-         
-            <th scope="col" width="150">
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <TypesScreenAuth data={Types} onDelete={onHandleDelete} />
-        </tbody>
-      </table>
-      <div className="row">
-        <div className="col-8"></div>
-        <div className="col-4">
-          <ReactPaginate
-            previousLabel={'<'}
-            nextLabel={'>'}
-            pageCount={pages}
-            onPageChange={handlePageClick}
-            containerClassName={'pagination'}
-            activeClassName={'active'}
-          />
+      <div className="m-subheader">
+        <div className="d-flex align-items-center">
+          <div className="mr-auto">
+            <ul className="m-subheader__breadcrumbs m-nav m-nav--inline">
+              <li className="m-nav__item m-nav__item--home">
+                <Link to="/admin" className="m-nav__link m-nav__link--icon">
+                  <i className="m-nav__link-icon la la-home" />
+                </Link>
+              </li>
+              <li className="m-nav__separator">-</li>
+              <li className="m-nav__item">
+                <a href className="m-nav__link">
+                  <span className="m-nav__link-text">Lớp học</span>
+                </a>
+              </li>
+              <li className="m-nav__separator">-</li>
+              <li className="m-nav__item">
+                <a href className="m-nav__link">
+                  <span className="m-nav__link-text">danh sách</span>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
-      
+      <div className="m-content">
+        <div className="row">
+          <div className="col-xl-12">
+            <div className="m-portlet">
+              <div className="m-portlet__body">
+                <div className="m-section">
+                  <div className="m-section__content">
+                    <CreateTypeScreen />
+                    <table className="table m-table m-table--head-separator-danger">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Tên Thuộc tính</th>
+                          <th width="100"><i className="flaticon-settings-1"></i></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <TypesScreenAuth data={Types} onDelete={onHandleDelete} />
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

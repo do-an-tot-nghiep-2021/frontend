@@ -11,16 +11,14 @@ const ListProductScreen = (props) => {
             {index + 1}
           </th>
           <td>
-            {item.name}
-          </td>
-          <td>
             <img
               src={item.image}
-              width="150"
-              height="100"
               className="rounded"
-              style={{ objectFit: "cover" }}
+              style={{ objectFit: "cover", width: "70px", height: "70px" }}
             />
+          </td>
+          <td>
+            {item.name}
           </td>
           <td>
             <NumberFormat value={item.price} displayType={'text'} thousandSeparator={true} suffix={'đ'} />
@@ -28,43 +26,45 @@ const ListProductScreen = (props) => {
           <td>
             {item.category?.name || 'N/A'}
           </td>
-
           <td>
-            {item.product_topping.map((item,index)=>(
-              <span style={{border: '1px solid gray',
-                      fontSize: '13px',
-                      backgroundColor: '#80808059', 
-                      borderRadius: '5px', 
-                      padding: '2px', 
-                      marginRight: '3px'}}
-                    key={index}>{item.name}
-              </span>
-            ))}
+            <button type="button" className="btn m-btn--pill m-btn--air btn-secondary m-btn m-btn--custom m-btn--label-primary m-btn--bolder" data-toggle="modal" data-target={`#m_modal_order_${item.id}`}>Chi tiết</button>
+            <div className="modal fade" id={`m_modal_order_${item.id}`} tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+              <div className="modal-dialog modal-dialog-centered" role="document">
+                <div className="modal-content">
+                  <div className="modal-header">
+                    <h5 className="modal-title" id="exampleModalLongTitle">Topping và Thuộc tính</h5>
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                  </div>
+                  <div className="modal-body">
+                    <div className="mb-2">
+                      <h6>Topping :</h6>
+                      {item.product_topping.map((item, index) => (
+                        <span class="m-badge m-badge--brand m-badge--wide m-badge--rounded m-1" key={index}>{item.name}</span>
+                      ))}
+                    </div>
+                    <div>
+                      <h6>Thuộc tính :</h6>
+                      {item.product_type.map((item, index) => (
+                        <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded m-1" key={index}>{item.name}</span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn btn-danger" data-dismiss="modal">Đóng</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </td>
-
           <td>
-            {item.product_type.map((item,index)=>(
-              <span style={{border: '1px solid gray', 
-                          fontSize: '13px',
-                          backgroundColor: '#80808059',
-                          borderRadius: '5px', 
-                          padding: '2px', 
-                          marginRight: '3px'}} 
-                    key={index}>{item.name}
-              </span>
-            ))}
-          </td>
-
-          <td>
-            <button
-              onClick={() => props.onDelete(item.id)}
-              className="btn btn-danger"
-            >
-              Delete
-            </button>
-            <Link to={`/admin/products/${item.id}`} className="btn btn-warning">
-              update
+            <Link to={`/admin/products/${item.id}`} className="m-portlet__nav-link btn m-btn m-btn--hover-accent m-btn--icon m-btn--icon-only m-btn--pill" title="Edit details">
+              <i class="la la-edit"></i>
             </Link>
+            <a className="m-portlet__nav-link btn m-btn m-btn--hover-danger m-btn--icon m-btn--icon-only m-btn--pill" title="Delete" onClick={() => props.onDelete(item.id)}>
+              <i class="la la-trash"></i>
+            </a>
           </td>
         </tr>
       ))}

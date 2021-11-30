@@ -11,7 +11,7 @@ const HomeScreen = ({ product }) => {
                 <div className="sfb-img">
                     <img className="rounded" src={product.image} alt="" />
                     <div className="sfbi-btn">
-                        <a href="#" className="add-cart-btn" onClick={() => {
+                        <a className="add-cart-btn" style={{cursor : 'pointer'}} data-toggle="modal" data-target="#m_modal_detail_product" onClick={() => {
                             setModalOpen(true);
                         }}>Add To Cart</a>
                     </div>

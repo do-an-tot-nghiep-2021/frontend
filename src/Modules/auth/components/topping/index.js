@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import ToppingScreenAuth from "../../screens/topping/list";
 import Swal from "sweetalert2";
 import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
+import CreateToppingScreen from "../../screens/topping/create";
 
 const ListToppingComponent = () => {
   const [Toppings, setToppings] = useState([]);
@@ -36,8 +37,8 @@ const ListToppingComponent = () => {
           const newToppings = Toppings.filter((items) => items.id !== id);
           Swal.fire('Thành công!', '', 'success')
           setToppings(newToppings);
-          
-        } 
+
+        }
       })
     } catch (error) {
       console.log(error);
@@ -46,7 +47,62 @@ const ListToppingComponent = () => {
 
   return (
     <>
-      <Link to="/admin/toppings/create" className="btn btn-primary mb-2">
+      <div className="m-subheader">
+        <div className="d-flex align-items-center">
+          <div className="mr-auto">
+            <ul className="m-subheader__breadcrumbs m-nav m-nav--inline">
+              <li className="m-nav__item m-nav__item--home">
+                <Link to="/admin" className="m-nav__link m-nav__link--icon">
+                  <i className="m-nav__link-icon la la-home" />
+                </Link>
+              </li>
+              <li className="m-nav__separator">-</li>
+              <li className="m-nav__item">
+                <a href className="m-nav__link">
+                  <span className="m-nav__link-text">Lớp học</span>
+                </a>
+              </li>
+              <li className="m-nav__separator">-</li>
+              <li className="m-nav__item">
+                <a href className="m-nav__link">
+                  <span className="m-nav__link-text">danh sách</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="m-content">
+        <div className="row">
+          <div className="col-xl-12">
+            {/*begin::Portlet*/}
+            <div className="m-portlet">
+              <div className="m-portlet__body">
+                <div className="m-section">
+                  <div className="m-section__content">
+                    <CreateToppingScreen />
+                    <table className="table m-table m-table--head-separator-danger">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Tên topping</th>
+                          <th>Giá</th>
+                          <th>Trạng thái</th>
+                          <th width="100"><i className="flaticon-settings-1"></i></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ToppingScreenAuth data={Toppings} onDelete={onHandleDelete} />
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {/* <Link to="/admin/toppings/create" className="btn btn-primary mb-2">
         Create
       </Link>
       <table className="table">
@@ -64,7 +120,7 @@ const ListToppingComponent = () => {
         <tbody>
           <ToppingScreenAuth data={Toppings} onDelete={onHandleDelete} />
         </tbody>
-      </table>
+      </table> */}
     </>
   );
 };

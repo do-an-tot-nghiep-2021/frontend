@@ -4,6 +4,7 @@ import CategoryScreenAuth from "../../screens/category/list";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
+import CreateFormScreen from "../../screens/category/create";
 
 const CategoryListAuth = () => {
   const [Categories, setCategories] = useState([]);
@@ -22,7 +23,7 @@ const CategoryListAuth = () => {
   const onHandleDelete = async (id) => {
     try {
       Swal.fire({
-        title: 'Bạn có muốn xóa building này?',
+        title: 'Bạn có muốn xóa loại hàng này?',
         showCancelButton: true,
         confirmButtonText: 'Xóa!',
       }).then((result) => {
@@ -38,7 +39,6 @@ const CategoryListAuth = () => {
           setCategories(newCategories);
         }
       })
-
     } catch (error) {
       console.log(error);
     }
@@ -46,24 +46,59 @@ const CategoryListAuth = () => {
 
   return (
     <>
-      <Link to="/admin/categories/create" className="btn btn-primary mb-2">
-        Create
-      </Link>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Image</th>
-            <th scope="col" width="200">
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <CategoryScreenAuth data={Categories} onDelete={onHandleDelete} />
-        </tbody>
-      </table>
+      <div className="m-subheader">
+        <div className="d-flex align-items-center">
+          <div className="mr-auto">
+            <ul className="m-subheader__breadcrumbs m-nav m-nav--inline">
+              <li className="m-nav__item m-nav__item--home">
+                <Link to="/admin" className="m-nav__link m-nav__link--icon">
+                  <i className="m-nav__link-icon la la-home" />
+                </Link>
+              </li>
+              <li className="m-nav__separator">-</li>
+              <li className="m-nav__item">
+                <a href className="m-nav__link">
+                  <span className="m-nav__link-text">Danh mục sản phẩm</span>
+                </a>
+              </li>
+              <li className="m-nav__separator">-</li>
+              <li className="m-nav__item">
+                <a href className="m-nav__link">
+                  <span className="m-nav__link-text">danh sách</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="m-content">
+        <div className="row">
+          <div className="col-xl-12">
+            <div className="m-portlet">
+              <div className="m-portlet__body">
+                <div className="m-section">
+                  <div className="m-section__content">
+                    <CreateFormScreen />
+                    <table className="table m-table m-table--head-separator-danger">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Danh mục</th>
+                          <th>Tên danh mục</th>
+                          <th width="100"><i className="flaticon-settings-1"></i></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <CategoryScreenAuth data={Categories} onDelete={onHandleDelete} />
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 };

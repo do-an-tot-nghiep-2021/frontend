@@ -2,102 +2,77 @@ import { NavLink } from "react-router-dom";
 const NavAuth = () => {
   return (
     <>
-      <nav className="col-md-2 d-none d-md-block bg-dark sidebar">
-        <div className="sidebar-sticky">
-          <ul className="nav flex-column nav nav-pills flex-column mb-auto">
-            <li className="nav-item ">
-              <NavLink
-                to="/"
-                className="nav-link text-white"
-                activeClassName=" "
-              >
-                <i class="fas fa-tachometer-alt"></i> Home Page
+      <div id="m_aside_left" className="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
+        <div id="m_ver_menu" className="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " m-menu-vertical={1} m-menu-scrollable={1} m-menu-dropdown-timeout={500} style={{ position: 'relative' }}>
+          <ul className="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+            <li className="m-menu__item  m-menu__item--active" aria-haspopup="true">
+              <NavLink to="/admin" className="m-menu__link ">
+                <i className="m-menu__link-icon flaticon-line-graph" />
+                <span className="m-menu__link-title">
+                  <span className="m-menu__link-wrap">
+                    <span className="m-menu__link-text">Dashboard</span>
+                    <span className="m-menu__link-badge">
+                      <span className="m-badge m-badge--danger">2</span>
+                    </span>
+                  </span>
+                </span>
               </NavLink>
             </li>
-            <li className="nav-item ">
-              <NavLink
-                to="/admin/dashboars"
-                className="nav-link text-white"
-                activeClassName="active"
-              >
-                <i class="fas fa-tachometer-alt"></i> DashBoars
+            <li className="m-menu__section ">
+              <h4 className="m-menu__section-text">Thành phần</h4>
+              <i className="m-menu__section-icon flaticon-more-v2" />
+            </li>
+            <li className="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <NavLink to="/admin/categories" className="m-menu__link m-menu__toggle">
+                <i className="m-menu__link-icon flaticon-layers" />
+                <span className="m-menu__link-text">Danh mục</span>
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/products"
-                activeClassName="active"
-              >
-                <span data-feather="shopping-cart" />
-                <i class="fas fa-th"></i> Products
+            <li className="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <NavLink to="/admin/products" className="m-menu__link m-menu__toggle">
+                <i className="m-menu__link-icon flaticon-layers" />
+                <span className="m-menu__link-text">Sản phẩm</span>
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/categories"
-                activeClassName="active"
-              >
-                <span data-feather="shopping-cart" />
-                <i class="fas fa-align-left"></i> Categories
+            <li className="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <NavLink to="/admin/orders" className="m-menu__link m-menu__toggle">
+                <i className="m-menu__link-icon flaticon-layers" />
+                <span className="m-menu__link-text">Đơn hàng</span>
               </NavLink>
             </li>
-
-            <li className="nav-item">
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/orders"
-                activeClassName="active"
-              >
-                <span data-feather="shopping-cart" />
-                <i class="fas fa-table"></i> Order
+            <li className="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <NavLink to="/admin/building" className="m-menu__link m-menu__toggle">
+                <i className="m-menu__link-icon flaticon-layers" />
+                <span className="m-menu__link-text">Tòa nhà</span>
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/building"
-                activeClassName="active"
-              >
-                <span data-feather="users" />
-                <i class="fas fa-user-circle"></i> Building
+            <li className="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <NavLink to="/admin/classroom" className="m-menu__link m-menu__toggle">
+                <i className="m-menu__link-icon flaticon-layers" />
+                <span className="m-menu__link-text">Phòng học</span>
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/classroom"
-                activeClassName="active"
-              >
-                <span data-feather="users" />
-                <i class="far fa-image"></i> Classroom
+            <li className="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <NavLink to="/admin/types" className="m-menu__link m-menu__toggle">
+                <i className="m-menu__link-icon flaticon-layers" />
+                <span className="m-menu__link-text">Thuộc tính</span>
               </NavLink>
             </li>
-            
-            <li className="nav-item">
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/toppings"
-                activeClassName="active"
-              >
-                <span data-feather="users" />
-                <i class="fas fa-coffee"></i> Topping
+            <li className="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <NavLink to="/admin/toppings" className="m-menu__link m-menu__toggle">
+                <i className="m-menu__link-icon flaticon-layers" />
+                <span className="m-menu__link-text">Topping</span>
               </NavLink>
             </li>
-            <li className="nav-item">
-              <NavLink
-                className="nav-link text-white"
-                to="/admin/types"
-                activeClassName="active"
-              >
-                <span data-feather="users" />
-                <i class="fas fa-coffee"></i> types
+            <li className="m-menu__item  m-menu__item--submenu" aria-haspopup="true" m-menu-submenu-toggle="hover">
+              <NavLink to="/admin/users" className="m-menu__link m-menu__toggle">
+                <i className="m-menu__link-icon flaticon-layers" />
+                <span className="m-menu__link-text">Users</span>
               </NavLink>
-            </li>            
+            </li>
           </ul>
         </div>
-      </nav>
+      </div>
     </>
   );
 };

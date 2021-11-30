@@ -47,7 +47,7 @@ const LoginAuth = () => {
                             <div className="col-md-4">
                                 <div className="hero-wrap d-flex align-items-center h-100">
                                     <div className="hero-mask opacity-5 bg-dark" />
-                                    <div className="hero-bg hero-bg-scroll" style={{ backgroundImage: 'url("http://demoapi.wtf/backgroudform.jpg")' }} />
+                                    <div className="hero-bg hero-bg-scroll" style={{ backgroundImage: 'url("http://dev-backend.tk/backgroudform.jpg")' }} />
                                     <div className="hero-content mx-auto w-100 h-100">
                                         <div className="container d-flex flex-column h-100">
                                             <div className="row g-0">

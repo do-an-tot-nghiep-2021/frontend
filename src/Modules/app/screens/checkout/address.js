@@ -51,6 +51,7 @@ const AddressUser = () => {
     const onSubmit = async (data) => {
         const checkoutData = {
             userId: SetUserGoogle.getUserGoogle().id,
+            phone : data.phone,
             building: data.building,
             classroom: data.classroom,
             cartItems: cartItems,
@@ -86,7 +87,7 @@ const AddressUser = () => {
             
 
         } catch (error) {
-            console.log(error)
+            Swal.fire('Any fool can use a computer')
         }
     }
 

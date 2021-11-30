@@ -6,12 +6,13 @@ import { showproduct, updateproduct } from "../../../../Api/product";
 import { allcategory } from "../../../../Api/category";
 import { alltopping } from "../../../../Api/topping";
 import { alltype } from "../../../../Api/types";
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 import useUpload from "../../../../hooks/upload/useUpload";
+import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
+
 
 const UpdateProductScreen = () => {
-  const history = useHistory();
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
   let { id } = useParams();
   const {
     register,
@@ -21,8 +22,6 @@ const UpdateProductScreen = () => {
   } = useForm();
   const [preview, setPreview] = useState("");
   const { loading, handleUpload } = useUpload();
-
-  // Code view category
 
   const [category, setCategory] = useState([]);
   useEffect(() => {
@@ -37,8 +36,6 @@ const UpdateProductScreen = () => {
     getCategory();
   }, []);
 
-  // Code view topping
-
   const [topping, setTopping] = useState([]);
   useEffect(() => {
     const getTopping = async () => {
@@ -51,8 +48,6 @@ const UpdateProductScreen = () => {
     };
     getTopping();
   }, []);
-
-  // Code view types
 
   const [type, setType] = useState([]);
   useEffect(() => {
@@ -67,81 +62,56 @@ const UpdateProductScreen = () => {
     getType();
   }, []);
 
-  //   Code upload img
-
   const handleInputUploadChange = async (e) => {
     const file = e.target.files.length > 0 ? e.target.files[0] : null;
-
     if (file === null) {
       setPreview("");
       return;
     }
-
     const url = await handleUpload(file);
-
     setPreview(url);
   };
 
-  // Code new add product
-
   const onSubmit = async (data) => {
-    console.log(data)
+    const newData = {
+      token: TokenAccount.getToken(),
+      user: SetUser.getUser(),
+      ...data
+    }
+    if (preview) {
+      newData.image = preview;
+    }
     try {
-      if (preview) {
-        data.image = preview;
-      }
-
-      await updateproduct(data).then((response) => {
-        if (!response.data) {
-            setError("Ten da ton tai");
-            setSuccess(false);
-        }else{
-            setError("")
-            setSuccess(true);
+      Swal.fire({
+        title: 'Bạn có muốn thay đổi sản phẩm?',
+        showCancelButton: true,
+        confirmButtonText: 'cập nhật!',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          updateproduct(newData).then((response) => {
+            if (!response.data.status) {
+              Swal.fire(response.data.message, '', 'error')
+            }
+            if (response.data.status) {
+              Swal.fire('Thành công!', '', 'success')
+            }
+          })
         }
       })
 
     } catch (error) {
-      console.log(error);
+      Swal.fire("Không thể gửi request", '', 'error')
     }
   };
 
-  const showSuccess = () => {
-    return (
-      <div
-        className="alert alert-info"
-        style={{ display: success ? "block" : "none" }}
-      >
-        Bạn đã tạo thành công.
-      </div>
-    );
-  };
-
-  const showError = () => {
-    return (
-      <span
-        className="text-danger"
-        style={{ display: error ? "block" : "none" }}
-      >
-        {error}
-      </span>
-    );
-  };
   useEffect(async () => {
     const respons = await showproduct(id);
     const product = respons.data;
-    console.log(product)
-    
-    
     if (product.image) {
       setPreview(product.image);
     }
-
     reset(product);
   }, [id]);
-
-  
-  // Code view img
 
   const renderPreview = () => {
     if (loading) {
@@ -159,140 +129,157 @@ const UpdateProductScreen = () => {
         </div>
       );
     }
-
     return null;
   };
 
   return (
-    <div>
-      <h4>Update product</h4>
-      {showSuccess()}
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <>
+      <div className="m-subheader">
+        <div className="d-flex align-items-center">
+          <div className="mr-auto">
+            <ul className="m-subheader__breadcrumbs m-nav m-nav--inline">
+              <li className="m-nav__item m-nav__item--home">
+                <Link to="/admin" className="m-nav__link m-nav__link--icon">
+                  <i className="m-nav__link-icon la la-home" />
+                </Link>
+              </li>
+              <li className="m-nav__separator">-</li>
+              <li className="m-nav__item">
+                <a href className="m-nav__link">
+                  <span className="m-nav__link-text">Sản phẩm</span>
+                </a>
+              </li>
+              <li className="m-nav__separator">-</li>
+              <li className="m-nav__item">
+                <a href className="m-nav__link">
+                  <span className="m-nav__link-text">cập nhật</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div className="m-content">
         <div className="row">
-          <div className="col-6">
-            <div className="mb-3">
-              <label className="form-label">Name</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Name product ..."
-                {...register("name", { required: true })}
-              />
-              {errors.name && (
-                <span className="d-block text-danger mt-3">
-                  This field is required
-                </span>
-              )}
-              {showError()}
-            </div>
-          </div>
-          <div className="col-6">
-            <div className="mb-3">
-              <label className="form-label">Price</label>
-              <input
-                type="number"
-                className="form-control"
-                placeholder="Price product ..."
-                {...register("price", { required: true })}
-              />
-              {errors.name && (
-                <span className="d-block text-danger mt-3">
-                  This field is required
-                </span>
-              )}
-            </div>
-          </div>
-          <div className="col-6">
-            <div className="mb-3">
-              <label className="form-label">Categories</label>
-              <select
-                className="form-control"
-                {...register("cate_id", { required: true })}
-              >
-                {category.map((item, index) => (
-                  <option value={item.id} key={index}>
-                    {item.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-          </div>
-          
-          <div className="col-6">
-            <div className="mb-3">
-              <label className="form-label">Description</label>
-              <input
-                type="text"
-                className="form-control"
-                placeholder="Description product ..."
-                {...register("description", { required: true })}
-              />
-              {errors.name && (
-                <span className="d-block text-danger mt-3">
-                  This field is required
-                </span>
-              )}
-            </div>
-          </div>
-
-          <div className="col-3">
-            <div className="mb-3">
-              <label className="form-label">Topping</label>
-              {topping.map((item, index) => (
-                <section key={index}>
-                  <input
-                    type="checkbox"
-                    value={item.id}
-                    {...register("product_topping", { required: false })}
-                    
-                  />
-                  {item.name}
-                </section>
-              ))}
-            </div>
-          </div>
-          <div className="col-3">
-            <div className="mb-3">
-              <label className="form-label">Type</label>
-              {type.map((item, index) => (
-                <section key={index}>
-                  <input
-                    type="checkbox"
-                    value={item.id}
-                    {...register("product_type", { required: false })}
-                  />
-                  {item.name}
-                </section>
-              ))}
-            </div>
-          </div>
-
-          <div className="col-6">
-            <div className="mb-3">
-              <label className="form-label">Image</label>
-              <div className="custom-file">
-                <input
-                  type="file"
-                  className="custom-file-input"
-                  id="image"
-                  accept="image/*"
-                  onChange={handleInputUploadChange}
-                />
-                <label className="custom-file-label" htmlFor="image">
-                  Choose image
-                </label>
-                {renderPreview()}
+          <div className="col-xl-12">
+            <div className="m-portlet">
+              <div className="m-portlet__body">
+                <div className="m-section">
+                  <div className="m-section__content">
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                      <div className="row">
+                        <div className="col-6">
+                          <div className="mb-3">
+                            <label className="form-label">Name</label>
+                            <input
+                              type="text"
+                              className="form-control"
+                              placeholder="Name product ..."
+                              {...register("name", { required: true })}
+                            />
+                            {errors.name && (
+                              <span className="d-block text-danger mt-3">
+                                This field is required
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <div className="mb-3">
+                            <label className="form-label">Price</label>
+                            <input
+                              type="number"
+                              className="form-control"
+                              placeholder="Price product ..."
+                              {...register("price", { required: true })}
+                            />
+                            {errors.name && (
+                              <span className="d-block text-danger mt-3">
+                                This field is required
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <div className="mb-3">
+                            <label className="form-label">Categories</label>
+                            <select
+                              className="form-control"
+                              {...register("cate_id", { required: true })}
+                            >
+                              {category.map((item, index) => (
+                                <option value={item.id} key={index}>
+                                  {item.name}
+                                </option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <div className="mb-3">
+                            <label className="form-label">Image</label>
+                            <div className="custom-file">
+                              <input
+                                type="file"
+                                className="custom-file-input"
+                                id="image"
+                                accept="image/*"
+                                onChange={handleInputUploadChange}
+                              />
+                              <label className="custom-file-label" htmlFor="image">
+                                Choose image
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="col-3">
+                          <div className="mb-3">
+                            <label className="form-label">Topping</label>
+                            {topping.map((item, index) => (
+                              <section key={index}>
+                                <input
+                                  type="checkbox"
+                                  value={item.id}
+                                  {...register("product_topping", { required: false })}
+                                />
+                                {item.name}
+                              </section>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="col-3">
+                          <div className="mb-3">
+                            <label className="form-label">Type</label>
+                            {type.map((item, index) => (
+                              <section key={index}>
+                                <input
+                                  type="checkbox"
+                                  value={item.id}
+                                  {...register("product_type", { required: false })}
+                                />
+                                {item.name}
+                              </section>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="col-6">
+                          <div className="mb-3">
+                            {renderPreview()}
+                          </div>
+                        </div>
+                      </div>
+                      <button type="submit" className="btn btn-primary mt-2">
+                        update
+                      </button>
+                    </form>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-
         </div>
-
-        <button type="submit" className="btn btn-primary mt-2">
-          update
-        </button>
-      </form>
-    </div>
+      </div>
+    </>
   );
 };
 

@@ -20,7 +20,6 @@ import CreateOrderScreen from "../Modules/auth/screens/order/create";
 import UpdateOrderScreen from "../Modules/auth/screens/order/update";
 
 import ListTypesComponent from "../Modules/auth/components/types";
-import CreateTypesScreen from "../Modules/auth/screens/types/create";
 import UpdateTypesScreen from "../Modules/auth/screens/types/update";
 import BuildingListAuth from "../Modules/auth/components/building";
 import CreateBuildingScreen from "../Modules/auth/screens/building/create";
@@ -36,6 +35,7 @@ import AccountLayout from "../Layouts/account";
 import Register from "../Modules/account/register";
 import CheckOrderComponents from "../Modules/app/components/checkorder";
 import AddressUser from "../Modules/app/screens/checkout/address";
+import ListUserComponent from "../Modules/auth/components/user";
 const RouteMain = () => {
   return (
     <>
@@ -74,7 +74,6 @@ const RouteMain = () => {
                 <UpdateToppingScreen exact path="/admin/toppings/:id" />
 
                 <ListTypesComponent exact path="/admin/types" />
-                <CreateTypesScreen exact path="/admin/types/create" />
                 <UpdateTypesScreen exact path="/admin/types/:id" />
 
                 <BuildingListAuth exact path="/admin/building" />
@@ -88,6 +87,11 @@ const RouteMain = () => {
                 <ListOrderComponent exact path="/admin/orders" />
                 <CreateOrderScreen exact path="/admin/orders/create" />
                 <UpdateOrderScreen exact path="/admin/orders/:id" />
+
+                <ListUserComponent exact path="/admin/users" />
+                {/* <CreateOrderScreen exact path="/admin/orders/create" />
+                <UpdateOrderScreen exact path="/admin/orders/:id" /> */}
+
               </Switch>
             </AuthLayout>
           </Route>

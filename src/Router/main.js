@@ -33,6 +33,8 @@ import Register from "../Modules/account/register";
 import CheckOrderComponents from "../Modules/app/components/checkorder";
 import AddressUser from "../Modules/app/screens/checkout/address";
 import ListUserComponent from "../Modules/auth/components/user";
+import ListVoucherComponent from "../Modules/auth/components/voucher";
+import UpdateVoucherScreen from "../Modules/auth/screens/voucher/update";
 const RouteMain = () => {
   return (
     <>
@@ -51,6 +53,7 @@ const RouteMain = () => {
               "/admin/size/:id",
               "/admin/size/history/:id",
               "/admin/orders/:id",
+              "/admin/vouchers/:id",
             ]}
           >
             <AuthLayout>
@@ -81,6 +84,8 @@ const RouteMain = () => {
 
                 <ListUserComponent exact path="/admin/users" />
 
+                <ListVoucherComponent exact path="/admin/vouchers" />
+                <UpdateVoucherScreen exact path="/admin/vouchers/:id" />
               </Switch>
             </AuthLayout>
           </Route>

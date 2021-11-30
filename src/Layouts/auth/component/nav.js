@@ -65,6 +65,12 @@ const NavAuth = () => {
               </NavLink>
             </li>
             <li className="m-menu__item  m-menu__item--submenu">
+              <NavLink to="/admin/vouchers" className="m-menu__link m-menu__toggle">
+                <i className="m-menu__link-icon flaticon-apps" />
+                <span className="m-menu__link-text">Vouchers</span>
+              </NavLink>
+            </li>
+            <li className="m-menu__item  m-menu__item--submenu">
               <NavLink to="/admin/users" className="m-menu__link m-menu__toggle">
                 <i className="m-menu__link-icon flaticon-user" />
                 <span className="m-menu__link-text">Tài khoản</span>

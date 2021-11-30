@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { alltopping, removetopping } from "../../../../Api/topping";
 import { Link } from "react-router-dom";
 import ToppingScreenAuth from "../../screens/topping/list";
@@ -19,6 +19,17 @@ const ListToppingComponent = () => {
     };
     getToppings();
   }, []);
+  const refresh = useCallback(() => {
+    const getToppings = async () => {
+      try {
+        const { data } = await alltopping();
+        setToppings(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getToppings();
+  }, [])
 
   const onHandleDelete = async (id) => {
     try {
@@ -81,6 +92,7 @@ const ListToppingComponent = () => {
                 <div className="m-section">
                   <div className="m-section__content">
                     <CreateToppingScreen />
+                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                     <table className="table m-table m-table--head-separator-danger">
                       <thead>
                         <tr>

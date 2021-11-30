@@ -27,9 +27,9 @@ const HeaderAuth = ({ user }) => {
                         <div className="m-stack__item m-brand  m-brand--skin-dark ">
                             <div className="m-stack m-stack--ver m-stack--general">
                                 <div className="m-stack__item m-stack__item--middle m-brand__logo">
-                                    <a href="index.html" className="m-brand__logo-wrapper">
-                                        <img alt src="assets/demo/default/media/img/logo/logo_default_dark.png" />
-                                    </a>
+                                    <Link to="/" className="m-brand__logo-wrapper">
+                                        <img alt src={process.env.PUBLIC_URL + '/text-logo-footer.png'} />
+                                    </Link>
                                 </div>
                                 <div className="m-stack__item m-stack__item--middle m-brand__tools">
                                     {/* BEGIN: Left Aside Minimize Toggle */}

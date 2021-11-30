@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { allclass, removeclass } from "../../../../Api/classroom";
 import { Link } from "react-router-dom";
 import ClassroomScreenAuth from '../../screens/classroom/list';
@@ -29,6 +29,21 @@ const ClassroomListAuth = () => {
         }
         getClassroom();
     }, [page]);
+
+    const refresh = useCallback(() => {
+        const getClassroom = async () => {
+            try {
+                const { data } = await allclass();
+                setPages(Math.ceil(data.length / perPage))
+                const items = data.slice(page * perPage, (page + 1) * perPage);
+                setClassrooms(items)
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getClassroom();
+      }, [page])
     const handlePageClick = (event) => {
         let page = event.selected;
         setPage(page)
@@ -95,7 +110,7 @@ const ClassroomListAuth = () => {
                                 <div className="m-section">
                                     <div className="m-section__content">
                                         <CreateClassroomScreen />
-
+                                        <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                                         <table className="table m-table m-table--head-separator-danger">
                                             <thead>
                                                 <tr>

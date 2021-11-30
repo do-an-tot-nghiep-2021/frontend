@@ -25,10 +25,11 @@ const OrderScreenAuth = ({ data }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           updateorder(newData).then(response => {
-            if (!response.data.status) {
+            console.log(response)
+            if (!response.data) {
               Swal.fire(response.data.message, '', 'error')
             }
-            if (response.data.status) {
+            if (response.data) {
               Swal.fire('Thành công!', '', 'success')
             }
           })

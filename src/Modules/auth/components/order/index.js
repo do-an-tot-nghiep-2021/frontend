@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { allorder, removeorder } from "../../../../Api/order";
 import OrderScreenAuth from "../../screens/order/list";
@@ -6,17 +6,43 @@ import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 
 const ListOrderComponent = () => {
   const [Orders, setOrders] = useState([]);
-  useEffect(async () => {
-    if (SetUser.getUser()) {
-      const data = {
-        token: TokenAccount.getToken(),
-        user: SetUser.getUser(),
+  console.log(Orders)
+  useEffect(() => {
+    const getOrders = async () => {
+      try {
+        const newData = {
+          token: TokenAccount.getToken(),
+          user: SetUser.getUser(),
+        }
+        const respons = await allorder(newData).then(Response => {
+          setOrders(Response.data)
+        });
+
+      } catch (error) {
+        console.log(error);
       }
-      console.log(data)
-      const respons = await allorder(data);
-      setOrders(respons.data)
     }
+    getOrders();
   }, []);
+
+
+  const refresh = useCallback(() => {
+    const getOrders = async () => {
+      try {
+        const newData = {
+          token: TokenAccount.getToken(),
+          user: SetUser.getUser(),
+        }
+        const respons = await allorder(newData).then(Response => {
+          setOrders(Response.data)
+        });
+
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    getOrders();
+  }, [])
 
   const onHandleDelete = async (id) => {
     try {
@@ -51,7 +77,6 @@ const ListOrderComponent = () => {
                   <span className="m-nav__link-text">danh sách</span>
                 </a>
               </li>
-
             </ul>
           </div>
         </div>
@@ -63,6 +88,7 @@ const ListOrderComponent = () => {
               <div className="m-portlet__body">
                 <div className="m-section">
                   <div className="m-section__content">
+                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                     <table className="table m-table m-table--head-separator-danger">
                       <thead>
                         <tr>

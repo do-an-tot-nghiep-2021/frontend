@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import Swal from "sweetalert2";
-import { createtopping } from "../../../../Api/topping";
+import { createvoucher } from "../../../../Api/voucher";
 import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 
-const CreateToppingScreen = () => {
+const CreateVoucherScreen = () => {
   const {
     register,
     handleSubmit,
@@ -17,7 +17,7 @@ const CreateToppingScreen = () => {
       ...data,
     };
     try {
-      await createtopping(newData).then((response) => {
+      await createvoucher(newData).then((response) => {
         if (!response.data.status) {
           Swal.fire(response.data.message, "", "error");
         }
@@ -36,13 +36,13 @@ const CreateToppingScreen = () => {
         type="button"
         className="btn btn-success"
         data-toggle="modal"
-        data-target="#m_modal_toping"
+        data-target="#m_modal_voucher"
       >
         Thêm mới
       </button>
       <div
         className="modal fade"
-        id="m_modal_toping"
+        id="m_modal_voucher"
         tabIndex={-1}
         role="dialog"
         aria-labelledby="exampleModalCenterTitle"
@@ -52,7 +52,7 @@ const CreateToppingScreen = () => {
           <div className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id="exampleModalLongTitle">
-                Thêm topping
+                Thêm Voucher
               </h5>
               <button
                 type="button"
@@ -66,12 +66,11 @@ const CreateToppingScreen = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="modal-body">
                 <div class="form-group m-form__group">
-                  <label for="name">Tên topping</label>
+                  <label for="name">Tên Voucher</label>
                   <input
                     type="text"
                     id="name"
                     className="form-control m-input"
-                    placeholder="vd: Trân trâu trắng, trân trâu đen,...."
                     {...register("name", { required: true })}
                   />
                   {errors.name && (
@@ -80,15 +79,27 @@ const CreateToppingScreen = () => {
                     </span>
                   )}
                 </div>
-
                 <div class="form-group m-form__group">
-                  <label for="name">Giá</label>
+                  <label for="name">Point</label>
                   <input
                     type="text"
                     id="name"
                     className="form-control m-input"
-                    placeholder="vd: 7000đ,...."
-                    {...register("price", { required: true })}
+                    {...register("point", { required: true })}
+                  />
+                  {errors.name && (
+                    <span className="d-block text-danger">
+                      Không được để trống trường này!
+                    </span>
+                  )}
+                </div>
+                <div class="form-group m-form__group">
+                  <label for="name">Value</label>
+                  <input
+                    type="text"
+                    id="name"
+                    className="form-control m-input"
+                    {...register("value", { required: true })}
                   />
                   {errors.name && (
                     <span className="d-block text-danger">
@@ -117,4 +128,4 @@ const CreateToppingScreen = () => {
   );
 };
 
-export default CreateToppingScreen;
+export default CreateVoucherScreen;

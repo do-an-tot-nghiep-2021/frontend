@@ -2,9 +2,25 @@ import { NavLink } from "react-router-dom";
 const NavAuth = () => {
   return (
     <>
-      <div id="m_aside_left" className="m-grid__item	m-aside-left  m-aside-left--skin-dark ">
-        <div id="m_ver_menu" className="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark " m-menu-vertical={1} m-menu-scrollable={1} m-menu-dropdown-timeout={500} style={{ position: 'relative' }}>
+      <div
+        id="m_aside_left"
+        className="m-grid__item	m-aside-left  m-aside-left--skin-dark "
+      >
+        <div
+          id="m_ver_menu"
+          className="m-aside-menu  m-aside-menu--skin-dark m-aside-menu--submenu-skin-dark "
+          m-menu-vertical={1}
+          m-menu-scrollable={1}
+          m-menu-dropdown-timeout={500}
+          style={{ position: "relative" }}
+        >
           <ul className="m-menu__nav  m-menu__nav--dropdown-submenu-arrow ">
+            <li
+              className="m-menu__item  m-menu__item--active"
+              aria-haspopup="true"
+            >
+              <NavLink to="/admin" className="m-menu__link ">
+                <i className="m-menu__link-icon flaticon-line-graph" />
             <li className="m-menu__item " aria-haspopup="true">
               <NavLink to="/admin" className="m-menu__link " activeStyle={{color: '#0d6efd'}}>
                 <i className="m-menu__link-icon flaticon-home-2" />
@@ -22,6 +38,7 @@ const NavAuth = () => {
               <h4 className="m-menu__section-text">Thành phần</h4>
               <i className="m-menu__section-icon flaticon-more-v2" />
             </li>
+
             <li className="m-menu__item  m-menu__item--submenu">
               <NavLink to="/admin/categories" className="m-menu__link" activeStyle={{color: '#0d6efd'}}>
                 <i className="m-menu__link-icon flaticon-interface-7" />

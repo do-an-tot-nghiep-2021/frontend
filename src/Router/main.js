@@ -11,7 +11,6 @@ import UpdateProductScreen from "../Modules/auth/screens/product/update";
 import ListToppingComponent from "../Modules/auth/components/topping";
 import UpdateToppingScreen from "../Modules/auth/screens/topping/update";
 
-
 import ListOrderComponent from "../Modules/auth/components/order";
 import UpdateOrderScreen from "../Modules/auth/screens/order/update";
 
@@ -33,6 +32,10 @@ import Register from "../Modules/account/register";
 import CheckOrderComponents from "../Modules/app/components/checkorder";
 import AddressUser from "../Modules/app/screens/checkout/address";
 import ListUserComponent from "../Modules/auth/components/user";
+
+import ListVoucherComponent from "../Modules/auth/components/voucher";
+import CreateVoucherScreen from "../Modules/auth/screens/voucher/create";
+import UpdateVoucherScreen from "../Modules/auth/screens/voucher/update";
 const RouteMain = () => {
   return (
     <>
@@ -51,6 +54,7 @@ const RouteMain = () => {
               "/admin/size/:id",
               "/admin/size/history/:id",
               "/admin/orders/:id",
+              "/admin/vouchers/:id",
             ]}
           >
             <AuthLayout>
@@ -81,16 +85,21 @@ const RouteMain = () => {
 
                 <ListUserComponent exact path="/admin/users" />
 
+                <ListVoucherComponent exact path="/admin/vouchers" />
+                <CreateVoucherScreen exact path="/admin/vouchers/creacte" />
+                <UpdateVoucherScreen exact path="/admin/vouchers/:id" />
               </Switch>
             </AuthLayout>
           </Route>
-          <Route exact
+          <Route
+            exact
             path={[
               "/:path?",
               "/product/:id",
               "/checkorder",
               "/product/:id/category",
-            ]}>
+            ]}
+          >
             <AppLayout>
               <Switch>
                 <HomePageComponentApp exact path="/" />
@@ -98,15 +107,12 @@ const RouteMain = () => {
                 <Cart exact path="/cart" />
                 <CheckOrderComponents exact path="/checkorder" />
                 <DetailProductComponentApp exact path="/product/:id" />
-                <AddressUser exact path="/checkout" />                
+                <AddressUser exact path="/checkout" />
               </Switch>
             </AppLayout>
           </Route>
 
-          <Route exact
-            path={[
-              "/:path?/:path?",
-            ]}>
+          <Route exact path={["/:path?/:path?"]}>
             <AccountLayout>
               <Switch>
                 <LoginAuth exact path="/login/account" />

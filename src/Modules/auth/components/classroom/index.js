@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState, useEffect, useCallback } from "react";
 import { allclass, removeclass } from "../../../../Api/classroom";
 import { Link } from "react-router-dom";
@@ -8,13 +7,14 @@ import { TokenAccount, SetUser } from '../../../../hooks/useAccount';
 import ReactPaginate from "react-paginate";
 import '../../../../Layouts/auth/assets/vendors/custom/datatables/datatables.bundle.css';
 import CreateClassroomScreen from '../../screens/classroom/create';
-
+import '../../../../Layouts/auth/assets/css/pagination.css'
 
 const ClassroomListAuth = () => {
     const [classrooms, setClassrooms] = useState([]);
     const [perPage, setPerPage] = useState(10);
     const [page, setPage] = useState(0);
     const [pages, setPages] = useState(0);
+
     useEffect(() => {
         const getClassroom = async () => {
             try {
@@ -43,7 +43,7 @@ const ClassroomListAuth = () => {
             }
         }
         getClassroom();
-      }, [page])
+    }, [page])
     const handlePageClick = (event) => {
         let page = event.selected;
         setPage(page)
@@ -86,7 +86,7 @@ const ClassroomListAuth = () => {
                             <li className="m-nav__separator">-</li>
                             <li className="m-nav__item">
                                 <a href className="m-nav__link">
-                                    <span className="m-nav__link-text">Lớp học</span>
+                                    <span className="m-nav__link-text">Phòng</span>
                                 </a>
                             </li>
                             <li className="m-nav__separator">-</li>
@@ -95,22 +95,39 @@ const ClassroomListAuth = () => {
                                     <span className="m-nav__link-text">danh sách</span>
                                 </a>
                             </li>
-
                         </ul>
                     </div>
                 </div>
             </div>
             <div className="m-content">
                 <div className="row">
-
                     <div className="col-xl-12">
-                        {/*begin::Portlet*/}
                         <div className="m-portlet">
+                            <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
+                                <div className="m-portlet__head">
+                                    <div className="m-portlet__head-caption">
+                                        <CreateClassroomScreen />
+                                        <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
+                                    </div>
+                                    <div className="m-portlet__head-tools">
+                                    <ReactPaginate
+                                            previousLabel={'Previous'}
+                                            nextLabel={'Next'}
+                                            pageCount={pages}
+                                            onPageChange={handlePageClick}
+                                            containerClassName={'pagination-layout'}
+                                            pageClassName={'page-item-layout'}
+                                            previousClassName={'page-item-layout'}
+                                            nextClassName={'page-item-layout'}
+                                            pageLinkClassName={'page-link-layout'}
+                                            activeClassName={'active-page'}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                             <div className="m-portlet__body">
                                 <div className="m-section">
                                     <div className="m-section__content">
-                                        <CreateClassroomScreen />
-                                        <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                                         <table className="table m-table m-table--head-separator-danger">
                                             <thead>
                                                 <tr>
@@ -126,26 +143,12 @@ const ClassroomListAuth = () => {
                                         </table>
                                     </div>
                                 </div>
-                            </div>
-                            <div className="row">
-                                <div className="col-8"></div>
-                                <div className="col-4">
-                                    <ReactPaginate
-                                        previousLabel={'<'}
-                                        nextLabel={'>'}
-                                        pageCount={pages}
-                                        onPageChange={handlePageClick}
-                                        containerClassName={'pagination'}
-                                        activeClassName={'active'}
-                                    />
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-
-
         </>
     )
 }

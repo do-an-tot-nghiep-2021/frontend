@@ -1,4 +1,5 @@
 import { formatNumber } from "../../../../Helpers/utils"
+import { Link } from "react-router-dom"
 const CheckOrderScreenApp = ({ orders}) => {
     return (
         <>
@@ -11,6 +12,7 @@ const CheckOrderScreenApp = ({ orders}) => {
                         {order.classroom.map((classr) => (
                             <span key={classr.id}>{classr.name}</span>
                         ))}
+                        
                     </td>
                     <td>
                         {order.products && order.products.map((product, key) => (
@@ -27,6 +29,10 @@ const CheckOrderScreenApp = ({ orders}) => {
                                 <div className="col-2">
                                     x {product.quantity}
                                 </div>
+                                {order.status == "Đơn hàng đã vận chuyển thành công" ? 
+                    <td>
+                        <Link className="btn btn-primary" to={`/checkorder/comment/${product.name}`}>Commet</Link>
+                    </td> : ""}
 
                             </div>
                         ))}
@@ -34,6 +40,7 @@ const CheckOrderScreenApp = ({ orders}) => {
                     <td>{formatNumber(order.price_total)}</td>
                     <td><span className="text-danger">{order.status}</span></td>
                     <td><span className="text-danger">{order.payment}</span></td>
+                    
                 </tr>
             ))}
         </>

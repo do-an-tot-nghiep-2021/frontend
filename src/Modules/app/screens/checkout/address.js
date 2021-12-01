@@ -105,8 +105,8 @@ const AddressUser = () => {
                                                 <h3>Billing Details</h3>
                                                 <div className="row">
                                                     <div className="col-md-6">
-                                                        <label htmlFor="fname">Name<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().name} {...register("name")} />
+                                                        <label htmlFor="fname">Tên khách hàng<span>*</span></label>
+                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().name} {...register("name")} readOnly />
                                                         {errors.name && (
                                                             <span className="d-block text-danger mt-3">
                                                                 This field is required
@@ -114,8 +114,8 @@ const AddressUser = () => {
                                                         )}
                                                     </div>
                                                     <div className="col-md-6">
-                                                        <label htmlFor="phone">Number Phone<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().phone} {...register("phone")} />
+                                                        <label htmlFor="phone">Số điện thoại<span>*</span></label>
+                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().phone} {...register("phone")} required />
                                                         {errors.phone && (
                                                             <span className="d-block text-danger mt-3">
                                                                 This field is required
@@ -124,7 +124,7 @@ const AddressUser = () => {
                                                     </div>
                                                     <div className="col-md-12">
                                                         <label htmlFor="email">Email<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().email} {...register("email")} name="email" />
+                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().email} {...register("email")} name="email" readOnly/>
                                                         {errors.email && (
                                                             <span className="d-block text-danger mt-3">
                                                                 This field is required
@@ -133,19 +133,19 @@ const AddressUser = () => {
                                                     </div>
 
                                                     <div className="col-md-12">
-                                                        <label htmlFor="building">Building<span>*</span></label>
+                                                        <label htmlFor="building">Chọn tòa<span>*</span></label>
                                                         <select
                                                             className="df-control"
                                                             {...register("building")}
                                                             onChange={handleSelect}
-                                                            defaultValue="0"
+                                                            required
                                                         >
-                                                            <option value="0">Select an option</option>
                                                             {buildings && buildings.map((item, index) => (
                                                                 <option value={item.id} key={index} id={item.id}>
                                                                     {item.name}
                                                                 </option>
                                                             ))}
+                                                    
                                                         </select>
                                                         {errors.building && (
                                                             <span className="d-block text-danger mt-3">

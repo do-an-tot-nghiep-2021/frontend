@@ -62,7 +62,7 @@ const UpdateVoucherScreen = () => {
               <li className="m-nav__separator">-</li>
               <li className="m-nav__item">
                 <a href className="m-nav__link">
-                  <span className="m-nav__link-text">Tòa</span>
+                  <span className="m-nav__link-text">Phiếu ưu đãi</span>
                 </a>
               </li>
               <li className="m-nav__separator">-</li>
@@ -84,11 +84,11 @@ const UpdateVoucherScreen = () => {
                   <div className="m-section__content">
                     <form id="form-add" onSubmit={handleSubmit(onSubmit)}>
                       <div className="mb-3">
-                        <label className="form-label">Tên Voucher</label>
+                        <label className="form-label">Mã ưu đãi</label>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Enter name"
+                          placeholder="vd: Sale10%, BLACKFIREDAY,..."
                           {...register("name", { required: true })}
                         />
                         {errors.name && (
@@ -98,11 +98,11 @@ const UpdateVoucherScreen = () => {
                         )}
                       </div>
                       <div className="mb-3">
-                        <label className="form-label">Point</label>
+                        <label className="form-label">Số điểm</label>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Enter name"
+                          placeholder="vd: 10000, 20000,..."
                           {...register("point", { required: true })}
                         />
                         {errors.name && (
@@ -112,11 +112,11 @@ const UpdateVoucherScreen = () => {
                         )}
                       </div>
                       <div className="mb-3">
-                        <label className="form-label">Value</label>
+                        <label className="form-label">Giá trị(%)</label>
                         <input
                           type="text"
                           className="form-control"
-                          placeholder="Enter name"
+                          placeholder="vd: 10%, 20%,..."
                           {...register("value", { required: true })}
                         />
                         {errors.name && (

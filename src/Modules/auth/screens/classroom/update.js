@@ -75,7 +75,7 @@ const UpdateClassroomScreen = () => {
                             <li className="m-nav__separator">-</li>
                             <li className="m-nav__item">
                                 <a href className="m-nav__link">
-                                    <span className="m-nav__link-text">Lớp học</span>
+                                    <span className="m-nav__link-text">Phòng</span>
                                 </a>
                             </li>
                             <li className="m-nav__separator">-</li>

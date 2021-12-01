@@ -57,7 +57,7 @@ const UpdateToppingScreen = () => {
               <li className="m-nav__separator">-</li>
               <li className="m-nav__item">
                 <a href className="m-nav__link">
-                  <span className="m-nav__link-text">Tòa</span>
+                  <span className="m-nav__link-text">Topping</span>
                 </a>
               </li>
               <li className="m-nav__separator">-</li>

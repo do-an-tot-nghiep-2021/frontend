@@ -70,7 +70,7 @@ const ListToppingComponent = () => {
               <li className="m-nav__separator">-</li>
               <li className="m-nav__item">
                 <a href className="m-nav__link">
-                  <span className="m-nav__link-text">Lớp học</span>
+                  <span className="m-nav__link-text">Topping</span>
                 </a>
               </li>
               <li className="m-nav__separator">-</li>
@@ -88,11 +88,19 @@ const ListToppingComponent = () => {
           <div className="col-xl-12">
             {/*begin::Portlet*/}
             <div className="m-portlet">
+              <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
+                <div className="m-portlet__head">
+                  <div className="m-portlet__head-caption">
+                    <CreateToppingScreen />
+                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
+                  </div>
+                  <div className="m-portlet__head-tools">
+                  </div>
+                </div>
+              </div>
               <div className="m-portlet__body">
                 <div className="m-section">
                   <div className="m-section__content">
-                    <CreateToppingScreen />
-                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                     <table className="table m-table m-table--head-separator-danger">
                       <thead>
                         <tr>
@@ -114,25 +122,6 @@ const ListToppingComponent = () => {
           </div>
         </div>
       </div>
-      {/* <Link to="/admin/toppings/create" className="btn btn-primary mb-2">
-        Create
-      </Link>
-      <table className="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Status</th>
-            <th scope="col" width="150">
-              Action
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <ToppingScreenAuth data={Toppings} onDelete={onHandleDelete} />
-        </tbody>
-      </table> */}
     </>
   );
 };

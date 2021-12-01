@@ -75,7 +75,7 @@ const ListVoucherComponent = () => {
               <li className="m-nav__separator">-</li>
               <li className="m-nav__item">
                 <a href className="m-nav__link">
-                  <span className="m-nav__link-text">Lớp học</span>
+                  <span className="m-nav__link-text">Phiếu ưu đãi</span>
                 </a>
               </li>
               <li className="m-nav__separator">-</li>
@@ -93,11 +93,19 @@ const ListVoucherComponent = () => {
           <div className="col-xl-12">
             {/*begin::Portlet*/}
             <div className="m-portlet">
+              <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
+                <div className="m-portlet__head">
+                  <div className="m-portlet__head-caption">
+                    <CreateVoucherScreen />
+                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
+                  </div>
+                  <div className="m-portlet__head-tools">
+                  </div>
+                </div>
+              </div>
               <div className="m-portlet__body">
                 <div className="m-section">
                   <div className="m-section__content">
-                    <CreateVoucherScreen />
-                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                     <table className="table m-table m-table--head-separator-danger">
                       <thead>
                         <tr>

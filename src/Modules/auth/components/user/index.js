@@ -56,12 +56,20 @@ const ListUserComponent = () => {
                 <div className="row">
                     <div className="col-xl-12">
                         <div className="m-portlet">
+                            <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
+                                <div className="m-portlet__head">
+                                    <div className="m-portlet__head-caption">
+                                        <button className="btn btn-primary m-2" onClick={() => setRoleUser(10)}>Admin</button>
+                                        <button className="btn btn-primary m-2" onClick={() => setRoleUser(1)}>User</button>
+                                    </div>
+                                    <div className="m-portlet__head-tools">
+                                    </div>
+                                </div>
+                            </div>
                             <div className="m-portlet__body">
                                 <div className="m-section">
                                     <div className="m-section__content">
                                         {/* <CreateTypeScreen /> */}
-                                        <button className="btn btn-primary m-2" onClick={() => setRoleUser(10)}>Admin</button>
-                                        <button className="btn btn-primary m-2" onClick={() => setRoleUser(1)}>User</button>
                                         <table className="table m-table m-table--head-separator-danger">
                                             <thead>
                                                 <tr>

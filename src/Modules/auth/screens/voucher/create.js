@@ -66,10 +66,10 @@ const CreateVoucherScreen = () => {
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className="modal-body">
                 <div class="form-group m-form__group">
-                  <label for="name">Tên Voucher</label>
+                  <label for="name">Mã ưu đãi</label>
                   <input
                     type="text"
-                    id="name"
+                    placeholder="vd: Sale10%, BLACKFIREDAY,..."
                     className="form-control m-input"
                     {...register("name", { required: true })}
                   />
@@ -80,11 +80,12 @@ const CreateVoucherScreen = () => {
                   )}
                 </div>
                 <div class="form-group m-form__group">
-                  <label for="name">Point</label>
+                  <label for="name">Số điểm</label>
                   <input
                     type="text"
                     id="name"
                     className="form-control m-input"
+                    placeholder="vd: 10000, 20000,..."
                     {...register("point", { required: true })}
                   />
                   {errors.name && (
@@ -94,10 +95,11 @@ const CreateVoucherScreen = () => {
                   )}
                 </div>
                 <div class="form-group m-form__group">
-                  <label for="name">Value</label>
+                  <label for="name">Giá trị(%)</label>
                   <input
                     type="text"
                     id="name"
+                    placeholder="vd: 10%, 20%,..."
                     className="form-control m-input"
                     {...register("value", { required: true })}
                   />

@@ -84,15 +84,26 @@ const UpdateBuildingScreen = () => {
                                                 <label className="form-label">Tên phòng</label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
-                                                    placeholder="Enter name"
-                                                    {...register("name", { required: true })}
+                                                    id="name"
+                                                    className="form-control m-input"
+                                                    placeholder="vd: Tòa P, Tòa L, Tòa F,...."
+                                                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                                                 />
-                                                {errors.name && (
+                                                {errors.name?.type === "required" && (
                                                     <span className="d-block text-danger mt-3">
-                                                        This field is required
+                                                        Không được để trống trường này!
                                                     </span>
                                                 )}
+                                                {errors.name?.type === "pattern" &&
+                                                    <span className=" text-danger m-form__help">
+                                                        Tên danh mục không chứa ký tự đăc biệt.
+                                                    </span>
+                                                }
+                                                {errors.name?.type === "minLength" &&
+                                                    <span className=" text-danger m-form__help">
+                                                        Tên danh mục phải lớn hơn 3 ký tự.
+                                                    </span>
+                                                }
                                             </div>
                                             <button type="submit" className="btn btn-primary">
                                                 Cập nhật

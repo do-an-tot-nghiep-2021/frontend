@@ -54,7 +54,40 @@ const SetUserGoogle = {
 
     removeUserGoogle() {
         localStorage.removeItem('userGoogle')
-    }
+    },
+
+    saveRefreshUserGoogle(refreshToken) {
+        localStorage.setItem('userGoogle', JSON.stringify(refreshToken))
+    },
 }
 
-export { TokenAccount, SetUser, SetUserGoogle }
+const SetPriceVoucher = {
+
+    getPriceVoucher() {
+        let priceVoucher = localStorage.getItem('prireVoucher');
+        return JSON.parse(priceVoucher)
+    },
+
+    getVoucher() {
+        let voucher = localStorage.getItem('voucher');
+        return JSON.parse(voucher)
+    },
+
+    saveRefreshPriceVoucher(value) {
+        localStorage.setItem('prireVoucher', JSON.stringify(value))
+    },
+
+    saveRefreshVoucher(data) {
+        localStorage.setItem('voucher', JSON.stringify(data))
+    },
+
+    removePriceVoucher() {
+        localStorage.removeItem('prireVoucher')
+    },
+
+    removeVoucher() {
+        localStorage.removeItem('voucher')
+    },
+}
+
+export { TokenAccount, SetUser, SetUserGoogle, SetPriceVoucher }

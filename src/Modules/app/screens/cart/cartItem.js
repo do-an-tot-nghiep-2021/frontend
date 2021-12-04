@@ -4,10 +4,9 @@ import { useCart } from '../../../../hooks/useCart';
 import { Link } from 'react-router-dom';
 const CartItem = ({ product }) => {
     const { increase, decrease, removeProduct } = useCart();
-    console.log(product.topping)
     return (
 
-        <tr>
+        <tr key={product.id}>
             <td>
                 <div className="c-product-thumb">
                     <img src={product.image} alt="" />

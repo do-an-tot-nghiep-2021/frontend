@@ -11,11 +11,11 @@ const AppLayout = (props) => {
   const user = (SetUserGoogle.getUserGoogle()) != "" ? SetUserGoogle.getUserGoogle() : "";
   return (<>
     <NavApp user={user}/>
-    <section className="shop-page-area">
-      <div className="container">
-        {props.children}
-      </div>
-    </section>
+      <section className="shop-page-area">
+        <div className="container mt-5">
+          {props.children}
+        </div>
+      </section>
     <FooterApp />
   </>
   );

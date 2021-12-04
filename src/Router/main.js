@@ -36,6 +36,9 @@ import ListUserComponent from "../Modules/auth/components/user";
 import ListVoucherComponent from "../Modules/auth/components/voucher";
 import UpdateVoucherScreen from "../Modules/auth/screens/voucher/update";
 import FormCommentCheckorderSuccess from "../Modules/app/screens/comment";
+import ProfileComponentApp from "../Modules/app/components/profile";
+import ProfileScreenAuth from "../Modules/auth/screens/profile";
+import VoucherComponentApp from "../Modules/app/components/voucher";
 const RouteMain = () => {
   return (
     <>
@@ -87,6 +90,8 @@ const RouteMain = () => {
 
                 <ListVoucherComponent exact path="/admin/vouchers" />
                 <UpdateVoucherScreen exact path="/admin/vouchers/:id" />
+                
+                <ProfileScreenAuth exact path="/admin/profile"/>
               </Switch>
             </AuthLayout>
           </Route>
@@ -97,16 +102,19 @@ const RouteMain = () => {
               "/checkorder",
               "/product/:id/category",
               "/checkorder/comment/:id",
+              "/account/:path?",
             ]}>
             <AppLayout>
               <Switch>
                 <HomePageComponentApp exact path="/" />
                 <HomePageComponentApp exact path="/product/:id/category" />
                 <Cart exact path="/cart" />
-                <CheckOrderComponents exact path="/checkorder" />
-                <FormCommentCheckorderSuccess exact path="/checkorder/comment/:id" />
+                <CheckOrderComponents exact path="/account/checkorder" />
+                <FormCommentCheckorderSuccess exact path="/account/checkorder/comment/:id" />
                 <DetailProductComponentApp exact path="/product/:id" />
-                <AddressUser exact path="/checkout" />                
+                <AddressUser exact path="/checkout" />
+                <ProfileComponentApp exact path="/account/profile" />
+                <VoucherComponentApp exact path="/voucher" />                
               </Switch>
             </AppLayout>
           </Route>

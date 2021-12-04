@@ -20,3 +20,11 @@ export const createvoucher = (item) => {
   const url = `/voucher/create`;
   return Api.post(url, item);
 };
+export const redeemvoucher = (item) => {
+  const url = `/voucher/redeem`;
+  return Api.post(url, item);
+};
+export const getvoucherid = (item) => {
+  const url = `/voucher/account-id`;
+  return Api.post(url, item);
+};

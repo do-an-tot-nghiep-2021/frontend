@@ -1,12 +1,21 @@
-import React from 'react';
+import {useState} from 'react';
 import { Link } from 'react-router-dom';
 import { formatNumber } from '../../../../Helpers/utils';
 import CartProducts from './cartProduct';
 import { useCart } from '../../.././../hooks/useCart';
+import { showvoucher } from '../../../../Api/voucher';
+import { SetPriceVoucher } from '../../../../hooks/useAccount';
 
 const Cart = () => {
-
+    const [valueVoucher, setValueVoucher] = useState(0);
     const { total, cartItems, itemCount, clearCart } = useCart();
+    const onHandleSelect = async (id) => {
+        const {data} = await showvoucher(id)
+        setValueVoucher(data.value)
+        const price = (total/100)*data.value
+        SetPriceVoucher.saveRefreshPriceVoucher(price)
+        SetPriceVoucher.saveRefreshVoucher(data)
+    }
 
     return (
         <div  >
@@ -21,7 +30,7 @@ const Cart = () => {
                         <div className="row">
                             {
                                 cartItems.length > 0 ?
-                                    <CartProducts /> :
+                                    <CartProducts onSelect={onHandleSelect} /> :
                                     <div className="p-3 text-center text-muted">
                                         Your cart is empty
                                     </div>
@@ -45,7 +54,7 @@ const Cart = () => {
                                                             <p>Subtotal</p>
                                                         </td>
                                                         <td>
-                                                            <p>{itemCount}</p>
+                                                            <p>{valueVoucher ? valueVoucher : 0}%</p>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -53,7 +62,7 @@ const Cart = () => {
                                                             <p>Total</p>
                                                         </td>
                                                         <td>
-                                                            <p>{formatNumber(total)}</p>
+                                                            <p>{total}</p>
                                                         </td>
                                                     </tr>
                                                 </tbody>

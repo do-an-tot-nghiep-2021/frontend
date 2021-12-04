@@ -78,6 +78,7 @@ const NavApp = ({ user }) => {
                         </ul>
                       </li>
                       <li>
+                        
                         <Link to="">{user ? user.name :
                           <GoogleLogin
                             clientId="753490656345-0j9c0r7sqr7bjk0ro3t31ub5n3i1bm3h.apps.googleusercontent.com"
@@ -87,17 +88,17 @@ const NavApp = ({ user }) => {
                             cookiePolicy={'single_host_origin'}
                             isSignedIn={true}
                             className="button-google-account"
-
                           />}
                         </Link>
+                        
 
                         {user ?
                           <ul>
                             <li>
-                              <Link>Profile</Link>
+                              <Link to="/account/profile">Profile</Link>
                             </li>
                             <li>
-                              <Link to="/checkorder">Check order</Link>
+                              <Link to="/account/checkorder">Check order</Link>
                             </li>
                             <li>
                               <GoogleLogout

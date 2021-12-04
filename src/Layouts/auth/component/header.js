@@ -126,7 +126,7 @@ const HeaderAuth = ({ user }) => {
                                                                     <span className="m-nav__section-text">Section</span>
                                                                 </li>
                                                                 <li className="m-nav__item">
-                                                                    <a href="header/profile.html" className="m-nav__link">
+                                                                    <Link to="/admin/profile" className="m-nav__link">
                                                                         <i className="m-nav__link-icon flaticon-profile-1" />
                                                                         <span className="m-nav__link-title">
                                                                             <span className="m-nav__link-wrap">
@@ -134,7 +134,7 @@ const HeaderAuth = ({ user }) => {
                                                                                 <span className="m-nav__link-badge"><span className="m-badge m-badge--success">2</span></span>
                                                                             </span>
                                                                         </span>
-                                                                    </a>
+                                                                    </Link>
                                                                 </li>
                                                                 <li className="m-nav__item">
                                                                     <a href="header/profile.html" className="m-nav__link">

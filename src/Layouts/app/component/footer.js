@@ -59,7 +59,7 @@ const FooterApp = () => {
                                             <h4>Extras</h4>
                                             <ul className="fw-links">
                                                 <li><Link to="/checkorder">My Order</Link></li>
-                                                <li><a href="#">Checkout</a></li>
+                                                <li><Link to="/voucher">Voucher</Link></li>
                                                 <li><a href="#">Catering</a></li>
                                                 <li><a href="#">Our Locations</a></li>
                                                 <li><a href="#">Privacy Policy</a></li>

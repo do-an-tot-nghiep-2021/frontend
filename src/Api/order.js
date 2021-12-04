@@ -10,6 +10,16 @@ export const getorder = (data) => {
   return Api.post(url, data);
 };
 
+export const getorderdate = (data) => {
+  const url = `/order/date`;
+  return Api.post(url, data);
+};
+
+export const cancelorder = (data) => {
+  const url = `/order/cancel`;
+  return Api.post(url, data);
+};
+
 
 
 

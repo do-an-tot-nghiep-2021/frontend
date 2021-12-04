@@ -1,8 +1,9 @@
 import { allbuilding, getclassbuilding } from "../../../../Api/building"
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react"
-import { SetUserGoogle } from "../../../../hooks/useAccount";
+import { SetUserGoogle, SetPriceVoucher } from "../../../../hooks/useAccount";
 import { useCart } from "../../../../hooks/useCart";
+import { formatNumber } from "../../../../Helpers/utils";
 import { sendorder } from "../../../../Api/order";
 import ModalLogin from "../../../../hooks/ModalLogin";
 import { useHistory } from "react-router";
@@ -15,7 +16,7 @@ const AddressUser = () => {
     const [modalOpen, setModalOpen] = useState(false);
     const { total, itemCount, handleCheckout, cartItems } = useCart();
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const [noteText,setNoteText] = useState("")
+    const [noteText, setNoteText] = useState("")
     const history = useHistory();
     useEffect(() => {
         const getBuildings = async () => {
@@ -51,43 +52,46 @@ const AddressUser = () => {
     const onSubmit = async (data) => {
         const checkoutData = {
             userId: SetUserGoogle.getUserGoogle().id,
-            phone : data.phone,
+            phone: data.phone,
             building: data.building,
             classroom: data.classroom,
             cartItems: cartItems,
             itemCount: itemCount,
-            total: total,
+            total: total - SetPriceVoucher.getPriceVoucher(),
             payment: data.payment,
-            note : (noteText ? noteText : "")
+            voucher : (SetPriceVoucher.getVoucher() ? SetPriceVoucher.getVoucher().id : ""),
+            note: (noteText ? noteText : "")
         }
         try {
             Swal.fire({
                 title: 'Xác nhận đặt hàng',
                 showCancelButton: true,
                 confirmButtonText: 'Đặt hàng',
-              }).then((result) => {
+            }).then((result) => {
                 if (result.isConfirmed) {
                     sendorder(checkoutData).then((response) => {
                         if (!response.data) {
                             Swal.fire({
                                 icon: 'error',
                                 title: 'Đặt hàng thất bại',
-                                })
+                            })
                         } else {
                             handleCheckout()
+                            SetPriceVoucher.removePriceVoucher()
+                            SetPriceVoucher.removeVoucher()
                             Swal.fire({
                                 icon: 'success',
                                 title: 'Đặt hàng thành công',
-                                })
+                            })
                             history.push('/cart')
                         }
                     });
-                } 
-              })
-            
+                }
+            })
+
 
         } catch (error) {
-            Swal.fire('Any fool can use a computer')
+            Swal.fire('Không thể gửi request')
         }
     }
 
@@ -124,7 +128,7 @@ const AddressUser = () => {
                                                     </div>
                                                     <div className="col-md-12">
                                                         <label htmlFor="email">Email<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().email} {...register("email")} name="email" readOnly/>
+                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().email} {...register("email")} name="email" readOnly />
                                                         {errors.email && (
                                                             <span className="d-block text-danger mt-3">
                                                                 This field is required
@@ -145,7 +149,7 @@ const AddressUser = () => {
                                                                     {item.name}
                                                                 </option>
                                                             ))}
-                                                    
+
                                                         </select>
                                                         {errors.building && (
                                                             <span className="d-block text-danger mt-3">
@@ -173,17 +177,17 @@ const AddressUser = () => {
                                                             )}
                                                         </div>
                                                         : ""}
-                                                <div className="col-md-12">
-                                                    <label htmlFor="note">Note</label><br/>
-                                                    <textarea 
-                                                    name="note" 
-                                                    type="text" 
-                                                    placeholder="Ghi chú" 
-                                                    className="df-control"
-                                                    value = {noteText}
-                                                    onChange={e => setNoteText(e.target.value)}
-                                                    ></textarea>
-                                                </div>
+                                                    <div className="col-md-12">
+                                                        <label htmlFor="note">Note</label><br />
+                                                        <textarea
+                                                            name="note"
+                                                            type="text"
+                                                            placeholder="Ghi chú"
+                                                            className="df-control"
+                                                            value={noteText}
+                                                            onChange={e => setNoteText(e.target.value)}
+                                                        ></textarea>
+                                                    </div>
 
 
                                                 </div>
@@ -192,17 +196,32 @@ const AddressUser = () => {
                                                 <h3>Your Order</h3>
                                                 <div className="checkout-payment-table-box">
                                                     <table className="checkout-table">
-                                                        <tbody><tr>
-                                                            <td>Product</td>
-                                                            <td>Total</td>
-                                                        </tr>
+                                                        <tbody>
                                                             <tr>
-                                                                <td>Chicken Fry</td>
-                                                                <td>$20.00</td>
+                                                                <td className="font-weight-bold">San pham</td>
+                                                                <td className="font-weight-bold">tong tien</td>
                                                             </tr>
+                                                            {cartItems && cartItems.map((items, index) => (
+                                                                <tr key={index}>
+                                                                    <td>
+                                                                        <span className="font-weight-bold">{items.name} {items.type ? `(${items.type})` : ""}</span><br />
+                                                                        <span>{formatNumber(items.price)} x {items.quantity} </span><br/>
+                                                                        { (items.topping.length <= 1) ? <span className="bg-warning m-1 rounded" style={{fontSize : '13px'}}>{items.topping}</span> : 
+                                                                            items.topping.map((item, key)=> (
+                                                                                <span key={key} className="bg-warning m-1 p-1 rounded" style={{fontSize : '13px'}}>
+                                                                                    {item}
+                                                                                </span>
+                                                                            ))
+                                                                        }
+                                                                    </td>
+                                                                    <td>{formatNumber(items.price * items.quantity)}</td>
+                                                                </tr>
+                                                            ))}
+
+
                                                             <tr>
                                                                 <td>Subtotal</td>
-                                                                <td>$20.00</td>
+                                                                <td>{formatNumber(SetPriceVoucher.getPriceVoucher())}</td>
                                                             </tr>
                                                             <tr>
                                                                 <td>Shipping</td>
@@ -210,9 +229,10 @@ const AddressUser = () => {
                                                             </tr>
                                                             <tr>
                                                                 <td>Total</td>
-                                                                <td>$20.00</td>
+                                                                <td>{formatNumber(total - SetPriceVoucher.getPriceVoucher())}</td>
                                                             </tr>
-                                                        </tbody></table>
+                                                        </tbody>
+                                                    </table>
 
                                                 </div>
 

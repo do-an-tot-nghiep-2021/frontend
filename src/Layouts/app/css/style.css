@@ -4673,6 +4673,8 @@ html[dir="rtl"] .faq-question-submit {
         margin: 0 auto;
     }
 
+    
+
     .hero-area .hero-content .hero-text {
         margin: 40px auto;
     }
@@ -4990,3 +4992,7 @@ html[dir="rtl"] .faq-question-submit {
 /* Your Custom Typography. */
 
 /*# sourceMappingURL=style.css.map */
+
+.text-evaluate {
+    margin-top: 20px;
+}

@@ -69,7 +69,7 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                                     Cart
                                 </button>
 
-                                <div className="share-tag">
+                                {/* <div className="share-tag">
                                     <div className="row">
                                         <div className="col-md-12 col-sm-12 col-xs-12">
                                             <div className="tag-wrap">
@@ -86,7 +86,7 @@ const DetailProductScreenApp = ({ product, cate, type, topping }) => {
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                                 <div className="topping_product">
                                     <div className="row">
 

@@ -81,13 +81,23 @@ const CreateFormScreen = () => {
                     type="text"
                     className="form-control"
                     placeholder="Enter name"
-                    {...register("name", { required: true })}
+                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/  })}
                   />
-                  {errors.name && (
+                  {errors.name?.type === "required" && (
                     <span className="d-block text-danger mt-3">
-                      This field is required
+                      Không được để trống trường này!
                     </span>
                   )}
+                  {errors.name?.type === "pattern" &&
+                  <span className=" text-danger m-form__help">
+                    Tên danh mục không chứa ký tự đăc biệt.
+                  </span>
+                }
+                {errors.name?.type === "minLength" &&
+                  <span className=" text-danger m-form__help">
+                    Tên danh mục phải lớn hơn 3 ký tự.
+                  </span>
+                }
                 </div>
                 <div className="mb-3">
                   <div className="custom-file">

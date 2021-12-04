@@ -61,13 +61,23 @@ const CreateClassroomScreen = () => {
                                         id="name"
                                         className="form-control m-input"
                                         placeholder="vd: p101, p102, L101,...."
-                                        {...register("name", { required: true })}
+                                        {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                                     />
-                                    {errors.name && (
-                                        <span className="d-block text-danger">
+                                    {errors.name?.type === "required" && (
+                                        <span className="d-block text-danger mt-3">
                                             Không được để trống trường này!
                                         </span>
                                     )}
+                                    {errors.name?.type === "pattern" &&
+                                        <span className=" text-danger m-form__help">
+                                            TTên phòng học không chứa ký tự đăc biệt.
+                                        </span>
+                                    }
+                                    {errors.name?.type === "minLength" &&
+                                        <span className=" text-danger m-form__help">
+                                            Tên phòng học phải lớn hơn 3 ký tự.
+                                        </span>
+                                    }
                                 </div>
                                 <div class="form-group m-form__group">
                                     <label for="building">Chọn tòa nhà</label>

@@ -46,27 +46,42 @@ const CreateToppingScreen = () => {
                     id="name"
                     className="form-control m-input"
                     placeholder="vd: Trân trâu trắng, trân trâu đen,...."
-                    {...register("name", { required: true })}
+                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                   />
-                  {errors.name && (
-                    <span className="d-block text-danger">
+                  {errors.name?.type === "required" && (
+                    <span className="d-block text-danger mt-3">
                       Không được để trống trường này!
                     </span>
                   )}
+                  {errors.name?.type === "pattern" &&
+                    <span className=" text-danger m-form__help">
+                      Tên topping không chứa ký tự đăc biệt.
+                    </span>
+                  }
+                  {errors.name?.type === "minLength" &&
+                    <span className=" text-danger m-form__help">
+                      Tên topping phải lớn hơn 3 ký tự.
+                    </span>
+                  }
                 </div>
 
                 <div class="form-group m-form__group">
                   <label for="name">Giá</label>
                   <input
-                    type="text"
+                    type="number"
                     id="name"
                     className="form-control m-input"
                     placeholder="vd: 7000đ,...."
-                    {...register("price", { required: true })}
+                    {...register("price", { required: true, min:0})}
                   />
-                  {errors.name && (
-                    <span className="d-block text-danger">
+                  {errors.price?.type === "required" && (
+                    <span className="d-block text-danger mt-3">
                       Không được để trống trường này!
+                    </span>
+                  )}
+                  {errors.price?.type === "min" && (
+                    <span className="d-block text-danger mt-3">
+                      Giá topping không âm.
                     </span>
                   )}
                 </div>

@@ -120,15 +120,30 @@ const UpdateFormScreen = () => {
                                 <div className="m-section">
                                     <div className="m-section__content">
                                         <form onSubmit={handleSubmit(onSubmit)}>
-                                            <div className="form-group mb-2">
-                                                <input type="text"
-                                                    name="name"
+                                            <div className="form-group mb-5">
+                                                <input
+                                                    type="text"
                                                     className="form-control"
-                                                    {...register("name", { required: true })}
+                                                    placeholder="Enter name"
+                                                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                                                 />
-                                                {errors.name && <span className="text-danger">This field is required</span>}
+                                                {errors.name?.type === "required" && (
+                                                    <span className="d-block text-danger mt-3">
+                                                        Không được để trống trường này!
+                                                    </span>
+                                                )}
+                                                {errors.name?.type === "pattern" &&
+                                                    <span className=" text-danger m-form__help">
+                                                        Tên danh mục không chứa ký tự đăc biệt.
+                                                    </span>
+                                                }
+                                                {errors.name?.type === "minLength" &&
+                                                    <span className=" text-danger m-form__help">
+                                                        Tên danh mục phải lớn hơn 3 ký tự.
+                                                    </span>
+                                                }
                                             </div>
-                                            <div className="form-group mb-2">
+                                            <div className="form-group mb-5">
                                                 <div className="custom-file">
                                                     <input
                                                         type="file"

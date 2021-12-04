@@ -46,13 +46,23 @@ const CreateTypeScreen = () => {
                     id="name"
                     className="form-control m-input"
                     placeholder="vd: nóng, mát, đá,...."
-                    {...register("name", { required: true })}
+                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/  })}
                   />
-                  {errors.name && (
-                    <span className="d-block text-danger">
+                  {errors.name?.type === "required" && (
+                    <span className="d-block text-danger mt-3">
                       Không được để trống trường này!
                     </span>
                   )}
+                  {errors.name?.type === "pattern" &&
+                    <span className=" text-danger m-form__help">
+                      Tên thuộc tính không chứa ký tự đăc biệt.
+                    </span>
+                  }
+                  {errors.name?.type === "minLength" &&
+                    <span className=" text-danger m-form__help">
+                      Tên thuộc tính phải lớn hơn 3 ký tự.
+                    </span>
+                  }
                 </div>
               </div>
               <div className="modal-footer">

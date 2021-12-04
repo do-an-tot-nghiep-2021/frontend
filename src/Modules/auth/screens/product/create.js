@@ -132,13 +132,23 @@ const CreateProductScreen = () => {
                         type="text"
                         className="form-control"
                         placeholder="vd: trà sữa, cà phê,..."
-                        {...register("name", { required: true })}
+                        {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                       />
-                      {errors.name && (
-                        <span className="d-block text-danger">
-                          Không để trống trường này!
-                        </span>
-                      )}
+                      {errors.name?.type === "required" && (
+                    <span className="d-block text-danger mt-3">
+                      Không được để trống trường này!
+                    </span>
+                  )}
+                  {errors.name?.type === "pattern" &&
+                    <span className=" text-danger m-form__help">
+                      Tên sản phẩm không chứa ký tự đăc biệt.
+                    </span>
+                  }
+                  {errors.name?.type === "minLength" &&
+                    <span className=" text-danger m-form__help">
+                      Tên sản phẩm phải lớn hơn 3 ký tự.
+                    </span>
+                  }
                     </div>
                   </div>
                   <div className="col-6">
@@ -148,13 +158,18 @@ const CreateProductScreen = () => {
                         type="number"
                         className="form-control"
                         placeholder="vd: 20.000đ, 35.000đ,..."
-                        {...register("price", { required: true })}
+                        {...register("price", { required: true,min:0 })}
                       />
-                      {errors.price && (
-                        <span className="d-block text-danger">
-                          Không để trống trường này!
-                        </span>
-                      )}
+                      {errors.price?.type === "required" && (
+                    <span className="d-block text-danger mt-3">
+                      Không được để trống trường này!
+                    </span>
+                  )}
+                  {errors.price?.type === "min" &&
+                    <span className=" text-danger m-form__help">
+                      Giá tiền không âm.
+                    </span>
+                  }
                     </div>
                   </div>
 

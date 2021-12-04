@@ -82,15 +82,20 @@ const CreateVoucherScreen = () => {
                 <div class="form-group m-form__group">
                   <label for="name">Số điểm</label>
                   <input
-                    type="text"
+                    type="number"
                     id="name"
                     className="form-control m-input"
                     placeholder="vd: 10000, 20000,..."
-                    {...register("point", { required: true })}
+                    {...register("point", { required: true, min: 0 })}
                   />
-                  {errors.name && (
-                    <span className="d-block text-danger">
+                  {errors.point?.type === "required" && (
+                    <span className="d-block text-danger mt-3">
                       Không được để trống trường này!
+                    </span>
+                  )}
+                  {errors.point?.type === "min" && (
+                    <span className="d-block text-danger mt-3">
+                      Giá voucher không âm.
                     </span>
                   )}
                 </div>

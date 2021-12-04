@@ -93,21 +93,26 @@ const UpdateVoucherScreen = () => {
                         />
                         {errors.name && (
                           <span className="d-block text-danger mt-3">
-                            This field is required
+                            Trường này không để trống.
                           </span>
                         )}
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Số điểm</label>
                         <input
-                          type="text"
+                          type="number"
                           className="form-control"
                           placeholder="vd: 10000, 20000,..."
-                          {...register("point", { required: true })}
+                          {...register("point", { required: true, min: 0 })}
                         />
-                        {errors.name && (
+                        {errors.point?.type === "required" && (
                           <span className="d-block text-danger mt-3">
-                            This field is required
+                            Giá voucher không để trống.
+                          </span>
+                        )}
+                        {errors.point?.type === "min" && (
+                          <span className="d-block text-danger mt-3">
+                            Giá voucher không âm.
                           </span>
                         )}
                       </div>
@@ -121,7 +126,7 @@ const UpdateVoucherScreen = () => {
                         />
                         {errors.name && (
                           <span className="d-block text-danger mt-3">
-                            This field is required
+                            Trường này không để trống.
                           </span>
                         )}
                       </div>

@@ -80,19 +80,30 @@ const UpdateTypesScreen = () => {
                                 <div className="m-section">
                                     <div className="m-section__content">
                                         <form onSubmit={handleSubmit(onSubmit)}>
-                                            <div className="mb-3">
+                                            <div className="mb-5">
                                                 <label className="form-label">Tên Thuộc tính</label>
                                                 <input
                                                     type="text"
-                                                    className="form-control"
-                                                    placeholder="Enter name"
-                                                    {...register("name", { required: true })}
+                                                    id="name"
+                                                    className="form-control m-input"
+                                                    placeholder="vd: nóng, mát, đá,...."
+                                                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                                                 />
-                                                {errors.name && (
+                                                {errors.name?.type === "required" && (
                                                     <span className="d-block text-danger mt-3">
-                                                        This field is required
+                                                        Không được để trống trường này!
                                                     </span>
                                                 )}
+                                                {errors.name?.type === "pattern" &&
+                                                    <span className=" text-danger m-form__help">
+                                                        Tên thuộc tính không chứa ký tự đăc biệt.
+                                                    </span>
+                                                }
+                                                {errors.name?.type === "minLength" &&
+                                                    <span className=" text-danger m-form__help">
+                                                        Tên thuộc tính phải lớn hơn 3 ký tự.
+                                                    </span>
+                                                }
                                             </div>
                                             <button type="submit" className="btn btn-primary">
                                                 Cập nhật

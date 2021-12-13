@@ -93,8 +93,7 @@ const BuildingListAuth = () => {
                             <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                                 <div className="m-portlet__head">
                                     <div className="m-portlet__head-caption">
-                                        <CreateBuildingScreen />
-                                        <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
+                                        <CreateBuildingScreen onRefeshData={refresh} />
                                     </div>
                                     <div className="m-portlet__head-tools">
                                     </div>
@@ -112,7 +111,7 @@ const BuildingListAuth = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <BuildingScreenAuth data={buildings} onDelete={onHandleDelete} />
+                                                <BuildingScreenAuth data={buildings} onDelete={onHandleDelete}  />
                                             </tbody>
                                         </table>
                                     </div>

@@ -29,7 +29,6 @@ import Cart from "../Modules/app/screens/cart";
 import DetailProductComponentApp from "../Modules/app/components/detailProduct";
 import LoginAuth from "../Modules/account/auth/login";
 import AccountLayout from "../Layouts/account";
-import Register from "../Modules/account/register";
 import CheckOrderComponents from "../Modules/app/components/checkorder";
 import AddressUser from "../Modules/app/screens/checkout/address";
 import ListUserComponent from "../Modules/auth/components/user";
@@ -39,6 +38,9 @@ import FormCommentCheckorderSuccess from "../Modules/app/screens/comment";
 import ProfileComponentApp from "../Modules/app/components/profile";
 import ProfileScreenAuth from "../Modules/auth/screens/profile";
 import VoucherComponentApp from "../Modules/app/components/voucher";
+import VoucherAccountComponentApp from "../Modules/app/components/voucher/voucherAccount";
+import ResetPassword from "../Modules/account/auth/reset";
+import ConfirmCodeAuth from "../Modules/account/auth/confirm";
 const RouteMain = () => {
   return (
     <>
@@ -114,6 +116,7 @@ const RouteMain = () => {
                 <DetailProductComponentApp exact path="/product/:id" />
                 <AddressUser exact path="/checkout" />
                 <ProfileComponentApp exact path="/account/profile" />
+                <VoucherAccountComponentApp exact path="/account/voucher" />
                 <VoucherComponentApp exact path="/voucher" />                
               </Switch>
             </AppLayout>
@@ -126,7 +129,8 @@ const RouteMain = () => {
             <AccountLayout>
               <Switch>
                 <LoginAuth exact path="/login/account" />
-                <Register exact path="/register/account" />
+                <ResetPassword exact path="/forgot-password/account" />
+                <ConfirmCodeAuth exact path="/confirm-password/account" />
               </Switch>
             </AccountLayout>
           </Route>

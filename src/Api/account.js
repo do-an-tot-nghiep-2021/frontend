@@ -16,6 +16,14 @@ export const registeraccount = (user) => {
   const url = `/register`;
   return Api.post(url, user)
 };
+export const getemailreset = (user) => {
+  const url = `/get-reset-pass`;
+  return Api.post(url, user)
+};
+export const resetpass = (user) => {
+  const url = `/reset-pass`;
+  return Api.post(url, user)
+};
 export const authenticate = (data, next) => {
   if (typeof window !== "undefined") {
     localStorage.setItem("user", JSON.stringify(data));

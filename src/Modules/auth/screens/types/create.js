@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { createtype } from "../../../../Api/types";
 import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 
-const CreateTypeScreen = () => {
+const CreateTypeScreen = ({onRefeshData}) => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
     const newData = {
@@ -18,6 +18,7 @@ const CreateTypeScreen = () => {
         }
         if (response.data.status) {
           Swal.fire('Thành công!', '', 'success')
+          onRefeshData()
         }
       })
     } catch (error) {

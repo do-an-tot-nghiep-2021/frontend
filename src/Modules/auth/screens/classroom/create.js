@@ -5,7 +5,7 @@ import { createclass } from '../../../../Api/classroom';
 import { TokenAccount, SetUser } from '../../../../hooks/useAccount';
 import Swal from 'sweetalert2';
 
-const CreateClassroomScreen = () => {
+const CreateClassroomScreen = ({onRefeshData}) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [buildings, setBuildings] = useState([]);
     useEffect(() => {
@@ -33,6 +33,7 @@ const CreateClassroomScreen = () => {
                 }
                 if (response.data.status) {
                     Swal.fire('Thành công!', '', 'success')
+                    onRefeshData()
                 }
             })
         } catch (error) {

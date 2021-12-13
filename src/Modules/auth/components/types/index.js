@@ -9,44 +9,34 @@ import CreateTypeScreen from "../../screens/types/create";
 
 const ListTypesComponent = () => {
   const [Types, setTypes] = useState([]);
-  const [perPage, setPerPage] = useState(10);
-  const [page, setPage] = useState(0);
-  const [pages, setPages] = useState(0);
+  
 
 
   useEffect(() => {
     const getTypes = async () => {
       try {
         const { data } = await alltype();
-        setPages(Math.ceil(data.length / perPage))
-        const items = data.slice(page * perPage, (page + 1) * perPage);
-        setTypes(items)
+        setTypes(data)
       } catch (error) {
         console.log(error);
       }
     };
     getTypes();
-  }, [page]);
+  }, []);
 
   const refresh = useCallback(() => {
     const getTypes = async () => {
       try {
         const { data } = await alltype();
-        setPages(Math.ceil(data.length / perPage))
-        const items = data.slice(page * perPage, (page + 1) * perPage);
-        setTypes(items)
+        setTypes(data)
       } catch (error) {
         console.log(error);
       }
     };
     getTypes();
-  }, [page])
+  }, [])
 
-  const handlePageClick = (event) => {
-    let page = event.selected;
-    setPage(page)
-  }
-
+  
   const onHandleDelete = async (id) => {
     try {
       Swal.fire({
@@ -105,8 +95,7 @@ const ListTypesComponent = () => {
               <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                 <div className="m-portlet__head">
                   <div className="m-portlet__head-caption">
-                    <CreateTypeScreen />
-                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
+                    <CreateTypeScreen onRefeshData={refresh} />
                   </div>
                   <div className="m-portlet__head-tools">
                   </div>

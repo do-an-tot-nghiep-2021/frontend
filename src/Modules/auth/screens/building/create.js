@@ -3,7 +3,7 @@ import { createbuilding } from '../../../../Api/building';
 import { TokenAccount, SetUser } from '../../../../hooks/useAccount';
 import Swal from 'sweetalert2';
 
-const CreateBuildingScreen = () => {
+const CreateBuildingScreen = ({onRefeshData}) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const onSubmit = async (data) => {
         const newData = {
@@ -18,6 +18,7 @@ const CreateBuildingScreen = () => {
                 }
                 if (response.data.status) {
                     Swal.fire('Thành công!', '', 'success')
+                    onRefeshData()
                 }
             })
         } catch (error) {

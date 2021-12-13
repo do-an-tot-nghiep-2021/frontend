@@ -19,12 +19,11 @@ const DetailProductComponentApp = () => {
         };
         getProducts();
     }, [id]);    
-console.log(products)
     return (
         <DetailProductScreenApp 
             product={products} 
-            cate={products.category} 
             type={products.product_type}
+            product_cate={products.product_cate}
             topping={products.product_topping}
         />
     )

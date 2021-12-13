@@ -6,7 +6,7 @@ import useUpload from "../../../../hooks/upload/useUpload";
 import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 import Swal from "sweetalert2";
 
-const CreateFormScreen = () => {
+const CreateFormScreen = ({onRefeshData}) => {
   const [preview, setPreview] = useState("");
   const { loading, handleUpload } = useUpload();
 
@@ -37,6 +37,8 @@ const CreateFormScreen = () => {
         }
         if (response.data.status) {
           Swal.fire('Thành công!', '', 'success')
+          onRefeshData()
+          
         }
       })
     } catch (error) {

@@ -16,7 +16,7 @@
   --margin: 6px;
     margin: 0 var(--margin);
   border-radius: 6px;
-  background: #50413b;
+  background: #ffc107;
   max-width: auto;
   min-width: var(--size);
   height: var(--size);
@@ -25,13 +25,15 @@
   justify-content: center;
   cursor: pointer;
   padding: 0 6px;
-  color: aliceblue;
+  color: black;
   font-weight: 600;
 }
 .pagination-layout li a:hover{
-    background: #665f5b;
+    background: #161100;
+    color: blanchedalmond;
 }
 .pagination-layout .active-page a{
-    background: #af6903;
+    background: #161100;
+    color: blanchedalmond;
     transition: 0.5s;
 }

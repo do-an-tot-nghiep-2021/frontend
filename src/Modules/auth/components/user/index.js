@@ -3,27 +3,41 @@ import { useState, useEffect } from "react";
 import { TokenAccount, SetUser } from '../../../../hooks/useAccount';
 import ListUserScreen from "../../screens/user/list";
 import { Link } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 
 const ListUserComponent = () => {
     const [users, setUsers] = useState([]);
     const [roleUser, setRoleUser] = useState(0);
+    const [perPage, setPerPage] = useState(5);
+    const [page, setPage] = useState(0);
+    const [pages, setPages] = useState(0);
     useEffect(() => {
         const getUsers = async () => {
-            const data = {
+            const newData = {
                 token: TokenAccount.getToken(),
                 user: SetUser.getUser(),
                 role: roleUser
             }
             try {
-                const users = await alluser(data).then(Response => {
-                    setUsers(Response.data);
-                });
+                const { data } = await alluser(newData)
+                setPages(Math.ceil(data.length / perPage))
+                const items = data.slice(page * perPage, (page + 1) * perPage);
+                setUsers(items)
             } catch (error) {
                 console.log(error);
             }
         }
         getUsers();
-    }, [roleUser]);
+    }, [page, roleUser]);
+
+    const handlePageClick = (event) => {
+        let page = event.selected;
+        setPage(page)
+    }
+
+    const handleSelect = (e) => {
+        setRoleUser(e.target.value);
+    };
 
     return (
         <>
@@ -59,10 +73,27 @@ const ListUserComponent = () => {
                             <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                                 <div className="m-portlet__head">
                                     <div className="m-portlet__head-caption">
-                                        <button className="btn btn-primary m-2" onClick={() => setRoleUser(10)}>Admin</button>
-                                        <button className="btn btn-primary m-2" onClick={() => setRoleUser(1)}>User</button>
+                                        <div class="dataTables_length" >
+                                            <select class="custom-select custom-select-sm form-control form-control-sm" style={{width : '60px'}} onChange={handleSelect}>
+                                                <option value="0">Tất cả</option>
+                                                <option value="1">User</option>
+                                                <option value="10">Admin</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div className="m-portlet__head-tools">
+                                        <ReactPaginate
+                                            previousLabel={'Previous'}
+                                            nextLabel={'Next'}
+                                            pageCount={pages}
+                                            onPageChange={handlePageClick}
+                                            containerClassName={'pagination-layout'}
+                                            pageClassName={'page-item-layout'}
+                                            previousClassName={'page-item-layout'}
+                                            nextClassName={'page-item-layout'}
+                                            pageLinkClassName={'page-link-layout'}
+                                            activeClassName={'active-page'}
+                                        />
                                     </div>
                                 </div>
                             </div>
@@ -79,7 +110,6 @@ const ListUserComponent = () => {
                                                     <th scope="col">Email</th>
                                                     <th scope="col">Số điện thoại</th>
                                                     <th scope="col">Quyền hạn</th>
-                                                    <th width="100"><i className="flaticon-settings-1"></i></th>
                                                 </tr>
                                             </thead>
                                             <tbody>

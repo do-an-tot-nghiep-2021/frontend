@@ -3,37 +3,55 @@ import { getorder, cancelorder } from '../../../../Api/order';
 import { SetUserGoogle } from '../../../../hooks/useAccount';
 import CheckOrderScreenApp from '../../screens/checkorder';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 import NavProfile from '../../../../Layouts/app/component/nav-profile';
+import ReactPaginate from 'react-paginate';
 const CheckOrderComponents = () => {
     const [orders, setOrders] = useState([])
     const [status, setStatus] = useState(0);
-    const [callback, setCallback] = useState(false)
+    const [perPage, setPerPage] = useState(5);
+    const [page, setPage] = useState(0);
+    const [pages, setPages] = useState(0);
 
     useEffect(async () => {
         if (SetUserGoogle.getUserGoogle()) {
-            const data = {
+            const newData = {
                 google_id: SetUserGoogle.getUserGoogle().google_id,
                 id: SetUserGoogle.getUserGoogle().id,
                 status: status
             }
-            const respons = await getorder(data);
-            setOrders(respons.data)
+            const { data } = await getorder(newData);
+            setPages(Math.ceil(data.length / perPage))
+            const items = data.slice(page * perPage, (page + 1) * perPage);
+            setOrders(items)
         }
-    }, [status]);
+    }, [status, page]);
 
-    useCallback(async () => {
-        if(callback == true){
-            if (SetUserGoogle.getUserGoogle()) {
-                const data = {
-                    google_id: SetUserGoogle.getUserGoogle().google_id,
-                    id: SetUserGoogle.getUserGoogle().id,
-                    status: status
+    const handlePageClick = (event) => {
+        let page = event.selected;
+        setPage(page)
+    }
+
+    const refresh = useCallback(() => {
+        const getOrders = async () => {
+            try {
+                if (SetUserGoogle.getUserGoogle()) {
+                    const data = {
+                        google_id: SetUserGoogle.getUserGoogle().google_id,
+                        id: SetUserGoogle.getUserGoogle().id,
+                        status: status
+                    }
+                    const respons = await getorder(data);
+                    setOrders(respons.data)
                 }
-                const respons = await getorder(data);
-                setOrders(respons.data)
+
+            } catch (error) {
+                console.log(error);
             }
         }
-    }, [status]);
+        getOrders();
+    }, [status])
+
 
     const onHandleCancel = async (id) => {
         try {
@@ -54,8 +72,8 @@ const CheckOrderComponents = () => {
                             Swal.fire(response.data.message, '', 'error')
                         }
                         if (response.data.status) {
-                            setCallback(true)
                             Swal.fire('Thành công!', '', 'success')
+                            refresh()
                         }
                     })
                 }
@@ -67,47 +85,94 @@ const CheckOrderComponents = () => {
 
     return (
         <>
-            {SetUserGoogle.getUserGoogle() ?
-                <div className="row">
-                    <NavProfile />
-                    <div className="col-10">
-                        <div className="row text-center bg-primary text-light pt-2 pb-2" style={{ fontSize: "12px", fontWeight: 600 }}>
-                            <div className="col-2">
-                                <span style={{ cursor: 'pointer' }} onClick={() => setStatus(0)}>Tất cả</span>
-                            </div>
-                            <div className="col-2">
-                                <span style={{ cursor: 'pointer' }} onClick={() => setStatus(1)}>Đang chờ xử lý</span>
-                            </div>
-                            <div className="col-2">
-                                <span style={{ cursor: 'pointer' }} onClick={() => setStatus(2)}>Đang chờ nhân viên giao hàng</span>
-                            </div>
-                            <div className="col-2">
-                                <span style={{ cursor: 'pointer' }} onClick={() => setStatus(3)}>Đang vận chuyển</span>
-                            </div>
-                            <div className="col-2">
-                                <span style={{ cursor: 'pointer' }} onClick={() => setStatus(4)}>Thành công</span>
-                            </div>
-                            <div className="col-2">
-                                <span style={{ cursor: 'pointer' }} onClick={() => setStatus(5)}>Đã hủy</span>
-                            </div>
-                        </div>
-                        <table className="table" style={{ fontSize: "12px", fontWeight: 600, fontFamily: "Quicksand" }}>
-                            <thead >
-                                <tr>
-                                    <th scope="col">Địa chỉ</th>
-                                    <th scope="col" className="text-center">Thông tin đơn hàng</th>
-                                    <th scope="col">Tổng tiền</th>
-                                    <th scope="col" >Trạng thái</th>
-                                    <th scope="col" >Phương thức thanh toán</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <CheckOrderScreenApp orders={orders} onCancel={onHandleCancel} />
-                            </tbody>
-                        </table>
+            <section className="breadcrumb-nav">
+                <div className="container">
+                    <div className="breadcrumb-nav-inner">
+                        <ul>
+                            <li><Link to="/">Trang chủ</Link></li>
+                            <li><a>Tài khoản</a></li>
+                            <li className="active"><a >Đơn mua</a></li>
+                        </ul>
+                        <label className="now">ĐƠN MUA</label>
                     </div>
                 </div>
-                : <p className="text-danger text-center">Bạn chưa đăng nhập hãy đăng nhập</p>}
+            </section>
+            {SetUserGoogle.getUserGoogle() ?
+                <section class="default-section shop-checkout bg-grey">
+                    <div class="container">
+                        <div className="row">
+                            <NavProfile />
+                            <div class="col-md-9 col-sm-9 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                <div class="shop-checkout-right">
+                                    <div className="checkout-wrap checkout-wrap-more wow fadeInDown">
+                                        <ul className="checkout-bar">
+                                            <li className={status == 0 ? "active" : ""} onClick={() => setStatus(0)}>
+                                                Tất cả
+                                            </li>
+                                            <li className={status == 1 ? "active" : ""} onClick={() => setStatus(1)}>
+                                                Chờ xử lí
+                                            </li>
+                                            <li className={status == 2 ? "active" : ""} onClick={() => setStatus(2)}>
+                                                Chờ giao hàng
+                                            </li>
+                                            <li className={status == 3 ? "active" : ""} onClick={() => setStatus(3)}>
+                                                Đang vận chuyển
+                                            </li>
+                                            <li className={status == 4 ? "active" : ""} onClick={() => setStatus(4)}>
+                                                Thành công
+                                            </li>
+                                            <li className={status == 5 ? "active" : ""} onClick={() => setStatus(5)}>
+                                                Đã hủy
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    {orders.length > 0 ?
+                                        <>
+                                            <table className="table" style={{ fontSize: "12px", fontWeight: 600, fontFamily: "Quicksand" }}>
+                                                <thead >
+                                                    <tr>
+                                                        <th scope="col" width='10px' >#</th>
+                                                        <th scope="col">Địa chỉ</th>
+                                                        <th scope="col" className="text-center">Thông tin đơn hàng</th>
+                                                        <th scope="col">Tổng tiền</th>
+                                                        <th scope="col" className='text-center' width="170" >Action</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <CheckOrderScreenApp orders={orders} onCancel={onHandleCancel} />
+                                                </tbody>
+                                            </table>
+                                            <div className="gallery-pagination text-left">
+                                                <ReactPaginate
+                                                    previousLabel={'PREV'}
+                                                    nextLabel={'NEXT'}
+                                                    pageCount={pages}
+                                                    onPageChange={handlePageClick}
+                                                    containerClassName={'gallery-pagination-inner'}
+                                                    pageClassName={'page-item-layout'}
+                                                    previousClassName={'pagination-prev'}
+                                                    nextClassName={'pagination-next'}
+                                                    pageLinkClassName={''}
+                                                    activeClassName={'active'}
+                                                />
+                                            </div>
+                                        </>
+                                        : <div className='text-center'><img src='https://shop4bd.com/assets/images/no-product.png' width="200" height={115} /></div>}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                : <section className="default-section shop-cart bg-grey">
+                    <div className="container">
+                        <div className="order-complete-box wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                            <img src="https://cdn.tecotecshop.com/assets/img/no-cart.png" style={{ width: "400px", height: "300px" }} alt="" />
+                            <p>Bạn chưa đăng nhập! <br /> Bây giờ, hãy đăng nhập tài khoản google của bạn để mua đồ uống tại BeeCoffee nhé.</p>
+                        </div>
+                    </div>
+                </section>
+            }
         </>
     )
 }

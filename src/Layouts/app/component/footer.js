@@ -2,7 +2,45 @@ import { Link } from "react-router-dom"
 const FooterApp = () => {
     return (
         <>
-            <footer className="footer-area">
+            <footer>
+                <div className="footer-part" style={{fontFamily : 'Quicksand'}}>
+                    <div className="footer-inner-info Banner-Bg" data-background="images/footer-bg.jpg">
+                        <div className="container">
+                            <div className="row">
+                                <div className="col-md-3 col-sm-3 col-xs-12">
+                                    <div className="logo mb-3">
+                                        <Link to="/"><img src={process.env.PUBLIC_URL + '/text-logo-footer.png'} style={{width : '190px'}} /></Link>
+                                    </div>
+                                    <p>Chúng tôi khao khát một số thực sự tan chảy trong miệng. Floury là lựa chọn tốt nhất để nêm nếm thức ăn và món tráng miệng.</p>
+                                    <ul className="footer-social">
+                                        <li><a href="#"><i className="fa fa-facebook" aria-hidden="true" /></a></li>
+                                        <li><a href="#"><i className="fa fa-twitter" aria-hidden="true" /></a></li>
+                                        <li><a href="#"><i className="fa fa-instagram" aria-hidden="true" /></a></li>
+                                        <li><a href="#"><i className="fa fa-pinterest" aria-hidden="true" /></a></li>
+                                        <li><a href="#"><i className="fa fa-dribbble" aria-hidden="true" /></a></li>
+                                        <li><a href="#"><i className="fa fa-google" aria-hidden="true" /></a></li>
+                                    </ul>
+                                </div>
+                                <div className="col-md-4 col-sm-4 col-xs-12">
+                                    <h5>Liên hệ</h5>
+                                    <p>Cao đẳng thực hành FPT POLYTECHNIC<br/> 80 Trần Hữu Dực, Nam Từ Liêm, Hà Nội <br/> <a href="tel:1234567890">123 456 7890</a> <br /> <a href="mailto:BeeCoffee@fpt.edu.vn">BeeCoffee@fpt.edu.vn</a></p>
+                                </div>
+                                <div className="col-md-4 col-sm-4 col-xs-12">
+                                    <h5>Giờ mở cửa</h5>
+                                    <p>Thứ 2 - Thứ 6: ........ 6h - 21h<br /> Thứ 7 - Chủ nhật: ........ 6h - 22h<br /> Đóng vào các ngày đặc biệt</p>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                    <div className="copyright">
+                        <div className="container">
+                            <p>Bản quyền © 2021. Đã đăng ký Bản quyền.</p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+            {/* <footer className="footer-area">
                 <div className="footer-widget-area">
                     <div className="container">
                         <div className="row">
@@ -107,7 +145,7 @@ const FooterApp = () => {
                         </div>
                     </div>
                 </div>
-            </footer>
+            </footer> */}
 
         </>
     )

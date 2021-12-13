@@ -2,23 +2,35 @@ import { useEffect, useState, useCallback } from "react";
 import { allproduct, removeproduct } from "../../../../Api/product";
 import ListProductScreen from "../../screens/product/list";
 import { Link } from "react-router-dom";
+import ReactPaginate from "react-paginate";
 import CreateProductScreen from "../../screens/product/create";
 import { SetUser, TokenAccount } from "../../../../hooks/useAccount";
 import Swal from "sweetalert2";
 
 const ListProductComponent = () => {
   const [Products, setProducts] = useState([]);
+  const [perPage, setPerPage] = useState(5);
+  const [page, setPage] = useState(0);
+  const [pages, setPages] = useState(0);
   useEffect(() => {
     const getProducts = async () => {
       try {
         const { data } = await allproduct();
-        setProducts(data);
+        setPages(Math.ceil(data.length / perPage))
+        const items = data.slice(page * perPage, (page + 1) * perPage);
+        setProducts(items);
       } catch (error) {
         console.log(error);
       }
     };
     getProducts();
-  }, []);
+  }, [page]);
+
+  const handlePageClick = (event) => {
+    let page = event.selected;
+    setPage(page)
+  }
+
   const refresh = useCallback(() => {
     const getProducts = async () => {
       try {
@@ -88,10 +100,21 @@ const ListProductComponent = () => {
               <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                 <div className="m-portlet__head">
                   <div className="m-portlet__head-caption">
-                    <CreateProductScreen />
-                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
+                    <CreateProductScreen onRefeshData={refresh} />
                   </div>
                   <div className="m-portlet__head-tools">
+                    <ReactPaginate
+                      previousLabel={'Previous'}
+                      nextLabel={'Next'}
+                      pageCount={pages}
+                      onPageChange={handlePageClick}
+                      containerClassName={'pagination-layout'}
+                      pageClassName={'page-item-layout'}
+                      previousClassName={'page-item-layout'}
+                      nextClassName={'page-item-layout'}
+                      pageLinkClassName={'page-link-layout'}
+                      activeClassName={'active-page'}
+                    />
                   </div>
                 </div>
               </div>

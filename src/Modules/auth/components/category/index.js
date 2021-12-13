@@ -9,7 +9,7 @@ import CreateFormScreen from "../../screens/category/create";
 
 const CategoryListAuth = () => {
   const [Categories, setCategories] = useState([]);
-  // const forceUpdate = React.useCallback(() => updateState(Categories), [Categories]);
+  
   useEffect(() => {
     const getCategories = async () => {
       try {
@@ -21,6 +21,8 @@ const CategoryListAuth = () => {
     };
     getCategories();
   }, []);
+
+  
 
   const onHandleDelete = async (id) => {
     try {
@@ -92,10 +94,10 @@ const CategoryListAuth = () => {
               <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                 <div className="m-portlet__head">
                   <div className="m-portlet__head-caption">
-                    <CreateFormScreen />
-                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
+                    <CreateFormScreen onRefeshData={refresh} />
                   </div>
                   <div className="m-portlet__head-tools">
+                   
                   </div>
                 </div>
               </div>

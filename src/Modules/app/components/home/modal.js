@@ -1,8 +1,9 @@
 import { showproduct } from "../../../../Api/product";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import {useCart} from "../../../../hooks/useCart"
+import { useCart } from "../../../../hooks/useCart"
 import { formatNumber } from "../../../../Helpers/utils";
+import Swal from "sweetalert2";
 
 function ModalProduct({ setOpenModal, idproduct }) {
   const [count, setCount] = useState(0);
@@ -25,17 +26,18 @@ function ModalProduct({ setOpenModal, idproduct }) {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data) => {
-    const price_topping = (data.topping) ? (data.topping.length)*7000 : 0
-        const newProduct = {
-            id: product.id,
-            name: product.name,
-            image: product.image,
-            price: product.price + price_topping,
-            quantity: count + 1,
-            topping: (data.topping ? data.topping : ""),
-            type: (data.type ? data.type : "")
-        }
-        addProduct(newProduct)
+    const price_topping = (data.topping) ? (data.topping.length) * 7000 : 0
+    const newProduct = {
+      id: product.id,
+      name: product.name,
+      image: product.image,
+      price: product.price + price_topping,
+      quantity: count + 1,
+      topping: (data.topping ? data.topping : ""),
+      type: (data.type ? data.type : "")
+    }
+    addProduct(newProduct)
+    Swal.fire('Đã thêm vào giỏ hàng!', '', 'success')
   };
 
   return (
@@ -54,13 +56,13 @@ function ModalProduct({ setOpenModal, idproduct }) {
               </h5>
             </div>
             <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="modal-body">
-              
+              <div className="modal-body">
+
                 <div className="container">
                   <div className="row">
                     <div className="col-md-6 col-sm-6 col-xs-12">
                       <img
-                        className="img-product-detail"
+                        className="img-product-detail-model"
                         src={product.image}
                         alt=""
                       />
@@ -69,19 +71,15 @@ function ModalProduct({ setOpenModal, idproduct }) {
                       <h4 className="text-coffee">{product.name}</h4>
                       <div className="star-review-collect">
                         <div className="star-rating">
-                          <i className="fas fa-star" />
-                          <i className="fas fa-star" />
-                          <i className="fas fa-star" />
-                          <i className="fas fa-star" />
-                          <i className="fas fa-star" />
+
                           <span
                             className="star-rating-customer"
-                            style={{ width: "50%" }}
+                            style={{ width: "70%" }}
                           ></span>
                         </div>
                       </div>
 
-                      <h3 className="text-coffee">
+                      <h3 className="text-coffee-model">
                         {formatNumber(product.price * (count + 1))}
                       </h3>
                       <div className="price-textbox">
@@ -105,60 +103,66 @@ function ModalProduct({ setOpenModal, idproduct }) {
                           />
                         </span>
                       </div>
-
-                      <div className="topping_product">
-                        <div className="row">
-                          {product.product_topping &&
-                            product.product_topping.map((item, index) => (
-                              <section key={index} className="mr-2">
-                                <input
-                                  type="checkbox"
-                                  value={item.name}
-                                  {...register("topping", { required: false })}
-                                />
-                                <br />
-                                {item.name}
-                                <br />
-                                {item.price}
-                              </section>
-                            ))}
-
-                          {product.product_type &&
-                            product.product_type.map((item, index) => (
-                              <section key={index} className="mr-2">
-                                <input
-                                  type="radio"
-                                  value={item.name}
-                                  {...register("type", { required: false })}
-                                />
-                                <br />
-                                {item.name}
-                                <br />
-                                {item.price}
-                              </section>
-                            ))}
-                        </div>
-                      </div>
                     </div>
                   </div>
+                  <div className="topping_product mt-2">
+                    {product.product_type && product.product_type.length > 0 ?
+                    <div>
+                      <h5>Chọn thuộc tính <span className="text-danger" style={{ fontSize: '20px' }}>*</span></h5>
+                      <div className="row mt-3">
+                        {product.product_type &&
+                          product.product_type.map((item, index) => (
+                            <section key={index} className="col-2 mr-2 d-flex justify-content-between">
+                              <div>
+                                <input type="radio" value={item.name} {...register("type", { required: true })} required />
+                              </div>
+                              {errors.type && <span className="text-danger">Không để trống trường này</span>}
+                              <div>
+                                <span>{item.name}</span><br />{item.price}
+                              </div>
+                            </section>
+                          ))}
+                      </div>
+                    </div>
+                    :""}
+                    {product.product_topping && product.product_topping.length > 0 ?
+                    <div>
+                      <h5 className="mt-2">Thêm Topping (option)</h5>
+                      <div className="row mt-3">
+                        {product.product_topping &&
+                          product.product_topping.map((item, index) => (
+                            <section key={index} className="mr-2 d-flex flex-row col-5 mb-2">
+                              <div>
+                                <input type="checkbox" value={item.name} {...register("topping", { required: false })} />
+                              </div>
+                              <div>
+                                <span className="ml-2">{item.name}</span>
+                                <br />{formatNumber(item.price)}
+                              </div>
+                            </section>
+                          ))}
+                      </div>
+                    </div>
+                    :""}
+                  </div>
                 </div>
-              
-            </div>
-            <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-danger"
-                data-dismiss="modal"
-                onClick={() => {
-                  setOpenModal(false);
-                }}
-              >
-                Đóng
-              </button>
-              <button type="submit" className="btn btn-primary">
-                Thêm mới
-              </button>
-            </div>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn-large filter-btn" style={{ border: 'none' }}
+                  data-dismiss="modal"
+                  onClick={() => {
+                    setOpenModal(false);
+                  }}
+                >
+                  Đóng
+                </button>
+                <button type="submit" className="btn-large filter-btn" style={{ border: 'none' }}>
+                  <i className="fa fa-shopping-bag mr-2" aria-hidden="true" />
+                  Thêm vào giỏ hàng
+                </button>
+              </div>
             </form>
           </div>
         </div>

@@ -5,6 +5,7 @@ const CheckOrderScreenApp = ({ orders, onCancel }) => {
         <>
             {orders && orders.map((order, index) => (
                 <tr key={index}>
+                    <td>{index + 1}</td>
                     <td>
                         {order.building.map((buil) => (
                             <span key={buil.id}>{buil.name}, </span>
@@ -29,21 +30,45 @@ const CheckOrderScreenApp = ({ orders, onCancel }) => {
                                 <div className="col-2">
                                     x {product.quantity}
                                 </div>
-                                {order.status == "Đơn hàng đã vận chuyển thành công" ?
-                                    <td>
-                                        <Link className="btn btn-primary" to={`/checkorder/comment/${product.product_id}`}>Commet</Link>
-                                    </td> : ""}
 
                             </div>
                         ))}
                     </td>
                     <td>{formatNumber(order.price_total)}</td>
-                    <td><span className="text-danger">{order.status}</span></td>
-                    <td><span className="text-danger">{order.payment}</span></td>
-                    {order.status == "Đơn hàng đang chờ xử lý" ?
-                        <td>
-                            <button className="btn btn-danger" onClick={() => onCancel(order.id)} >Hủy</button>
-                        </td> : ""}
+                    <td className="text-center">
+                        {order.status == "Đơn hàng đã vận chuyển thành công" ?
+                            <Link className="btn-comment" to={`/checkorder/comment/`}>Đánh giá</Link>
+                            : ""}
+                        {order.status == "Đơn hàng đang chờ xử lý" ?
+                            <button className="btn-cancel" onClick={() => onCancel(order.id)} >Hủy</button>
+                            : ""}
+                        <button type="button" className="btn-detail ml-2" data-toggle="modal" data-target={`#m_modal_ordercheck_${order.id}`}>Chi tiết</button>
+                        <div className="modal fade text-left" id={`m_modal_ordercheck_${order.id}`} tabIndex={-1} role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div className="modal-dialog modal-dialog-centered" role="document">
+                                <div className="modal-content">
+                                    <div className="modal-header">
+                                        <h5 className="modal-title" id="exampleModalLongTitle">Trạng Thái và Phương Thức Thanh Toán</h5>
+                                        <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div className="modal-body">
+                                        <div className="mb-2">
+                                            <h6>Trạng Thái :</h6>
+                                            <span class="m-badge m-badge--brand m-badge--wide m-badge--rounded m-1" >{order.status}</span>
+                                        </div>
+                                        <div>
+                                            <h6>Phương Thức Thanh Toán :</h6>
+                                            <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded m-1">{order.payment}</span>
+                                        </div>
+                                    </div>
+                                    <div className="modal-footer">
+                                        <button type="button" className="btn-cancel" data-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
 
                 </tr>
             ))}

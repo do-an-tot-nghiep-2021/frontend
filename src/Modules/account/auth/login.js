@@ -2,6 +2,7 @@ import { login, getUser } from "../../../Api/account"
 import { useForm } from "react-hook-form";
 import { useHistory, Redirect } from "react-router";
 import { TokenAccount, SetUser } from "../../../hooks/useAccount";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const LoginAuth = () => {
@@ -85,7 +86,7 @@ const LoginAuth = () => {
                                                 </div>
                                                 <div className="mb-3">
                                                     <label className="form-label text-light" htmlFor="loginPassword" >Mật khẩu</label>
-                                                    <a className="float-end text-5" href="forgot-password-17.html">Quên mật khẩu ?</a>
+                                                    <Link className="float-end text-5" to="/forgot-password/account">Quên mật khẩu ?</Link>
                                                     <input type="password" className="form-control" required placeholder="********" {...register("password", { required: true })} />
                                                 </div>
                                                 <button type="submit" className="btn btn-primary my-2" style={{ fontSize: "14px" }} type="submit">Đăng nhập</button>

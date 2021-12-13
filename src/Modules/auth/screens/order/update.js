@@ -5,7 +5,6 @@ import { showorder, updateorder } from "../../../../Api/order";
 
 
 const UpdateOrderScreen = ({ id }) => {
-  console.log(id)
   const history = useHistory();
   const { register, reset, handleSubmit, formState: { errors } } = useForm();
   const onSubmit = async (data) => {

@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { createtopping } from "../../../../Api/topping";
 import { TokenAccount, SetUser } from '../../../../hooks/useAccount';
 
-const CreateToppingScreen = () => {
+const CreateToppingScreen = ({onRefeshData}) => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
     const newData = {
@@ -18,6 +18,7 @@ const CreateToppingScreen = () => {
         }
         if (response.data.status) {
           Swal.fire('Thành công!', '', 'success')
+          onRefeshData()
         }
       })
     } catch (error) {

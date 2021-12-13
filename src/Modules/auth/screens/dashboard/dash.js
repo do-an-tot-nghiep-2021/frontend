@@ -1,10 +1,15 @@
 import { SetUser, TokenAccount } from "../../../../hooks/useAccount"
 import { getorderdate } from "../../../../Api/order";
 import { useEffect, useState } from "react";
+import { exportexcel } from "../../../../Api/excel";
+import { formatNumber } from "../../../../Helpers/utils";
 const DashboardScreen = () => {
 
     const [date, setDate] = useState(1);
     const [order, setOrder] = useState([]);
+    const [priceTotalOrder, setPriceTotalOrder] = useState(0);
+    // setPriceTotalOrder(order.reduce((n, {price_total}) => n + price_total, 0))
+
     useEffect(() => {
         const newData = {
             token : TokenAccount.getToken(),
@@ -23,8 +28,13 @@ const DashboardScreen = () => {
         getOrders();
     }, [date]);
     
-    console.log(order.length)
-
+    const handleExport = async () => {
+        const data = {
+            date : date
+        }
+        console.log(date)
+        await exportexcel(data)
+    }
     return (
         <>
             <div>
@@ -46,7 +56,7 @@ const DashboardScreen = () => {
                                             <div className="m-portlet__head-caption">
                                                 <div className="m-portlet__head-title">
                                                     <h3 className="m-portlet__head-text">
-                                                        Best Sellers
+                                                        <button className="btn btn-success" onClick={handleExport}>Export excel</button>
                                                     </h3>
                                                 </div>
                                             </div>
@@ -85,7 +95,7 @@ const DashboardScreen = () => {
                                                                             <span className="m-widget1__desc">Awerage Weekly Profit</span>
                                                                         </div>
                                                                         <div className="col m--align-right">
-                                                                            <span className="m-widget1__number m--font-brand">+$17,800</span>
+                                                                            {/* <span className="m-widget1__number m--font-brand">{formatNumber(priceTotalOrder)}</span> */}
                                                                         </div>
                                                                     </div>
                                                                 </div>

@@ -8,7 +8,7 @@ import { alltopping } from "../../../../Api/topping";
 import { alltype } from "../../../../Api/types";
 import { SetUser, TokenAccount } from "../../../../hooks/useAccount";
 import Swal from "sweetalert2";
-const CreateProductScreen = () => {
+const CreateProductScreen = ({onRefeshData}) => {
   const [preview, setPreview] = useState("");
   const { loading, handleUpload } = useUpload();
 
@@ -84,6 +84,7 @@ const CreateProductScreen = () => {
         }
         if (response.data.status) {
           Swal.fire('Thành công!', '', 'success')
+          onRefeshData()
         }
       })
     }catch (error) {

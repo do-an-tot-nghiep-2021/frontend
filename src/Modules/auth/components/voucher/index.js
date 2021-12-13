@@ -91,13 +91,11 @@ const ListVoucherComponent = () => {
       <div className="m-content">
         <div className="row">
           <div className="col-xl-12">
-            {/*begin::Portlet*/}
             <div className="m-portlet">
               <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                 <div className="m-portlet__head">
                   <div className="m-portlet__head-caption">
-                    <CreateVoucherScreen />
-                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
+                    <CreateVoucherScreen onRefeshData={refresh}/>
                   </div>
                   <div className="m-portlet__head-tools">
                   </div>
@@ -110,6 +108,7 @@ const ListVoucherComponent = () => {
                       <thead>
                         <tr>
                           <th>#</th>
+                          <th>Voucher</th>
                           <th>Name </th>
                           <th>Point</th>
                           <th>Value</th>

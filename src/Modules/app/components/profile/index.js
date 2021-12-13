@@ -6,26 +6,31 @@ import { useForm } from "react-hook-form"
 import useUpload from "../../../../hooks/upload/useUpload"
 import ClipLoader from "react-spinners/ClipLoader";
 import Swal from 'sweetalert2';
+import NumberFormat from 'react-number-format';
+import { Link } from 'react-router-dom';
 
 const ProfileComponentApp = () => {
     const { register, reset, handleSubmit, formState: { errors } } = useForm();
     const [preview, setPreview] = useState('');
+    const [userProfile, setUserProfile] = useState([]);
     const { loading, handleUpload } = useUpload();
+
 
     useEffect(async () => {
         if (SetUserGoogle.getUserGoogle()) {
             const newItems = {
-                google_id : SetUserGoogle.getUserGoogle().google_id,
+                google_id: SetUserGoogle.getUserGoogle().google_id,
                 id: SetUserGoogle.getUserGoogle().id
             }
             const respons = await getprofileidgoogle(newItems);
             const userGoogle = respons.data;
+            setUserProfile(userGoogle)
             if (userGoogle.image) {
                 setPreview(userGoogle.image);
             }
             reset(userGoogle);
         }
-        
+
     }, []);
 
     const handleInputUploadChange = async (e) => {
@@ -37,7 +42,7 @@ const ProfileComponentApp = () => {
         const url = await handleUpload(file);
         setPreview(url);
     };
-    
+
     const renderPreview = () => {
         if (loading) {
             return (
@@ -51,7 +56,7 @@ const ProfileComponentApp = () => {
                 <div className="form-group mb-2">
                     <img
                         src={preview} className="mt-2"
-                        style={{width : "100%", borderRadius : "100px"}}
+                        style={{ width: "100%", borderRadius: "100px" }}
                     />
                 </div>
             );
@@ -61,10 +66,10 @@ const ProfileComponentApp = () => {
 
     const onSubmit = async (data) => {
         const newData = {
-            id : data.id,
-            name: data.name, 
-            google_id : data.google_id,
-            phone : data.phone
+            id: data.id,
+            name: data.name,
+            google_id: data.google_id,
+            phone: data.phone
         }
         if (preview) {
             newData.image = preview;
@@ -95,59 +100,91 @@ const ProfileComponentApp = () => {
     }
     return (
         <>
-        {SetUserGoogle.getUserGoogle() ?
-            <div className="row">
-                <NavProfile />
-                <div className="col-10">
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className="row" >
-                            <div className="col-10">
-                                <h3>Ho so</h3>
-                                <input type="hidden" {...register("google_id")} />
-                                <input type="hidden" {...register("id")} />
-                                <div className="form-group">
-                                    <label htmlFor="exampleFormControlInput1">Ten dang nhap</label>
-                                    <input type="text" className="form-control" {...register("name", { required: true })} />
-                                    {errors.name && <span className="text-danger">Khong de trong truong nay</span>}
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="exampleFormControlInput1">Email address</label>
-                                    <input type="email" className="form-control" {...register("email")} readOnly />
-                                </div>
-                                <div className="form-group">
-                                    <label htmlFor="exampleFormControlInput1">So dien thoai</label>
-                                    <input type="text" className="form-control" {...register("phone", { required: true })} required="" />
-                                    {errors.phone && <span className="text-danger">Khong de trong truong nay</span>}
-                                </div>
+            <section className="breadcrumb-nav">
+                <div className="container">
+                    <div className="breadcrumb-nav-inner">
+                        <ul>
+                            <li><Link to="/">Trang chủ</Link></li>
+                            <li><a>Tài khoản</a></li>
+                            <li className="active"><a >Hồ sơ</a></li>
+                        </ul>
+                        <label className="now">HỒ SƠ</label>
+                    </div>
+                </div>
+            </section>
 
-                                <button type="submit" className="btn btn-primary mt-2">Cập nhật</button>
-                            </div>
-                            <div className="col-2">
-                                {renderPreview()}
-                                <div>
-                                    <div className="custom-file">
-                                        <input
-                                            type="file"
-                                            className="custom-file-input"
-                                            id="image"
-                                            accept="image/*"
-                                            onChange={handleInputUploadChange}
-                                        />
+            {SetUserGoogle.getUserGoogle() ?
+                <section class="default-section shop-checkout bg-grey">
+                    <div class="container">
+                        <div className="row">
+                            <NavProfile />
+                            <div class="col-md-9 col-sm-9 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                <div class="shop-checkout-right">
+                                    <form onSubmit={handleSubmit(onSubmit)}>
+                                        <div className="row" >
+                                            <div className="col-9">
+                                                <h5>HỒ SƠ CÁ NHÂN</h5>
+                                                <input type="hidden" {...register("google_id")} />
+                                                <input type="hidden" {...register("id")} />
+                                                <div className="row">
+                                                    <div className="form-group col-12">
+                                                        <label htmlFor="exampleFormControlInput1">Tên đăng ký  <span className="text-danger" style={{ fontSize: '20px' }}>*</span></label>
+                                                        <input type="text" className="form-control" {...register("name", { required: true })} />
+                                                        {errors.name && <span className="text-danger">Không để trống trường này!</span>}
+                                                    </div>
+                                                    <div className="form-group col-6">
+                                                        <label htmlFor="exampleFormControlInput1">Địa chỉ email  <span className="text-danger" style={{ fontSize: '20px' }}>*</span></label>
+                                                        <input type="email" className="form-control" {...register("email")} readOnly />
+                                                    </div>
+                                                    <div className="form-group col-6">
+                                                        <label htmlFor="exampleFormControlInput1">Số điện thoại  <span className="text-danger" style={{ fontSize: '20px' }}>*</span></label>
+                                                        <input type="text" className="form-control" {...register("phone", { required: true })} required="" />
+                                                        {errors.phone && <span className="text-danger">Khong de trong truong nay</span>}
+                                                    </div>
+                                                </div>
+                                                <button type="submit" className="btn-large filter-btn" style={{ border: 'none' }}>Cập nhật</button>
+                                            </div>
+                                            <div className="col-3">
+                                                {renderPreview()}
+                                                <div>
+                                                    <div className="custom-file">
+                                                        <input
+                                                            type="file"
+                                                            className="custom-file-input"
+                                                            id="image"
+                                                            accept="image/*"
+                                                            onChange={handleInputUploadChange}
+                                                        />
 
-                                        <label
-                                            className="custom-file-label"
-                                            htmlFor="image"
-                                        >
-                                            Choose image
-                                        </label>
-                                    </div>
+                                                        <label
+                                                            className="custom-file-label"
+                                                            htmlFor="image"
+                                                        >
+                                                            Choose image
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <div className="text-center mt-2">
+                                                    <span className="font-weight-bold">Tích điểm : </span><NumberFormat value={userProfile.point} displayType={'text'} thousandSeparator={true} />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                </section>
+                : 
+                <section className="default-section shop-cart bg-grey">
+                <div className="container">
+                <div className="order-complete-box wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                    <img src="https://cdn.tecotecshop.com/assets/img/no-cart.png" style={{width : "400px", height : "300px"}} alt="" />
+                    <p>Bạn chưa đăng nhập! <br /> Bây giờ, hãy đăng nhập tài khoản google của bạn để mua đồ uống tại BeeCoffee nhé.</p>
                 </div>
-            </div>
-            : <p className="text-danger text-center">Bạn chưa đăng nhập hãy đăng nhập</p> }
+                </div>
+            </section>
+                }
         </>
     )
 }

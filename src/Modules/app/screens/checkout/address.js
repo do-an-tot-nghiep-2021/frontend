@@ -7,6 +7,7 @@ import { formatNumber } from "../../../../Helpers/utils";
 import { sendorder } from "../../../../Api/order";
 import ModalLogin from "../../../../hooks/ModalLogin";
 import { useHistory } from "react-router";
+import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 
 const AddressUser = () => {
@@ -40,7 +41,6 @@ const AddressUser = () => {
             } catch (error) {
                 console.log(error);
             }
-
         }
         getClassrooms();
     }, [selectedItem]);
@@ -59,7 +59,7 @@ const AddressUser = () => {
             itemCount: itemCount,
             total: total - SetPriceVoucher.getPriceVoucher(),
             payment: data.payment,
-            voucher : (SetPriceVoucher.getVoucher() ? SetPriceVoucher.getVoucher().id : ""),
+            voucher: (SetPriceVoucher.getVoucher() ? SetPriceVoucher.getVoucher().id : ""),
             note: (noteText ? noteText : "")
         }
         try {
@@ -88,8 +88,6 @@ const AddressUser = () => {
                     });
                 }
             })
-
-
         } catch (error) {
             Swal.fire('Không thể gửi request')
         }
@@ -97,183 +95,151 @@ const AddressUser = () => {
 
     return (
         <>
+            <section className="breadcrumb-nav">
+                <div className="container">
+                    <div className="breadcrumb-nav-inner">
+                        <ul>
+                            <li><Link to="/">Trang chủ</Link></li>
+                            <li><Link to="/cart">Giỏ hàng</Link></li>
+                            <li className="active"><Link to="/cart">Check out</Link></li>
+                        </ul>
+                        <label className="now">Checkout</label>
+                    </div>
+                </div>
+            </section>
             {SetUserGoogle.getUserGoogle() ?
-                <section className="checkout-area">
+                <section className="default-section shop-checkout bg-grey">
                     <div className="container">
-                        <div className="row">
-                            <div className="col-md-12">
-                                <div className="checkout-wrapper">
-                                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <div className="checkout-wrap wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                            <ul className="checkout-bar">
+                                <li className="done-proceed active">Giỏ hàng</li>
+                                <li className="active">Check out</li>
+                                <li>Thành công</li>
+                            </ul>
+
+                        </div>
+                        <form className="form-checkout" onSubmit={handleSubmit(onSubmit)}>
+                            <div className="row">
+                                <div className="col-md-7 col-sm-7 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                    <div className="shop-checkout-left">
                                         <div className="row">
-                                            <div className="col-6">
-                                                <h3>Billing Details</h3>
-                                                <div className="row">
-                                                    <div className="col-md-6">
-                                                        <label htmlFor="fname">Tên khách hàng<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().name} {...register("name")} readOnly />
-                                                        {errors.name && (
-                                                            <span className="d-block text-danger mt-3">
-                                                                This field is required
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <div className="col-md-6">
-                                                        <label htmlFor="phone">Số điện thoại<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().phone} {...register("phone")} required />
-                                                        {errors.phone && (
-                                                            <span className="d-block text-danger mt-3">
-                                                                This field is required
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    <div className="col-md-12">
-                                                        <label htmlFor="email">Email<span>*</span></label>
-                                                        <input type="text" className="df-control" defaultValue={SetUserGoogle.getUserGoogle().email} {...register("email")} name="email" readOnly />
-                                                        {errors.email && (
-                                                            <span className="d-block text-danger mt-3">
-                                                                This field is required
-                                                            </span>
-                                                        )}
-                                                    </div>
-
-                                                    <div className="col-md-12">
-                                                        <label htmlFor="building">Chọn tòa<span>*</span></label>
-                                                        <select
-                                                            className="df-control"
-                                                            {...register("building")}
-                                                            onChange={handleSelect}
-                                                            required
-                                                        >
-                                                            {buildings && buildings.map((item, index) => (
-                                                                <option value={item.id} key={index} id={item.id}>
-                                                                    {item.name}
-                                                                </option>
-                                                            ))}
-
-                                                        </select>
-                                                        {errors.building && (
-                                                            <span className="d-block text-danger mt-3">
-                                                                This field is required
-                                                            </span>
-                                                        )}
-                                                    </div>
-                                                    {classroom != '' ?
-                                                        <div className="col-md-12">
-                                                            <label htmlFor="classroom">Classroom<span>*</span></label>
-                                                            <select
-                                                                className="df-control"
-                                                                {...register("classroom")}
-                                                            >
-                                                                {classroom && classroom.map((item, index) => (
-                                                                    <option value={item.id} key={index} id={item.id}>
-                                                                        {item.name}
-                                                                    </option>
-                                                                ))}
-                                                            </select>
-                                                            {errors.classroom && (
-                                                                <span className="d-block text-danger mt-3">
-                                                                    This field is required
-                                                                </span>
-                                                            )}
-                                                        </div>
-                                                        : ""}
-                                                    <div className="col-md-12">
-                                                        <label htmlFor="note">Note</label><br />
-                                                        <textarea
-                                                            name="note"
-                                                            type="text"
-                                                            placeholder="Ghi chú"
-                                                            className="df-control"
-                                                            value={noteText}
-                                                            onChange={e => setNoteText(e.target.value)}
-                                                        ></textarea>
-                                                    </div>
-
-
-                                                </div>
+                                            <div className="col-md-12 col-sm-12 col-xs-12">
+                                                <h5>Hóa đơn chi tiết</h5>
                                             </div>
-                                            <div className="col-6">
-                                                <h3>Your Order</h3>
-                                                <div className="checkout-payment-table-box">
-                                                    <table className="checkout-table">
-                                                        <tbody>
-                                                            <tr>
-                                                                <td className="font-weight-bold">San pham</td>
-                                                                <td className="font-weight-bold">tong tien</td>
-                                                            </tr>
-                                                            {cartItems && cartItems.map((items, index) => (
-                                                                <tr key={index}>
-                                                                    <td>
-                                                                        <span className="font-weight-bold">{items.name} {items.type ? `(${items.type})` : ""}</span><br />
-                                                                        <span>{formatNumber(items.price)} x {items.quantity} </span><br/>
-                                                                        { (items.topping.length <= 1) ? <span className="bg-warning m-1 rounded" style={{fontSize : '13px'}}>{items.topping}</span> : 
-                                                                            items.topping.map((item, key)=> (
-                                                                                <span key={key} className="bg-warning m-1 p-1 rounded" style={{fontSize : '13px'}}>
-                                                                                    {item}
-                                                                                </span>
-                                                                            ))
-                                                                        }
-                                                                    </td>
-                                                                    <td>{formatNumber(items.price * items.quantity)}</td>
-                                                                </tr>
-                                                            ))}
+                                            <input {...register("payment")} type="hidden" name="payment" value="1" />
+                                            <div className="col-md-6 col-sm-12 col-xs-12">
+                                                <input type="text" defaultValue={SetUserGoogle.getUserGoogle().name} {...register("name")} readOnly />
+                                            </div>
+                                            <div className="col-md-6 col-sm-12 col-xs-12">
+                                                <input type="text" defaultValue={SetUserGoogle.getUserGoogle().phone} {...register("phone")} required placeholder="Số điện thoại" />
+                                            </div>
+                                            <div className="col-md-12 col-sm-12 col-xs-12">
+                                                <input type="text" defaultValue={SetUserGoogle.getUserGoogle().email} {...register("email")} name="email" readOnly />
+                                            </div>
 
+                                            <div className="col-md-12 col-sm-12 col-xs-12">
+                                                <select
+                                                    className="select-dropbox"
+                                                    {...register("building")}
+                                                    onChange={handleSelect}
+                                                    required
+                                                >
+                                                    {buildings && buildings.map((item, index) => (
+                                                        <option value={item.id} key={index} id={item.id}>
+                                                            {item.name}
+                                                        </option>
+                                                    ))}
 
-                                                            <tr>
-                                                                <td>Subtotal</td>
-                                                                <td>{formatNumber(SetPriceVoucher.getPriceVoucher())}</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Shipping</td>
-                                                                <td>Free Shipping</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>Total</td>
-                                                                <td>{formatNumber(total - SetPriceVoucher.getPriceVoucher())}</td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-
+                                                </select>
+                                                {errors.building && (
+                                                    <span className="d-block text-danger mt-3">
+                                                        This field is required
+                                                    </span>
+                                                )}
+                                            </div>
+                                            {classroom != '' ?
+                                                <div className="col-md-12 col-sm-12 col-xs-12">
+                                                    <select
+                                                        className="select-dropbox"
+                                                        {...register("classroom")}
+                                                    >
+                                                        {classroom && classroom.map((item, index) => (
+                                                            <option value={item.id} key={index} id={item.id}>
+                                                                {item.name}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                    {errors.classroom && (
+                                                        <span className="d-block text-danger mt-3">
+                                                            This field is required
+                                                        </span>
+                                                    )}
                                                 </div>
+                                                : ""}
 
-                                                <div className="mb-3">
-                                                    <label htmlFor="field-rain">
-                                                        <input
-                                                            {...register("payment")}
-                                                            type="radio"
-                                                            name="payment"
-                                                            value="1"
-                                                            id="field-rain"
-                                                        />
-                                                        online
-                                                    </label>
-                                                    <label htmlFor="field-wind">
-                                                        <input
-                                                            {...register("payment")}
-                                                            type="radio"
-                                                            name="payment"
-                                                            value="2"
-                                                            id="field-wind"
-                                                        />
-                                                        offline
-                                                    </label>
-                                                </div>
-
-                                                <input type="submit" className="bfs-btn d-flex flex-row-reverse" defaultValue="BOOK A TABLE" />
+                                            <div className="col-md-12 col-sm-12 col-xs-12">
+                                                <textarea name="note"
+                                                    type="text"
+                                                    placeholder="Ghi chú thêm cho đơn hàng"
+                                                    className="df-control"
+                                                    value={noteText}
+                                                    onChange={e => setNoteText(e.target.value)}
+                                                />
                                             </div>
                                         </div>
 
-                                    </form>
+                                    </div>
+                                </div>
+                                <div className="col-md-5 col-sm-5 col-xs-12 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                                    <div className="shop-checkout-right">
+                                        <div className="shop-checkout-box">
+                                            <h5>ĐƠN HÀNG CỦA BẠN</h5>
+                                            <div className="shop-checkout-title">
+                                                <h6>SẢN PHẨM <span>TOTAL</span></h6>
+                                            </div>
+                                            <div className="shop-checkout-row">
+                                                {cartItems && cartItems.map((items, index) => (
+                                                    <p key={index}>
+                                                        <span>{items.name} {items.type ? `(${items.type})` : ""}
+                                                        </span> x{items.quantity}
+                                                        <small>{formatNumber(items.price * items.quantity)}</small>
+                                                    </p>
+
+                                                ))}
+                                            </div>
+                                            <div className="checkout-total">
+                                                <h6>GIẢM GIÁ <small>{formatNumber(SetPriceVoucher.getPriceVoucher())}</small></h6>
+                                            </div>
+
+                                            <div className="checkout-total">
+                                                <h6>PHUONG THỨC THANH TOÁN <small>Tiền mặt</small></h6>
+                                            </div>
+                                            <div className="checkout-total">
+                                                <h6>TỔNG HÓA ĐƠN <small className="price-big">{formatNumber(total - SetPriceVoucher.getPriceVoucher())}</small></h6>
+                                            </div>
+                                        </div>
+                                        <div className="shop-checkout-box">
+
+                                            <div className="checkout-button">
+                                                <button className="button-default btn-large btn-primary-gold">XÁC NHẬN THANH TOÁN</button>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
+                        </form>
+                    </div>
+                </section>
+                :
+                <section className="default-section shop-cart bg-grey">
+                    <div className="container">
+                        <div className="order-complete-box wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                            <img src="https://cdn.tecotecshop.com/assets/img/no-cart.png" style={{ width: "400px", height: "300px" }} alt="" />
+                            <p>Bạn chưa đăng nhập! <br /> Bây giờ, hãy đăng nhập tài khoản google của bạn để mua đồ uống tại BeeCoffee nhé.</p>
                         </div>
                     </div>
                 </section>
-
-                : <p className="text-danger text-center">Bạn chưa đăng nhập hãy đăng nhập tại <span style={{ cursor: 'pointer' }} className="text-primary" onClick={() => {
-                    setModalOpen(true);
-                }} >đây</span></p>}
-            {modalOpen && <ModalLogin setOpenModal={setModalOpen} />}
+            }
         </>
     )
 }

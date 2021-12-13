@@ -2,29 +2,37 @@ import { useEffect, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { allorder, removeorder } from "../../../../Api/order";
 import OrderScreenAuth from "../../screens/order/list";
+import ReactPaginate from "react-paginate";
 import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 
 const ListOrderComponent = () => {
   const [Orders, setOrders] = useState([]);
-  console.log(Orders)
+  const [perPage, setPerPage] = useState(5);
+  const [page, setPage] = useState(0);
+  const [pages, setPages] = useState(0);
   useEffect(() => {
     const getOrders = async () => {
+      const newData = {
+        token: TokenAccount.getToken(),
+        user: SetUser.getUser(),
+      }
       try {
-        const newData = {
-          token: TokenAccount.getToken(),
-          user: SetUser.getUser(),
-        }
-        const respons = await allorder(newData).then(Response => {
-          setOrders(Response.data)
-        });
+        const { data } = await allorder(newData)
+        setPages(Math.ceil(data.length / perPage))
+        const items = data.slice(page * perPage, (page + 1) * perPage);
+        setOrders(items)
 
       } catch (error) {
         console.log(error);
       }
     }
     getOrders();
-  }, []);
+  }, [page]);
 
+  const handlePageClick = (event) => {
+    let page = event.selected;
+    setPage(page)
+  }
 
   const refresh = useCallback(() => {
     const getOrders = async () => {
@@ -88,9 +96,20 @@ const ListOrderComponent = () => {
               <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                 <div className="m-portlet__head">
                   <div className="m-portlet__head-caption">
-                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
                   </div>
                   <div className="m-portlet__head-tools">
+                    <ReactPaginate
+                      previousLabel={'Previous'}
+                      nextLabel={'Next'}
+                      pageCount={pages}
+                      onPageChange={handlePageClick}
+                      containerClassName={'pagination-layout'}
+                      pageClassName={'page-item-layout'}
+                      previousClassName={'page-item-layout'}
+                      nextClassName={'page-item-layout'}
+                      pageLinkClassName={'page-link-layout'}
+                      activeClassName={'active-page'}
+                    />
                   </div>
                 </div>
               </div>
@@ -110,7 +129,7 @@ const ListOrderComponent = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        <OrderScreenAuth data={Orders} onDelete={onHandleDelete} />
+                        <OrderScreenAuth data={Orders} onRefeshData={refresh} />
                       </tbody>
                     </table>
                   </div>
@@ -120,7 +139,6 @@ const ListOrderComponent = () => {
           </div>
         </div>
       </div>
-
     </>
   );
 };

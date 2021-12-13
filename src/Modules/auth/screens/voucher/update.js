@@ -1,25 +1,58 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { showvoucher, updatevoucher } from "../../../../Api/voucher";
 import Swal from "sweetalert2";
+import ClipLoader from "react-spinners/ClipLoader";
+import useUpload from '../../../../hooks/upload/useUpload';
 import { Link } from "react-router-dom";
 import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 
 const UpdateVoucherScreen = () => {
+  const [preview, setPreview] = useState('');
+  const { loading, handleUpload } = useUpload();
   let { id } = useParams();
-  const {
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  const { register, reset, handleSubmit, formState: { errors }, } = useForm();
+
+  const handleInputUploadChange = async (e) => {
+    const file = e.target.files.length > 0 ? e.target.files[0] : null;
+    if (file === null) {
+      setPreview('');
+      return;
+    }
+    const url = await handleUpload(file);
+    setPreview(url);
+  };
+
+  const renderPreview = () => {
+    if (loading) {
+      return (
+        <div className="form-group mb-2">
+          <ClipLoader color="#000000" size={35} />
+        </div>
+      )
+    }
+    if (preview !== '') {
+      return (
+        <div className="form-group mb-2">
+          <img
+            width="120"
+            src={preview} className="mt-2 rounded"
+          />
+        </div>
+      );
+    }
+    return null;
+  }
   const onSubmit = async (data) => {
     const newData = {
       token: TokenAccount.getToken(),
       user: SetUser.getUser(),
       ...data,
     };
+    if (preview) {
+      newData.image = preview;
+    }
     try {
       Swal.fire({
         title: "Bạn có muốn thay đổi topping?",
@@ -45,6 +78,9 @@ const UpdateVoucherScreen = () => {
   useEffect(async () => {
     const respons = await showvoucher(id);
     const voucher = respons.data;
+    if (voucher.image) {
+      setPreview(voucher.image);
+    }
     reset(voucher);
   }, [id]);
 
@@ -129,6 +165,25 @@ const UpdateVoucherScreen = () => {
                             Trường này không để trống.
                           </span>
                         )}
+                      </div>
+                      <div className="form-group mb-3">
+                        <div className="custom-file">
+                          <input
+                            type="file"
+                            className="custom-file-input"
+                            id="image"
+                            accept="image/*"
+                            onChange={handleInputUploadChange}
+                          />
+
+                          <label
+                            className="custom-file-label"
+                            htmlFor="image"
+                          >
+                            Choose image
+                          </label>
+                        </div>
+                        {renderPreview()}
                       </div>
                       <button type="submit" className="btn btn-primary mt-5">
                         Cập nhật

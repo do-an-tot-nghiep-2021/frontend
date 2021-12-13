@@ -1,59 +1,51 @@
-import React from 'react';
 import { formatNumber } from '../../../../Helpers/utils';
-import { useCart } from '../../../../hooks/useCart';
 import { Link } from 'react-router-dom';
+import { useCart } from '../../../../hooks/useCart';
 const CartItem = ({ product }) => {
     const { increase, decrease, removeProduct } = useCart();
     return (
 
         <tr key={product.id}>
+            <th>PRODUCT</th>
             <td>
-                <div className="c-product-thumb">
-                    <img src={product.image} alt="" />
+                <div className="product-cart">
+                    <Link to={`/product/${product.id}`}>
+                        <img src={product.image} style={{ width: "98px", height: "98px", borderRadius: '15px', objectFit: 'cover' }} alt="" />
+                    </Link>
+                </div>
+                <div className="product-cart-title">
+                    <span>{product.name}{product.type ? `(${product.type})` : ""}</span>
+                    <p>
+                        {
+                            product.topping.length <= 1
+                                ? product.topping
+                                : product.topping.map((item, key) => (
+                                    <span key={key}>
+                                        {item},
+                                    </span>
+                                ))
+                        }
+                    </p>
                 </div>
             </td>
+            <th>PRICE</th>
             <td>
-                <p>{product.name}{product.type ? `(${product.type})` : ""}</p>
-                <p>
-                    {
-                        product.topping.length <= 1
-                        ? product.topping
-                        : product.topping.map((item, key)=>(
-                            <span key={key}>
-                                {item},
-                            </span>
-                        ))
-                    }
-                </p>
+                <strong>{formatNumber(product.price)}</strong>
             </td>
+            <th>QUANTITY</th>
             <td>
-                <p>{formatNumber(product.price)}</p>
-            </td>
-            <td>
-                <div className="cartinc-dec">
-                    <input type="text" name="qty" maxLength={12} value={product.quantity} className="input-text qty" />
-                    <div className="button-inc-dec">
-                        <button className="cart-qty-plus" type="button" value="+" onClick={() => increase(product)}>
-                            <i className="fa fa-angle-up" aria-hidden="true" />
-                        </button>
-                        <button className="cart-qty-minus" type="button" value="-" onClick={() => product.quantity === 1 ? removeProduct(product) : decrease(product)}>
-                            <i className="fa fa-angle-down" aria-hidden="true" /
-                            ></button>
-                    </div>
+                <div className="price-textbox">
+                    <span className="minus-text"><i className="fas fa-minus" onClick={() => product.quantity === 1 ? removeProduct(product) : decrease(product)} /></span>
+                    <input name="txt" value={product.quantity} type="text" />
+                    <span className="plus-text"><i className="fas fa-plus" onClick={() => increase(product)} /></span>
                 </div>
             </td>
+            <th>TOTAL</th>
             <td>
-                <p>{formatNumber((product.price) * (product.quantity))}</p>
+                {formatNumber(product.quantity * product.price)}
             </td>
-            <td>
-                <div className="c-remove">
-                    <div className="cr-icon">
-                        <a ><i className="fa fa-times" aria-hidden="true" onClick={() => removeProduct(product)} /></a>
-                    </div>
-                </div>
-            </td>
+            <td className="shop-cart-close"><i className="fa fa-times" aria-hidden="true" onClick={() => removeProduct(product)} /></td>
         </tr>
-
     );
 }
 

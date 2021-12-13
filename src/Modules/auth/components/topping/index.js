@@ -91,8 +91,7 @@ const ListToppingComponent = () => {
               <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                 <div className="m-portlet__head">
                   <div className="m-portlet__head-caption">
-                    <CreateToppingScreen />
-                    <button className="btn btn-warning ml-2" onClick={refresh}><i className="flaticon-refresh"></i> Refesh</button>
+                    <CreateToppingScreen onRefeshData={refresh}/>
                   </div>
                   <div className="m-portlet__head-tools">
                   </div>

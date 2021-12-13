@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { showorder, updateorder } from "../../../../Api/order";
 import Swal from 'sweetalert2'
 
-const OrderScreenAuth = ({ data }) => {
+const OrderScreenAuth = ({ data, onRefeshData }) => {
 
   const { register, reset, handleSubmit, formState: { errors } } = useForm();
   const [idOrder, setIdOrder] = useState();
@@ -12,6 +12,7 @@ const OrderScreenAuth = ({ data }) => {
   const handleChange = (e) => {
     setStatus(e.target.value);
   };
+  
   const onSubmit = async (data) => {
     const newData = {
       ...data,
@@ -31,6 +32,7 @@ const OrderScreenAuth = ({ data }) => {
             }
             if (response.data) {
               Swal.fire('Thành công!', '', 'success')
+              onRefeshData()
             }
           })
         }

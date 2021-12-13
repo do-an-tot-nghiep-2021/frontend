@@ -8,9 +8,10 @@ const VoucherScreenAuth = (props) => {
       {props.data.map((item, index) => (
         <tr key={index}>
           <td scope="col">{index + 1}</td>
+          <td scope="col"><img src={item.image} width={50} height={50}/></td>
           <td scope="col">{item.name}</td>
-          <td scope="col">{item.point}</td>
-          <td scope="col">{item.value}</td>
+          <td scope="col"><NumberFormat value={item.point} displayType={'text'} thousandSeparator={true} /></td>
+          <td scope="col">{item.value}%</td>
           <td>
             <Link
               to={`/admin/vouchers/${item.id}`}

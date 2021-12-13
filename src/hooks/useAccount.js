@@ -90,4 +90,20 @@ const SetPriceVoucher = {
     },
 }
 
-export { TokenAccount, SetUser, SetUserGoogle, SetPriceVoucher }
+const SetResetEmail = {
+
+    getResetEmail() {
+        let resetEmail = localStorage.getItem('resetEmail');
+        return JSON.parse(resetEmail)
+    },
+
+    saveResetEmail(value) {
+        localStorage.setItem('resetEmail', JSON.stringify(value))
+    },
+
+    removeResetEmail() {
+        localStorage.removeItem('resetEmail')
+    },
+}
+
+export { TokenAccount, SetUser, SetUserGoogle, SetPriceVoucher, SetResetEmail }

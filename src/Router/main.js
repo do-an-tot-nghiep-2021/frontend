@@ -13,7 +13,6 @@ import UpdateToppingScreen from "../Modules/auth/screens/topping/update";
 
 
 import ListOrderComponent from "../Modules/auth/components/order";
-import UpdateOrderScreen from "../Modules/auth/screens/order/update";
 
 import ListTypesComponent from "../Modules/auth/components/types";
 import UpdateTypesScreen from "../Modules/auth/screens/types/update";
@@ -86,7 +85,6 @@ const RouteMain = () => {
                 <UpdateClassroomScreen exact path="/admin/classroom/:id" />
 
                 <ListOrderComponent exact path="/admin/orders" />
-                <UpdateOrderScreen exact path="/admin/orders/:id" />
 
                 <ListUserComponent exact path="/admin/users" />
 

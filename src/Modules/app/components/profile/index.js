@@ -129,17 +129,35 @@ const ProfileComponentApp = () => {
                                                 <div className="row">
                                                     <div className="form-group col-12">
                                                         <label htmlFor="exampleFormControlInput1">Tên đăng ký  <span className="text-danger" style={{ fontSize: '20px' }}>*</span></label>
-                                                        <input type="text" className="form-control" {...register("name", { required: true })} />
-                                                        {errors.name && <span className="text-danger">Không để trống trường này!</span>}
+                                                        <input type="text" className="form-control" {...register("name", { required: true, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })} />
+                                                        {errors.name?.type === "required" && (
+                                                            <span className="d-block text-danger mt-3">
+                                                                Không được để trống trường này!
+                                                            </span>
+                                                        )}
+                                                        {errors.name?.type === "pattern" &&
+                                                            <span className=" text-danger m-form__help">
+                                                                Tên danh mục không chứa ký tự đăc biệt.
+                                                            </span>
+                                                        }
                                                     </div>
                                                     <div className="form-group col-6">
                                                         <label htmlFor="exampleFormControlInput1">Địa chỉ email  <span className="text-danger" style={{ fontSize: '20px' }}>*</span></label>
                                                         <input type="email" className="form-control" {...register("email")} readOnly />
                                                     </div>
                                                     <div className="form-group col-6">
-                                                        <label htmlFor="exampleFormControlInput1">Số điện thoại  <span className="text-danger" style={{ fontSize: '20px' }}>*</span></label>
-                                                        <input type="text" className="form-control" {...register("phone", { required: true })} required="" />
-                                                        {errors.phone && <span className="text-danger">Khong de trong truong nay</span>}
+                                                        <label htmlFor="exampleFormControlInput1">Số điện thoại  <span className="text-danger" style={{ fontSize: '20px' }}>*</span></label><input type="text" className="form-control" {...register("phone", { required: true, pattern: /((09|03|07|08|05)+([0-9]{8})\b)/g })} />
+                                                        {errors.phone?.type === "required" && (
+                                                            <span className="d-block text-danger mt-3">
+                                                                Không được để trống trường này!
+                                                            </span>
+                                                        )}
+                                                        {errors.phone?.type === "pattern" &&
+                                                            <span className=" text-danger m-form__help">
+                                                                Số điện thoại không đúng định dạng.
+                                                            </span>
+                                                        }
+
                                                     </div>
                                                 </div>
                                                 <button type="submit" className="btn-large filter-btn" style={{ border: 'none' }}>Cập nhật</button>
@@ -175,16 +193,16 @@ const ProfileComponentApp = () => {
                         </div>
                     </div>
                 </section>
-                : 
+                :
                 <section className="default-section shop-cart bg-grey">
-                <div className="container">
-                <div className="order-complete-box wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <img src="https://cdn.tecotecshop.com/assets/img/no-cart.png" style={{width : "400px", height : "300px"}} alt="" />
-                    <p>Bạn chưa đăng nhập! <br /> Bây giờ, hãy đăng nhập tài khoản google của bạn để mua đồ uống tại BeeCoffee nhé.</p>
-                </div>
-                </div>
-            </section>
-                }
+                    <div className="container">
+                        <div className="order-complete-box wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                            <img src="https://cdn.tecotecshop.com/assets/img/no-cart.png" style={{ width: "400px", height: "300px" }} alt="" />
+                            <p>Bạn chưa đăng nhập! <br /> Bây giờ, hãy đăng nhập tài khoản google của bạn để mua đồ uống tại BeeCoffee nhé.</p>
+                        </div>
+                    </div>
+                </section>
+            }
         </>
     )
 }

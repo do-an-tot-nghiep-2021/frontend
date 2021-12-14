@@ -71,7 +71,7 @@ const CreateClassroomScreen = ({onRefeshData}) => {
                                     )}
                                     {errors.name?.type === "pattern" &&
                                         <span className=" text-danger m-form__help">
-                                            TTên phòng học không chứa ký tự đăc biệt.
+                                            Tên phòng học không chứa ký tự đăc biệt.
                                         </span>
                                     }
                                     {errors.name?.type === "minLength" &&

@@ -6,14 +6,18 @@ import Swal from 'sweetalert2';
 import { Link } from 'react-router-dom';
 import NavProfile from '../../../../Layouts/app/component/nav-profile';
 import ReactPaginate from 'react-paginate';
+import BeatLoader from "react-spinners/BeatLoader";
+
 const CheckOrderComponents = () => {
     const [orders, setOrders] = useState([])
     const [status, setStatus] = useState(0);
     const [perPage, setPerPage] = useState(5);
     const [page, setPage] = useState(0);
     const [pages, setPages] = useState(0);
+    const [loading, setLoading] = useState(false);
 
     useEffect(async () => {
+        setLoading(true)
         if (SetUserGoogle.getUserGoogle()) {
             const newData = {
                 google_id: SetUserGoogle.getUserGoogle().google_id,
@@ -21,9 +25,11 @@ const CheckOrderComponents = () => {
                 status: status
             }
             const { data } = await getorder(newData);
+            setLoading(false)
             setPages(Math.ceil(data.length / perPage))
             const items = data.slice(page * perPage, (page + 1) * perPage);
             setOrders(items)
+
         }
     }, [status, page]);
 
@@ -44,7 +50,7 @@ const CheckOrderComponents = () => {
                 setPages(Math.ceil(data.length / perPage))
                 const items = data.slice(page * perPage, (page + 1) * perPage);
                 setOrders(items)
-                
+
             } catch (error) {
                 console.log(error);
             }
@@ -52,6 +58,15 @@ const CheckOrderComponents = () => {
         getOrders();
     }, [status, page])
 
+    const renderPreview = () => {
+        if (loading) {
+            return (
+                <div style={{ "position": "relative", "left": "350px", "top": "20px" }}>
+                    <BeatLoader color="#f4516c" size={12} />
+                </div>
+            );
+        }
+    };
 
     const onHandleCancel = async (id) => {
         try {
@@ -139,7 +154,10 @@ const CheckOrderComponents = () => {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <CheckOrderScreenApp orders={orders} onCancel={onHandleCancel} />
+                                                    {renderPreview()}
+                                                    {!loading ?
+                                                        <CheckOrderScreenApp orders={orders} onCancel={onHandleCancel} />
+                                                        : ""}
                                                 </tbody>
                                             </table>
                                             <div className="gallery-pagination text-left">

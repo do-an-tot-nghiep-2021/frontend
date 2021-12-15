@@ -21,7 +21,7 @@ const NavAuth = () => {
               <i className="m-menu__section-icon flaticon-more-v2" />
             </li>
             <li className="m-menu__item  m-menu__item--submenu">
-              <NavLink to="/admin/categories" className="m-menu__link" activeStyle={{color: '#0d6efd'}}>
+              <NavLink to="/admin/categories" className="m-menu__link" activeClassName={'active'}>
                 <i className="m-menu__link-icon flaticon-interface-7" />
                 <span className="m-menu__link-text">Danh mục</span>
               </NavLink>

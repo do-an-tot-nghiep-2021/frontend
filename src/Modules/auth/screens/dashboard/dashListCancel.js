@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 const DashListCancelData = ({ data }) => {
     const [dataItems, setDataItems] = useState([]);
-    const [perPage, setPerPage] = useState(5);
+    const [perPage, setPerPage] = useState(3);
     const [page, setPage] = useState(0);
     const [pages, setPages] = useState(0);
 

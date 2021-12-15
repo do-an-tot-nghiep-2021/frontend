@@ -16,6 +16,9 @@ const HomePageComponentApp = () => {
   const [perPage, setPerPage] = useState(6);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(0);
+  const [loading, setLoading] = useState(false);
+
+
 
   const handleSearch = (e) => {
     setKeySearch(e.target.value)
@@ -43,6 +46,7 @@ const HomePageComponentApp = () => {
   }, []);
 
   useEffect(() => {
+    setLoading(true)
     const item = {
       keyword: keySearch,
       cate_id: cateId,
@@ -51,6 +55,7 @@ const HomePageComponentApp = () => {
     const getProducts = async () => {
       try {
         const { data } = await allproductkeword(item);
+        setLoading(false)
         setPages(Math.ceil(data.length / perPage))
         const items = data.slice(page * perPage, (page + 1) * perPage);
         setProducts(items)
@@ -62,7 +67,81 @@ const HomePageComponentApp = () => {
 
   }, [keySearch, cateId, filter, page]);
 
+  const renderPreview = () => {
+    if (loading) {
+      return (
+        <>
+          <div className="col-6 col-md-6 col-sm-6 col-lg-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div className="shop-main-list">
+              <div className="shop-product">
+                <img src="https://www.vinamilk.com.vn/the-gioi-an-dam/wp-content/themes/bot-dinh-duong/tpl/dist/assets/images/dummy/540x479.png" alt="" />
+              </div>
+              <Link className='text-name' >
+                <div style={{ backgroundColor: "#CCCCCC", height: "17px", width: "60%", "borderRadius": "20px" }}></div>
+              </Link>
+              <div className="mt-2" style={{ backgroundColor: "#CCCCCC", height: "17px", width: "30%", "borderRadius": "20px" }}></div>
+            </div>
+          </div>
+          <div className="col-6 col-md-6 col-sm-6 col-lg-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div className="shop-main-list">
+              <div className="shop-product">
+                <img src="https://www.vinamilk.com.vn/the-gioi-an-dam/wp-content/themes/bot-dinh-duong/tpl/dist/assets/images/dummy/540x479.png" alt="" />
+              </div>
+              <Link className='text-name' >
+                <div style={{ backgroundColor: "#CCCCCC", height: "17px", width: "60%", "borderRadius": "20px" }}></div>
+              </Link>
+              <div className="mt-2" style={{ backgroundColor: "#CCCCCC", height: "17px", width: "30%", "borderRadius": "20px" }}></div>
+            </div>
+          </div>
+          <div className="col-6 col-md-6 col-sm-6 col-lg-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div className="shop-main-list">
+              <div className="shop-product">
+                <img src="https://www.vinamilk.com.vn/the-gioi-an-dam/wp-content/themes/bot-dinh-duong/tpl/dist/assets/images/dummy/540x479.png" alt="" />
+              </div>
+              <Link className='text-name' >
+                <div style={{ backgroundColor: "#CCCCCC", height: "17px", width: "60%", "borderRadius": "20px" }}></div>
+              </Link>
+              <div className="mt-2" style={{ backgroundColor: "#CCCCCC", height: "17px", width: "30%", "borderRadius": "20px" }}></div>
+            </div>
+          </div>
+          <div className="col-6 col-md-6 col-sm-6 col-lg-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div className="shop-main-list">
+              <div className="shop-product">
+                <img src="https://www.vinamilk.com.vn/the-gioi-an-dam/wp-content/themes/bot-dinh-duong/tpl/dist/assets/images/dummy/540x479.png" alt="" />
+              </div>
+              <Link className='text-name' >
+                <div style={{ backgroundColor: "#CCCCCC", height: "17px", width: "60%", "borderRadius": "20px" }}></div>
+              </Link>
+              <div className="mt-2" style={{ backgroundColor: "#CCCCCC", height: "17px", width: "30%", "borderRadius": "20px" }}></div>
+            </div>
+          </div>
+          <div className="col-6 col-md-6 col-sm-6 col-lg-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div className="shop-main-list">
+              <div className="shop-product">
+                <img src="https://www.vinamilk.com.vn/the-gioi-an-dam/wp-content/themes/bot-dinh-duong/tpl/dist/assets/images/dummy/540x479.png" alt="" />
+              </div>
+              <Link className='text-name' >
+                <div style={{ backgroundColor: "#CCCCCC", height: "17px", width: "60%", "borderRadius": "20px" }}></div>
+              </Link>
+              <div className="mt-2" style={{ backgroundColor: "#CCCCCC", height: "17px", width: "30%", "borderRadius": "20px" }}></div>
+            </div>
+          </div>
+          <div className="col-6 col-md-6 col-sm-6 col-lg-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+            <div className="shop-main-list">
+              <div className="shop-product">
+                <img src="https://www.vinamilk.com.vn/the-gioi-an-dam/wp-content/themes/bot-dinh-duong/tpl/dist/assets/images/dummy/540x479.png" alt="" />
+              </div>
+              <Link className='text-name' >
+                <div style={{ backgroundColor: "#CCCCCC", height: "17px", width: "60%", "borderRadius": "20px" }}></div>
+              </Link>
+              <div className="mt-2" style={{ backgroundColor: "#CCCCCC", height: "17px", width: "30%", "borderRadius": "20px" }}></div>
+            </div>
+          </div>
+        </>
 
+      )
+    }
+  }
 
 
   return (
@@ -130,8 +209,11 @@ const HomePageComponentApp = () => {
                   </div>
                 </div>
                 <div className="row">
+                  {renderPreview()}
                   {products.map((product) => (
-                    <HomeScreen key={product.id} product={product} />
+                    !loading ?
+                      <HomeScreen key={product.id} product={product} />
+                      : ""
                   ))}
                 </div>
               </div>

@@ -3,8 +3,6 @@ import { useForm } from "react-hook-form";
 import { useCart } from "../../../../hooks/useCart";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import Slider from "react-slick";
 import Swal from "sweetalert2";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -12,21 +10,10 @@ import "slick-carousel/slick/slick-theme.css";
 
 
 const DetailProductScreenApp = ({ product, product_cate, type, topping }) => {
+
     const [count, setCount] = useState(0);
-    const [numberSlide, setNumberSlide] = useState(product_cate && product_cate.length);
-    const { id } = useParams();
     const { addProduct } = useCart();
     const { register, handleSubmit, formState: { errors } } = useForm();
-
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 1800,
-        slidesToShow: numberSlide > 3 ? 4 : 2,
-        slidesToScroll: 4,
-
-    };
-
 
     const onSubmit = async (data) => {
         const price_topping = (data.topping) ? (data.topping.length) * 7000 : 0
@@ -44,18 +31,6 @@ const DetailProductScreenApp = ({ product, product_cate, type, topping }) => {
     }
     return (
         <>
-            <section className="breadcrumb-nav">
-                <div className="container">
-                    <div className="breadcrumb-nav-inner">
-                        <ul>
-                            <li><Link to="/">Trang chủ</Link></li>
-                            <li className="active"><a>{product.name}</a></li>
-                        </ul>
-                        <label className="now">Sản phẩm chi tiết</label>
-                    </div>
-                </div>
-            </section>
-        
             <section className="default-section shop-single pad-bottom-remove">
                 <div className="container">
                     <form onSubmit={handleSubmit(onSubmit)}>
@@ -70,13 +45,13 @@ const DetailProductScreenApp = ({ product, product_cate, type, topping }) => {
 
                             </div>
                             <div className="col-12 col-md-6 col-sm-12 col-lg-7 col-xl-7 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                                <h4 className="text-coffee"> {product.name}</h4>
+                                <h2 className="text-coffee"> {product.name}</h2>
                                 <div className="star-review-collect">
-                                    <div className="star-rating">
+                                    {/* <div className="star-rating">
                                         <span className="star-rating-customer" style={{ width: '50%' }}>
                                         </span>
-                                    </div>
-                                    <a href="#" className="review-text">03 customer review</a>
+                                    </div> */}
+                                    {/* <a href="#" className="review-text">03 customer review</a> */}
                                 </div>
 
                                 <h3 className="text-coffee">{formatNumber((product.price) * (count + 1))}</h3>
@@ -122,6 +97,7 @@ const DetailProductScreenApp = ({ product, product_cate, type, topping }) => {
                                         <h5>Thêm Topping (option)</h5>
                                         <div className="row mt-3">
                                             {topping && topping.map((item, index) => (
+                                                item.status == 0 ? "" :
                                                 <div className="col-4">
                                                     <section key={index} className="mr-2 d-flex flex-row">
                                                         <div className="p-2">
@@ -142,35 +118,6 @@ const DetailProductScreenApp = ({ product, product_cate, type, topping }) => {
                     </form>
                 </div>
             </section>
-            
-           
-            {product_cate && product_cate.length > 1 ?
-                <section className="default-section wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                    <div className="container">
-                        <div className="title text-center">
-                            <h3 className="text-coffee">Sản phẩm liên quan</h3>
-                        </div>
-                        <div className="product-wrapper">
-                            <div class="owl-theme">
-                                <Slider {...settings}>
-                                    {product_cate && product_cate.map((product) => (
-                                        <div className="item" key={product.id}>
-                                            <div className="product-img">
-                                                <Link to={`/product/${product.id}`}>
-                                                    <img src={product.image} alt="" style={{width : "261px", height : "182px", objectFit : "cover"}} />
-                                                    <span className="icon-basket fontello" />
-                                                </Link>
-                                            </div>
-                                            <h5>{product.name}</h5>
-                                            <span>{formatNumber(product.price)}</span>
-                                        </div>
-                                    ))}
-                                </Slider>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                : ""}
         </>
     );
 };

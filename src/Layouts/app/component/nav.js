@@ -34,14 +34,14 @@ const NavApp = ({ user }) => {
                 <div className="row">
 
 
-                  <div className="col-12 col-md-6 col-sm-12 col-lg-7 col-xl-7">
+                  <div className="col-12 col-md-6 col-sm-12 col-lg-7 col-xl-6">
                     <div className="logo">
                       <Link to="/">
                         <img src={process.env.PUBLIC_URL + '/logo-site.png'} style={{ width : "150px"}} alt="" />
                       </Link>
                     </div>
                   </div>
-                  <div className="col-12 col-md-6 col-sm-12 col-lg-5 col-xl-5">
+                  <div className="col-12 col-md-6 col-sm-12 col-lg-5 col-xl-6">
                     <div className="menu-top-part" style={{float : "left"}}>
                       <div className="menu-nav-main1">
                         <ul>

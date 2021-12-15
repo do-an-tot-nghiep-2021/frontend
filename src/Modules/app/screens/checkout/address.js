@@ -9,6 +9,8 @@ import ModalLogin from "../../../../hooks/ModalLogin";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
+import PulseLoader from "react-spinners/PulseLoader";
+
 
 const AddressUser = () => {
     const [buildings, setBuildings] = useState([]);
@@ -18,6 +20,7 @@ const AddressUser = () => {
     const { total, itemCount, handleCheckout, cartItems } = useCart();
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [noteText, setNoteText] = useState("")
+    const [loading, setLoading] = useState(false);
     const history = useHistory();
     useEffect(() => {
         const getBuildings = async () => {
@@ -49,7 +52,25 @@ const AddressUser = () => {
         setSelectedItem(event.target.value)
     }
 
+    const renderPreview = () => {
+        if (loading) {
+            return (
+                <div style={{ 
+                    "position": "relative",
+                    "left": "500px", 
+                    "top": "280px",
+                    "zIndex" : "999", 
+                    "fontSize" : "20px",
+                    "fontWeight" : "700"
+                   }}>
+                    Đang đặt hàng <PulseLoader color="#f4516c" size={12} />
+                </div>
+            );
+        }
+    };
+
     const onSubmit = async (data) => {
+        
         const checkoutData = {
             userId: SetUserGoogle.getUserGoogle().id,
             code_order : Math.floor((Math.random()*100000000)+1),
@@ -70,7 +91,9 @@ const AddressUser = () => {
                 confirmButtonText: 'Đặt hàng',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    setLoading(true)
                     sendorder(checkoutData).then((response) => {
+                        setLoading(false)
                         if (!response.data) {
                             Swal.fire({
                                 icon: 'error',
@@ -111,6 +134,7 @@ const AddressUser = () => {
             {SetUserGoogle.getUserGoogle() ?
                 <section className="default-section shop-checkout bg-grey">
                     <div className="container">
+                        {renderPreview()}
                         <div className="checkout-wrap wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                             <ul className="checkout-bar">
                                 <li className="done-proceed active">Giỏ hàng</li>

@@ -7,7 +7,7 @@ import ReactPaginate from "react-paginate";
 
 const ListUserComponent = () => {
     const [users, setUsers] = useState([]);
-    const [roleUser, setRoleUser] = useState(0);
+    const [roleUser, setRoleUser] = useState(1);
     const [perPage, setPerPage] = useState(5);
     const [page, setPage] = useState(0);
     const [pages, setPages] = useState(0);
@@ -16,7 +16,7 @@ const ListUserComponent = () => {
             const newData = {
                 token: TokenAccount.getToken(),
                 user: SetUser.getUser(),
-                role: roleUser
+                role: 1
             }
             try {
                 const { data } = await alluser(newData)
@@ -74,11 +74,7 @@ const ListUserComponent = () => {
                                 <div className="m-portlet__head">
                                     <div className="m-portlet__head-caption">
                                         <div class="dataTables_length" >
-                                            <select class="custom-select custom-select-sm form-control form-control-sm" style={{width : '60px'}} onChange={handleSelect}>
-                                                <option value="0">Tất cả</option>
-                                                <option value="1">User</option>
-                                                <option value="10">Admin</option>
-                                            </select>
+                                            
                                         </div>
                                     </div>
                                     <div className="m-portlet__head-tools">

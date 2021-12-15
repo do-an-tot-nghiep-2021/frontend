@@ -1,8 +1,8 @@
 import { Api } from "./api";
 
-export const allclass = () => {
+export const allclass = (data) => {
   const url = `/classroom`;
-  return Api.get(url);
+  return Api.post(url, data);
 };
 export const updateclass = (item) => {
   const url = `/classroom/${item.id}`;

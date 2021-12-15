@@ -131,7 +131,7 @@ const CheckOrderComponents = () => {
                                             <table className="table" style={{ fontSize: "12px", fontWeight: 600, fontFamily: "Quicksand" }}>
                                                 <thead >
                                                     <tr>
-                                                        <th scope="col" width='10px' >#</th>
+                                                        <th scope="col">Mã đơn hàng</th>
                                                         <th scope="col">Địa chỉ</th>
                                                         <th scope="col" className="text-center">Thông tin đơn hàng</th>
                                                         <th scope="col">Tổng tiền</th>

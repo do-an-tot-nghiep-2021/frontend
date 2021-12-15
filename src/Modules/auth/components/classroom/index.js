@@ -8,17 +8,42 @@ import ReactPaginate from "react-paginate";
 import '../../../../Layouts/auth/assets/vendors/custom/datatables/datatables.bundle.css';
 import CreateClassroomScreen from '../../screens/classroom/create';
 import '../../../../Layouts/auth/assets/css/pagination.css'
+import { allbuilding } from "../../../../Api/building";
+
 
 const ClassroomListAuth = () => {
     const [classrooms, setClassrooms] = useState([]);
+    const [buildings, setBuildings] = useState([]);
     const [perPage, setPerPage] = useState(10);
     const [page, setPage] = useState(0);
     const [pages, setPages] = useState(0);
 
+    const [select, setSelect] = useState(0);
+
+    const handleSelect = (e) => {
+        setSelect(e.target.value);
+    };
+
+    useEffect(() => {
+        const getBuildings = async () => {
+            try {
+                const { data } = await allbuilding();
+                setBuildings(data);
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getBuildings();
+    }, []);
+
     useEffect(() => {
         const getClassroom = async () => {
+            const newData = {
+                build : select
+            }
             try {
-                const { data } = await allclass();
+                const { data } = await allclass(newData);
                 setPages(Math.ceil(data.length / perPage))
                 const items = data.slice(page * perPage, (page + 1) * perPage);
                 setClassrooms(items)
@@ -28,12 +53,15 @@ const ClassroomListAuth = () => {
             }
         }
         getClassroom();
-    }, [page]);
+    }, [page, select]);
 
     const refresh = useCallback(() => {
         const getClassroom = async () => {
+            const newData = {
+                build : select
+            }
             try {
-                const { data } = await allclass();
+                const { data } = await allclass(newData);
                 setPages(Math.ceil(data.length / perPage))
                 const items = data.slice(page * perPage, (page + 1) * perPage);
                 setClassrooms(items)
@@ -43,7 +71,8 @@ const ClassroomListAuth = () => {
             }
         }
         getClassroom();
-    }, [page])
+    }, [page, select])
+
     const handlePageClick = (event) => {
         let page = event.selected;
         setPage(page)
@@ -107,20 +136,30 @@ const ClassroomListAuth = () => {
                                 <div className="m-portlet__head">
                                     <div className="m-portlet__head-caption">
                                         <CreateClassroomScreen onRefeshData={refresh} />
+                                        <div className="dataTables_length ml-2" >
+                                            <select className="custom-select custom-select-sm form-control form-control-sm" style={{ width: '60px' }} onChange={handleSelect}>
+                                                <option value="0">Tòa</option>
+                                                {buildings.map((items)=> (
+                                                    <option value={items.id} key={items.id}>{items.name}</option>
+                                                ))}
+                                            </select>
+                                        </div>
                                     </div>
                                     <div className="m-portlet__head-tools">
-                                    <ReactPaginate
-                                            previousLabel={'Previous'}
-                                            nextLabel={'Next'}
-                                            pageCount={pages}
-                                            onPageChange={handlePageClick}
-                                            containerClassName={'pagination-layout'}
-                                            pageClassName={'page-item-layout'}
-                                            previousClassName={'page-item-layout'}
-                                            nextClassName={'page-item-layout'}
-                                            pageLinkClassName={'page-link-layout'}
-                                            activeClassName={'active-page'}
-                                        />
+                                        {pages < 2 ? "" :
+                                            <ReactPaginate
+                                                previousLabel={'Previous'}
+                                                nextLabel={'Next'}
+                                                pageCount={pages}
+                                                onPageChange={handlePageClick}
+                                                containerClassName={'pagination-layout'}
+                                                pageClassName={'page-item-layout'}
+                                                previousClassName={'page-item-layout'}
+                                                nextClassName={'page-item-layout'}
+                                                pageLinkClassName={'page-link-layout'}
+                                                activeClassName={'active-page'}
+                                            />
+                                        }
                                     </div>
                                 </div>
                             </div>
@@ -142,7 +181,7 @@ const ClassroomListAuth = () => {
                                         </table>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                     </div>

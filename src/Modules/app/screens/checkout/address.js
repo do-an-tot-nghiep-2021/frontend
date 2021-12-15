@@ -52,6 +52,7 @@ const AddressUser = () => {
     const onSubmit = async (data) => {
         const checkoutData = {
             userId: SetUserGoogle.getUserGoogle().id,
+            code_order : Math.floor((Math.random()*100000000)+1),
             phone: data.phone,
             building: data.building,
             classroom: data.classroom,

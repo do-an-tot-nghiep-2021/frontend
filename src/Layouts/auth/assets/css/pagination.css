@@ -16,7 +16,7 @@
   --margin: 6px;
     margin: 0 var(--margin);
   border-radius: 6px;
-  background: #ffc107;
+  background: #34BFA3;
   max-width: auto;
   min-width: var(--size);
   height: var(--size);
@@ -25,7 +25,7 @@
   justify-content: center;
   cursor: pointer;
   padding: 0 6px;
-  color: black;
+  color: white;
   font-weight: 600;
 }
 .pagination-layout li a:hover{
@@ -33,6 +33,103 @@
     color: blanchedalmond;
 }
 .pagination-layout .active-page a{
+    background: #161100;
+    color: blanchedalmond;
+    transition: 0.5s;
+}
+.input-search-code {
+    height: none !important;
+    width: none !important;
+    border-radius: .25rem !important;
+    border: 1px solid #ced4da !important;
+    padding: .375rem .75rem !important;
+    background-clip: padding-box;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-left: 7px !important;
+    margin-bottom: 0px !important;
+    height: 32px !important;
+    outline: none !important;
+}
+
+
+
+
+.pagination-cancel {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination-cancel li {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination-cancel li a{
+    text-decoration: none;
+    --size: 20px;
+  --margin: 6px;
+    margin: 0 var(--margin);
+  border-radius: 10px;
+  background: #f4516c;
+  max-width: auto;
+  min-width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0 6px;
+  color: wheat;
+  font-weight: 600;
+}
+.pagination-cancel li a:hover{
+    background: #161100;
+    color: blanchedalmond;
+}
+.pagination-cancel .active-page a{
+    background: #161100;
+    color: blanchedalmond;
+    transition: 0.5s;
+}
+
+.pagination-success {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination-success li {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+
+.pagination-success li a{
+    text-decoration: none;
+    --size: 20px;
+  --margin: 6px;
+    margin: 0 var(--margin);
+  border-radius: 10px;
+  background: #34BFA3;
+  max-width: auto;
+  min-width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0 6px;
+  color: wheat;
+  font-weight: 600;
+}
+.pagination-success li a:hover{
+    background: #161100;
+    color: blanchedalmond;
+}
+.pagination-success .active-page a{
     background: #161100;
     color: blanchedalmond;
     transition: 0.5s;

@@ -8,17 +8,26 @@ import CreateToppingScreen from "../../screens/topping/create";
 
 const ListToppingComponent = () => {
   const [Toppings, setToppings] = useState([]);
+  const [select, setSelect] = useState(2);
+
+  const handleSelect = (e) => {
+    setSelect(e.target.value);
+  };
   useEffect(() => {
     const getToppings = async () => {
+      const newData = {
+        status : select
+      }
       try {
-        const { data } = await alltopping();
+        const { data } = await alltopping(newData);
         setToppings(data);
       } catch (error) {
         console.log(error);
       }
     };
     getToppings();
-  }, []);
+  }, [select]);
+
   const refresh = useCallback(() => {
     const getToppings = async () => {
       try {
@@ -91,9 +100,16 @@ const ListToppingComponent = () => {
               <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                 <div className="m-portlet__head">
                   <div className="m-portlet__head-caption">
-                    <CreateToppingScreen onRefeshData={refresh}/>
+                    <CreateToppingScreen onRefeshData={refresh} />
                   </div>
                   <div className="m-portlet__head-tools">
+                    <div class="dataTables_length" >
+                      <select class="custom-select custom-select-sm form-control form-control-sm" style={{ width: '60px' }} onChange={handleSelect}>
+                        <option value="2">Tất cả</option>
+                        <option value="1">Còn hàng</option>
+                        <option value="0">Hết hàng</option>
+                      </select>
+                    </div>
                   </div>
                 </div>
               </div>

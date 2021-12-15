@@ -143,44 +143,7 @@ const DetailProductScreenApp = ({ product, product_cate, type, topping }) => {
                 </div>
             </section>
             
-            <section className="default-section comment-review-tab bg-grey v-pad-remove wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                <div className="container">
-                    <div className="tab-part">
-
-                        <div className="tab-content">
-
-                            <div role="tabpanel" className="tab-pane active" id="reviews">
-                                <div className="title text-center">
-                                    <h3 className="text-coffee">2 Comment</h3>
-                                </div>
-                                <div className="comment-blog">
-                                    <div className="comment-inner-list">
-                                        <div className="comment-img">
-                                            <img src="images/comment-img1.png" alt="" />
-                                        </div>
-                                        <div className="comment-info">
-                                            <h5>Anna Taylor</h5>
-                                            <span className="comment-date">AUGUST 9, 2016 10:57 AM</span>
-                                            <p>Aqua Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                        </div>
-                                    </div>
-                                    <div className="comment-inner-list">
-                                        <div className="comment-img">
-                                            <img src="images/comment-img1.png" alt="" />
-                                        </div>
-                                        <div className="comment-info">
-                                            <h5>Anna Taylor</h5>
-                                            <span className="comment-date">AUGUST 9, 2016 10:57 AM</span>
-                                            <p>Aqua Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+           
             {product_cate && product_cate.length > 1 ?
                 <section className="default-section wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                     <div className="container">

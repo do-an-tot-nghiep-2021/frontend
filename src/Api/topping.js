@@ -1,8 +1,8 @@
 import { Api } from "./api";
 
-export const alltopping = () => {
+export const alltopping = (data) => {
   const url = `/topping`;
-  return Api.get(url);
+  return Api.post(url, data);
 };
 export const updatetopping = (item) => {
   const url = `/topping/${item.id}`;

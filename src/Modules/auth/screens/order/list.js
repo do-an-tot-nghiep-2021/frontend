@@ -1,8 +1,10 @@
 import { formatNumber } from "../../../../Helpers/utils";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useForm } from 'react-hook-form';
-import { showorder, updateorder } from "../../../../Api/order";
+import { showorder, updateorder, allorder } from "../../../../Api/order";
 import Swal from 'sweetalert2'
+import { SetUser, TokenAccount, SetOrderW } from "../../../../hooks/useAccount"
+
 
 const OrderScreenAuth = ({ data, onRefeshData }) => {
 
@@ -12,7 +14,26 @@ const OrderScreenAuth = ({ data, onRefeshData }) => {
   const handleChange = (e) => {
     setStatus(e.target.value);
   };
-  
+
+  const refreshW = useCallback(() => {
+    const getOrdersWar = async () => {
+      const newData = {
+          token: TokenAccount.getToken(),
+          user: SetUser.getUser(),
+          keyword: "",
+          status: 1,
+          date: 0
+      }
+      try {
+          const { data } = await allorder(newData)
+          SetOrderW.saveRefreshOrderW(data.length)
+      } catch (error) {
+          console.log(error);
+      }
+  }
+  getOrdersWar();
+  }, [])
+
   const onSubmit = async (data) => {
     const newData = {
       ...data,
@@ -26,13 +47,13 @@ const OrderScreenAuth = ({ data, onRefeshData }) => {
       }).then((result) => {
         if (result.isConfirmed) {
           updateorder(newData).then(response => {
-            console.log(response)
             if (!response.data) {
               Swal.fire(response.data.message, '', 'error')
             }
             if (response.data) {
               Swal.fire('Thành công!', '', 'success')
               onRefeshData()
+              refreshW()
             }
           })
         }
@@ -46,16 +67,18 @@ const OrderScreenAuth = ({ data, onRefeshData }) => {
     const order = respons.data;
     reset(order);
   }, [idOrder]);
+  console.log(data)
 
   return (
     <>
       {data && data.map((items, index) => (
         <tr key={index}>
-          <th scope="row">{index + 1}</th>
+          <th scope="row"><span className="m-badge m-badge--danger m-badge--wide m-badge--rounded" style={{fontSize : "12px"}}>#{items.code_order}</span></th>
           <td>{items.user.name}</td>
           <td>0{items.phone}</td>
           <td>{items.building.name}, {items.classroom.name}</td>
           <td><span className={items.color}>{items.status}</span></td>
+          <td>{items.time_create}, {items.date_create}</td>
           <td>
             <button type="button" className="btn btn-brand btn-sm m-btn m-btn--custom" style={{background : '#8d49cf'}} data-toggle="modal" data-target={`.exampleModal${items.id}`}>
               Chi tiết

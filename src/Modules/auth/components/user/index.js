@@ -110,6 +110,7 @@ const ListUserComponent = () => {
                                                     <th scope="col">Email</th>
                                                     <th scope="col">Số điện thoại</th>
                                                     <th scope="col">Quyền hạn</th>
+                                                    <th scope="col">Ngày tạo</th>
                                                 </tr>
                                             </thead>
                                             <tbody>

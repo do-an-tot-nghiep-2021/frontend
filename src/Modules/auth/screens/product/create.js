@@ -29,8 +29,11 @@ const CreateProductScreen = ({onRefeshData}) => {
   const [topping, setTopping] = useState([]);
   useEffect(() => {
     const getTopping = async () => {
+      const newData = {
+        status : 1
+      }
       try {
-        const { data } = await alltopping();
+        const { data } = await alltopping(newData);
         setTopping(data);
       } catch (error) {
         console.log(error);

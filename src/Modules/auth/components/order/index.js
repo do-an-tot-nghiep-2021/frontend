@@ -7,14 +7,20 @@ import { TokenAccount, SetUser } from "../../../../hooks/useAccount";
 
 const ListOrderComponent = () => {
   const [Orders, setOrders] = useState([]);
-  const [perPage, setPerPage] = useState(5);
+  const [perPage, setPerPage] = useState(10);
   const [page, setPage] = useState(0);
   const [pages, setPages] = useState(0);
+  const [keySearch, setKeySearch] = useState('');
+  const [date, setDate] = useState(0);
+  const [status, setStatus] = useState(0);
   useEffect(() => {
     const getOrders = async () => {
       const newData = {
         token: TokenAccount.getToken(),
         user: SetUser.getUser(),
+        keyword : keySearch,
+        status : status,
+        date : date
       }
       try {
         const { data } = await allorder(newData)
@@ -27,30 +33,42 @@ const ListOrderComponent = () => {
       }
     }
     getOrders();
-  }, [page]);
-
+  }, [page, keySearch, status, date]);
+  
   const handlePageClick = (event) => {
     let page = event.selected;
     setPage(page)
   }
-
+  const handleSelectDate = (e) => {
+    setDate(e.target.value);
+  }
+  const handleSelectStatus = (e) => {
+    setStatus(e.target.value);
+  }
+  const handleSearch = (e) => {
+    setKeySearch(e.target.value)
+  }
   const refresh = useCallback(() => {
     const getOrders = async () => {
       try {
         const newData = {
           token: TokenAccount.getToken(),
           user: SetUser.getUser(),
+          keyword : keySearch,
+          status : status,
+          date : date
         }
-        const respons = await allorder(newData).then(Response => {
-          setOrders(Response.data)
-        });
+        const {data} = await allorder(newData)
+          setPages(Math.ceil(data.length / perPage))
+          const items = data.slice(page * perPage, (page + 1) * perPage);
+          setOrders(items)
 
       } catch (error) {
         console.log(error);
       }
     }
     getOrders();
-  }, [])
+  }, [page, keySearch, status, date])
 
   const onHandleDelete = async (id) => {
     try {
@@ -96,6 +114,31 @@ const ListOrderComponent = () => {
               <div className="m-portlet m-portlet--mobile" style={{ marginBottom: 0 }}>
                 <div className="m-portlet__head">
                   <div className="m-portlet__head-caption">
+
+                  <div class="dataTables_length mr-3">
+                      <input type="number" className="input-search-code" onChange={handleSearch} placeholder="Nhập mã code để tìm đơn hàng" />
+                    </div>
+
+                    <div class="dataTables_length mr-2" >
+                      <select class="custom-select custom-select-sm form-control form-control-sm" defaultValue={0} style={{ width: '90px' }} onChange={handleSelectDate}>
+                        <option value="0">Thời gian</option>
+                        <option value="1">Hôm nay</option>
+                        <option value="7">7 ngày qua</option>
+                        <option value="30">30 ngày qua</option>
+                      </select>
+                    </div>
+
+                    <div class="dataTables_length" >
+                      <select class="custom-select custom-select-sm form-control form-control-sm" defaultValue={0} style={{ width: '110px' }} onChange={handleSelectStatus}>
+                        <option value="0">Trạng thái</option>
+                        <option value="1">Chờ xử lý</option>
+                        <option value="2">Chờ giao hàng</option>
+                        <option value="3">Chờ vận chuyển</option>
+                        <option value="4">Thành công</option>
+                        <option value="5">Đã hủy</option>
+                      </select>
+                    </div>
+
                   </div>
                   <div className="m-portlet__head-tools">
                     <ReactPaginate
@@ -119,11 +162,12 @@ const ListOrderComponent = () => {
                     <table className="table m-table m-table--head-separator-danger">
                       <thead>
                         <tr>
-                          <th>#</th>
+                          <th>Mã đơn hàng</th>
                           <th>Tên khách hàng</th>
                           <th>Số điện thoại</th>
                           <th>Địa chỉ đặt hàng</th>
                           <th>Trạng thái</th>
+                          <th>Thời gian</th>
                           <th>Chi tiết</th>
                           <th><i className="flaticon-settings-1"></i></th>
                         </tr>

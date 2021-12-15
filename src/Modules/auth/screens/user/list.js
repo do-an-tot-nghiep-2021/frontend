@@ -9,6 +9,7 @@ const ListUserScreen = (props) => {
                     <td scope="col">{items.email}</td>
                     <td scope="col">{items.phone}</td>
                     <td scope="col">{items.role == 10 ? "admin" : "user"}</td>
+                    <td>{items.time_create}, {items.date_create}</td>
                 </tr>
             ))}
         </>

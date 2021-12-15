@@ -34,14 +34,16 @@ const ListProductComponent = () => {
   const refresh = useCallback(() => {
     const getProducts = async () => {
       try {
-        const { data } = await allproduct();
-        setProducts(data);
+        const { data } = await allproduct()
+        setPages(Math.ceil(data.length / perPage))
+        const items = data.slice(page * perPage, (page + 1) * perPage);
+        setProducts(items)
       } catch (error) {
         console.log(error);
       }
     };
     getProducts();
-  }, [])
+  }, [page])
   const onHandleDelete = async (id) => {
     try {
       Swal.fire({

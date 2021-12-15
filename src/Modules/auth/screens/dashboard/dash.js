@@ -1,16 +1,61 @@
 import { SetUser, TokenAccount } from "../../../../hooks/useAccount"
-import { getorderdate } from "../../../../Api/order";
+import { getorderdate, allorder } from "../../../../Api/order";
 import { useEffect, useState } from "react";
 import { exportexcel } from "../../../../Api/excel";
 import { formatNumber } from "../../../../Helpers/utils";
 import { alluser } from "../../../../Api/user"
+import DashListSuccessData from "./dashListSuccess";
+import DashListCancelData from "./dashListCancel";
 
 const DashboardScreen = () => {
 
     const [date, setDate] = useState(1);
     const [order, setOrder] = useState([]);
+    const [orders, setOrders] = useState([]);
+    const [ordersW, setOrdersW] = useState([]);
     const [users, setUsers] = useState([]);
-    console.log(order)
+    
+
+    useEffect(() => {
+        const getOrders = async () => {
+            const newData = {
+                token: TokenAccount.getToken(),
+                user: SetUser.getUser(),
+                keyword: "",
+                status: 4,
+                date: date
+            }
+            try {
+                const { data } = await allorder(newData)
+                setOrders(data)
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getOrders();
+    }, [date]);
+
+    useEffect(() => {
+        const getOrdersWar = async () => {
+            const newData = {
+                token: TokenAccount.getToken(),
+                user: SetUser.getUser(),
+                keyword: "",
+                status: 1,
+                date: date
+            }
+            try {
+                const { data } = await allorder(newData)
+                setOrdersW(data)
+
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getOrdersWar();
+    }, [date]);
+
     useEffect(() => {
         const newData = {
             token: TokenAccount.getToken(),
@@ -46,13 +91,6 @@ const DashboardScreen = () => {
         getUsers();
     }, []);
 
-    const handleExport = async () => {
-        const data = {
-            date: date
-        }
-        console.log(date)
-        await exportexcel(data)
-    }
     return (
         <>
             <div>
@@ -73,9 +111,7 @@ const DashboardScreen = () => {
                                         <div className="m-portlet__head">
                                             <div className="m-portlet__head-caption">
                                                 <div className="m-portlet__head-title">
-                                                    <h3 className="m-portlet__head-text">
-                                                        <button className="btn btn-success" onClick={handleExport}>Export excel</button>
-                                                    </h3>
+                                                   
                                                 </div>
                                             </div>
                                             <div className="m-portlet__head-tools">
@@ -113,7 +149,7 @@ const DashboardScreen = () => {
                                                                             <span className="m-widget1__desc">Từ các đơn đặt hàng</span>
                                                                         </div>
                                                                         <div className="col m--align-right">
-                                                                            <span className="m-widget1__number m--font-brand">{order.length > 0 ? formatNumber(order.reduce((n, { price_total }) => n + price_total, 0)) : ""}</span>
+                                                                            <span className="m-widget1__number m--font-brand">{orders.length > 0 ? formatNumber(orders.reduce((n, { price_total }) => n + price_total, 0)) : "0"}</span>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -163,29 +199,10 @@ const DashboardScreen = () => {
                                 </div>
                             </div>
                             <div className="m-portlet m-portlet--full-height ">
-                            <div className="m-portlet__body">
-                            <h5>ĐƠN HÀNG MỚI CHƯA XỬ LÍ</h5>
-                            {order && order.map((items, index)=> (
-                                <div className="row mt-3" key={index}>
-                                    {items.status == "Đơn hàng đang chờ xử lý" ?
-                                    <>
-                                        <div className="col-12">
-                                        <img src={items.user.image} style={{borderRadius : '50px', width :'30px'}}/>
-                                            <span className="mr-1 ml-2" style={{fontWeight : '500'}}>{items.user.name}</span> đặt hàng 
-                                            {items.products.map((item)=> (
-                                                <span style={{fontWeight : '500'}} key={item.id}> {item.name},</span>
-                                            ))}
-                                            <span> đặt vào lúc</span><span style={{fontWeight : '500'}}> {items.time_create}, {items.date_create}</span>
-                                            <span> .Tổng hóa đơn :</span><span style={{fontWeight : '500'}}> {formatNumber(items.price_total)}</span>
-                                        </div>
-                                    </>
-                                    :""
-                                    }
-                                </div>
-                            ))}
+                                <DashListSuccessData data={orders} />
+                                <DashListCancelData data={ordersW} />
                             </div>
-                            </div>
-                            
+
                         </div>
                     </div>
                 </div>

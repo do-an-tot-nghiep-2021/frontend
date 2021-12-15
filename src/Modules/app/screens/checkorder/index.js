@@ -1,11 +1,12 @@
 import { formatNumber } from "../../../../Helpers/utils"
 import { Link } from "react-router-dom"
 const CheckOrderScreenApp = ({ orders, onCancel }) => {
+    console.log(orders)
     return (
         <>
             {orders && orders.map((order, index) => (
                 <tr key={index}>
-                    <td>{index + 1}</td>
+                    <td><span className="m-badge m-badge--danger m-badge--wide m-badge--rounded">#{order.code_order}</span></td>
                     <td>
                         {order.building.map((buil) => (
                             <span key={buil.id}>{buil.name}, </span>
@@ -36,9 +37,6 @@ const CheckOrderScreenApp = ({ orders, onCancel }) => {
                     </td>
                     <td>{formatNumber(order.price_total)}</td>
                     <td className="text-center">
-                        {order.status == "Đơn hàng đã vận chuyển thành công" ?
-                            <Link className="btn-comment" to={`/checkorder/comment/`}>Đánh giá</Link>
-                            : ""}
                         {order.status == "Đơn hàng đang chờ xử lý" ?
                             <button className="btn-cancel" onClick={() => onCancel(order.id)} >Hủy</button>
                             : ""}

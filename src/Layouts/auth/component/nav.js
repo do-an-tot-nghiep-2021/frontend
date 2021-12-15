@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-import { useState, useEffect } from "react";
 const NavAuth = () => {
   return (
     <>
@@ -12,9 +11,7 @@ const NavAuth = () => {
                 <span className="m-menu__link-title">
                   <span className="m-menu__link-wrap">
                     <span className="m-menu__link-text">Dashboard</span>
-                    {/* <span className="m-menu__link-badge">
-                      <span className="m-badge m-badge--danger">2</span>
-                    </span> */}
+                    
                   </span>
                 </span>
               </NavLink>
@@ -38,7 +35,7 @@ const NavAuth = () => {
             <li className="m-menu__item  m-menu__item--submenu">
               <NavLink to="/admin/orders" className="m-menu__link m-menu__toggle">
                 <i className="m-menu__link-icon flaticon-notes" />
-                <span className="m-menu__link-text">Đơn hàng</span>
+                <span className="m-menu__link-text">Đơn hàng </span>
               </NavLink>
             </li>
             <li className="m-menu__item  m-menu__item--submenu">

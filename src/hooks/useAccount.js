@@ -106,4 +106,25 @@ const SetResetEmail = {
     },
 }
 
-export { TokenAccount, SetUser, SetUserGoogle, SetPriceVoucher, SetResetEmail }
+const SetOrderW = {
+
+    getOrderW() {
+        let orderLength = localStorage.getItem('lengthOrder');
+        return JSON.parse(orderLength)
+    },
+
+    saveRefreshOrderW(value) {
+        localStorage.setItem('lengthOrder', JSON.stringify(value))
+    },
+
+    saveOrderW(value) {
+        localStorage.setItem('lengthOrder', JSON.stringify(value));
+    },
+
+    removeOrderW() {
+        localStorage.removeItem('lengthOrder')
+    },
+
+}
+
+export { TokenAccount, SetUser, SetUserGoogle, SetPriceVoucher, SetResetEmail, SetOrderW  }

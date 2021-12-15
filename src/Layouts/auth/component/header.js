@@ -67,34 +67,7 @@ const HeaderAuth = ({ user }) => {
                             <div id="m_header_topbar" className="m-topbar  m-stack m-stack--ver m-stack--general m-stack--fluid">
                                 <div className="m-stack__item m-topbar__nav-wrapper">
                                     <ul className="m-topbar__nav m-nav m-nav--inline">
-                                        <li className="m-nav__item m-dropdown m-dropdown--large m-dropdown--arrow m-dropdown--align-center m-dropdown--mobile-full-width m-dropdown--skin-light	m-list-search m-list-search--skin-light" m-dropdown-toggle="click" id="m_quicksearch" m-quicksearch-mode="dropdown" m-dropdown-persistent={1}>
-                                            <a href="#" className="m-nav__link m-dropdown__toggle">
-                                                <span className="m-nav__link-icon"><i className="flaticon-search-1" /></span>
-                                            </a>
-                                            <div className="m-dropdown__wrapper">
-                                                <span className="m-dropdown__arrow m-dropdown__arrow--center" />
-                                                <div className="m-dropdown__inner ">
-                                                    <div className="m-dropdown__header">
-                                                        <form className="m-list-search__form">
-                                                            <div className="m-list-search__form-wrapper">
-                                                                <span className="m-list-search__form-input-wrapper">
-                                                                    <input id="m_quicksearch_input" autoComplete="off" type="text" name="q" className="m-list-search__form-input" defaultValue placeholder="Search..." />
-                                                                </span>
-                                                                <span className="m-list-search__form-icon-close" id="m_quicksearch_close">
-                                                                    <i className="la la-remove" />
-                                                                </span>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div className="m-dropdown__body">
-                                                        <div className="m-dropdown__scrollable m-scrollable" data-scrollable="true" data-height={300} data-mobile-height={200}>
-                                                            <div className="m-dropdown__content">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
+                                        
                                         <li className="m-nav__item m-topbar__user-profile m-topbar__user-profile--img  m-dropdown m-dropdown--medium m-dropdown--arrow m-dropdown--header-bg-fill m-dropdown--align-right m-dropdown--mobile-full-width m-dropdown--skin-light" m-dropdown-toggle="click">
                                             <a href="#" className="m-nav__link m-dropdown__toggle">
                                                 <span className="m-topbar__userpic">
@@ -122,48 +95,7 @@ const HeaderAuth = ({ user }) => {
                                                     <div className="m-dropdown__body">
                                                         <div className="m-dropdown__content">
                                                             <ul className="m-nav m-nav--skin-light">
-                                                                <li className="m-nav__section m--hide">
-                                                                    <span className="m-nav__section-text">Section</span>
-                                                                </li>
-                                                                <li className="m-nav__item">
-                                                                    <Link to="/admin/profile" className="m-nav__link">
-                                                                        <i className="m-nav__link-icon flaticon-profile-1" />
-                                                                        <span className="m-nav__link-title">
-                                                                            <span className="m-nav__link-wrap">
-                                                                                <span className="m-nav__link-text">My Profile</span>
-                                                                                <span className="m-nav__link-badge"><span className="m-badge m-badge--success">2</span></span>
-                                                                            </span>
-                                                                        </span>
-                                                                    </Link>
-                                                                </li>
-                                                                <li className="m-nav__item">
-                                                                    <a href="header/profile.html" className="m-nav__link">
-                                                                        <i className="m-nav__link-icon flaticon-share" />
-                                                                        <span className="m-nav__link-text">Activity</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li className="m-nav__item">
-                                                                    <a href="header/profile.html" className="m-nav__link">
-                                                                        <i className="m-nav__link-icon flaticon-chat-1" />
-                                                                        <span className="m-nav__link-text">Messages</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li className="m-nav__separator m-nav__separator--fit">
-                                                                </li>
-                                                                <li className="m-nav__item">
-                                                                    <a href="header/profile.html" className="m-nav__link">
-                                                                        <i className="m-nav__link-icon flaticon-info" />
-                                                                        <span className="m-nav__link-text">FAQ</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li className="m-nav__item">
-                                                                    <a href="header/profile.html" className="m-nav__link">
-                                                                        <i className="m-nav__link-icon flaticon-lifebuoy" />
-                                                                        <span className="m-nav__link-text">Support</span>
-                                                                    </a>
-                                                                </li>
-                                                                <li className="m-nav__separator m-nav__separator--fit">
-                                                                </li>
+                                                                
                                                                 <li className="m-nav__item">
                                                                     <a  className="btn m-btn--pill btn-secondary m-btn m-btn--custom m-btn--label-brand m-btn--bolder" onClick={logoutToken}>Logout</a>
                                                                 </li>

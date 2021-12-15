@@ -35,22 +35,22 @@ const CheckOrderComponents = () => {
     const refresh = useCallback(() => {
         const getOrders = async () => {
             try {
-                if (SetUserGoogle.getUserGoogle()) {
-                    const data = {
-                        google_id: SetUserGoogle.getUserGoogle().google_id,
-                        id: SetUserGoogle.getUserGoogle().id,
-                        status: status
-                    }
-                    const respons = await getorder(data);
-                    setOrders(respons.data)
+                const newData = {
+                    google_id: SetUserGoogle.getUserGoogle().google_id,
+                    id: SetUserGoogle.getUserGoogle().id,
+                    status: status
                 }
-
+                const { data } = await getorder(newData);
+                setPages(Math.ceil(data.length / perPage))
+                const items = data.slice(page * perPage, (page + 1) * perPage);
+                setOrders(items)
+                
             } catch (error) {
                 console.log(error);
             }
         }
         getOrders();
-    }, [status])
+    }, [status, page])
 
 
     const onHandleCancel = async (id) => {

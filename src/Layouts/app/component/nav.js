@@ -61,18 +61,18 @@ const NavApp = ({ user }) => {
                             {user ?
                               <ul className="drop-nav1">
                                 <li>
-                                  <Link to="/account/profile">Profile</Link>
+                                  <Link to="/account/profile">Cá nhân</Link>
                                 </li>
                                 <li>
-                                  <Link to="/account/checkorder">Check order</Link>
+                                  <Link to="/account/checkorder">Đơn đặt hàng</Link>
                                 </li>
                                 <li>
-                                  <Link to="/account/voucher">Voucher</Link>
+                                  <Link to="/account/voucher">Mã giảm giá</Link>
                                 </li>
                                 <li>
                                   <GoogleLogout
                                     clientId="753490656345-0j9c0r7sqr7bjk0ro3t31ub5n3i1bm3h.apps.googleusercontent.com"
-                                    buttonText="Sign Out"
+                                    buttonText="Đăng xuất"
                                     onLogoutSuccess={onSignoutSuccess}
                                     className="button-google-account-logout"
                                   >
@@ -89,7 +89,7 @@ const NavApp = ({ user }) => {
                       <div className="cart animated">
                         <Link to="/cart" className="color-cart-item">
                           <span className="icon-basket fontello" />
-                          <span>{itemCount} items - {formatNumber(total)}</span>
+                          <span>{itemCount} Sản phẩm - {formatNumber(total)}</span>
                         </Link>
                       </div>
                       

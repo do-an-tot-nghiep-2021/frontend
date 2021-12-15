@@ -67,7 +67,7 @@ const CartProducts = ({ onSelect }) => {
 
                 </div>
                 <button type='button' className="btn-medium btn-dark-coffee" onClick={clearCart}>Xóa hết</button>
-                <Link to="/" className="btn-medium btn-skin pull-right">Thêm sản phẩm</Link>
+                <Link to="/" className="btn-medium btn-skin pull-right"  style={{textDecoration : 'none'}}>Thêm sản phẩm</Link>
             </div>
         </div>
     );

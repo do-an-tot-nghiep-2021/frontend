@@ -19,7 +19,7 @@ const Cart = () => {
 
     return (
         <>
-        
+
             <section className="breadcrumb-nav">
                 <div className="container">
                     <div className="breadcrumb-nav-inner">
@@ -31,58 +31,60 @@ const Cart = () => {
                     </div>
                 </div>
             </section>
-                <div >
-                    <section className="default-section shop-cart bg-grey">
-                        <div className="container">
-                            <div className="checkout-wrap wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
-                                <ul className="checkout-bar">
-                                    <li className={checkout ? "active done-proceed" : "active"}>Giỏ hàng</li>
-                                    <li className={checkout ? "active done-proceed" : ""}>Check out</li>
-                                    <li className={checkout ? "active done-proceed" : ""}>Thành công</li>
-                                </ul>
-                            </div>
-                            {
-                                cartItems.length > 0 ?
-                                    <CartProducts onSelect={onHandleSelect} /> :
-                                    <div className="p-3 text-center text-muted">
-                                        Your cart is empty
-                                    </div>
-                            }
-                            {checkout &&
+            <div >
+                <section className="default-section shop-cart bg-grey">
+                    <div className="container">
+                        <div className="checkout-wrap wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+                            <ul className="checkout-bar">
+                                <li className={checkout ? "active done-proceed" : "active"}>Giỏ hàng</li>
+                                <li className={checkout ? "active done-proceed" : ""}>Thanh toán</li>
+                                <li className={checkout ? "active done-proceed" : ""}>Thành công</li>
+                            </ul>
+                        </div>
+                        {
+                            cartItems.length > 0 ?
+                                <CartProducts onSelect={onHandleSelect} /> :
+                                <div className="p-3 text-center text-muted">
+                                    Giỏ hàng đang trống
+                                </div>
+                        }
+                        {(cartItems.length < 1 && checkout) ?
+                            checkout &&
                                 <div className="order-complete-box wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                                     <img src="https://mucindatamax.com/templates/images/payment-successful.png" alt="" />
                                     <p>Cảm ơn bạn đã đặt hàng tại cà phê của chúng tôi. Bạn sẽ sớm nhận được một email xác nhận. <br /> Bây giờ, hãy kiểm tra tiến trình của Trình theo dõi thực phẩm với đơn đặt hàng của bạn.</p>
                                     <Link to="/account/checkorder" className="btn-medium btn-skin btn-large">Kiểm tra đơn đặt hàng</Link>
                                 </div>
-                            }
-                            {
-                                cartItems.length > 0 &&
-                                <>
-                                    <div className="cart-total wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
-                                        <div className="cart-total-title">
-                                            <h5>TỔNG GIỎ HÀNG</h5>
-                                        </div>
-                                        <div className="product-cart-total">
-                                            <small>Tổng sản phẩm</small>
-                                            <span>{cartItems.length}</span>
-                                        </div>
-                                        <div className="product-cart-total">
-                                            <small>Giảm giá</small>
-                                            <span>{valueVoucher ? valueVoucher : 0}%</span>
-                                        </div>
-                                        <div className="grand-total">
-                                            <h5>Tổng tiền <span>{formatNumber(total)}</span></h5>
-                                        </div>
-                                        <div className="proceed-check">
-                                            <Link to="/checkout" className="btn-primary-gold btn-medium">Đặt hàng</Link>
-                                        </div>
+                                : ""
+                        }
+                        {
+                            cartItems.length > 0 &&
+                            <>
+                                <div className="cart-total wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="900ms">
+                                    <div className="cart-total-title">
+                                        <h5>TỔNG GIỎ HÀNG</h5>
                                     </div>
-                                </>
-                            }
-                        </div>
-                    </section>
-                </div>
-            
+                                    <div className="product-cart-total">
+                                        <small>Tổng sản phẩm</small>
+                                        <span>{cartItems.length}</span>
+                                    </div>
+                                    <div className="product-cart-total">
+                                        <small>Giảm giá</small>
+                                        <span>{valueVoucher ? valueVoucher : 0}%</span>
+                                    </div>
+                                    <div className="grand-total">
+                                        <h5>Tổng tiền <span>{formatNumber(total)}</span></h5>
+                                    </div>
+                                    <div className="proceed-check">
+                                        <Link to="/checkout" className="btn-primary-gold btn-medium" style={{ textDecoration: 'none' }}>Tiến hành thanh toán</Link>
+                                    </div>
+                                </div>
+                            </>
+                        }
+                    </div>
+                </section>
+            </div>
+
         </>
     );
 }

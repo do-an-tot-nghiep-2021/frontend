@@ -102,9 +102,9 @@ const AddressUser = () => {
                         <ul>
                             <li><Link to="/">Trang chủ</Link></li>
                             <li><Link to="/cart">Giỏ hàng</Link></li>
-                            <li className="active"><Link to="/cart">Check out</Link></li>
+                            <li className="active"><Link to="/cart">Thanh Toán</Link></li>
                         </ul>
-                        <label className="now">Checkout</label>
+                        <label className="now">Thủ Tục Thanh Toán</label>
                     </div>
                 </div>
             </section>
@@ -114,7 +114,7 @@ const AddressUser = () => {
                         <div className="checkout-wrap wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
                             <ul className="checkout-bar">
                                 <li className="done-proceed active">Giỏ hàng</li>
-                                <li className="active">Check out</li>
+                                <li className="active">Thanh toán</li>
                                 <li>Thành công</li>
                             </ul>
 
@@ -125,7 +125,7 @@ const AddressUser = () => {
                                     <div className="shop-checkout-left">
                                         <div className="row">
                                             <div className="col-md-12 col-sm-12 col-xs-12">
-                                                <h5>Hóa đơn chi tiết</h5>
+                                                <h5>HÓA ĐƠN CHI TIẾT</h5>
                                             </div>
                                             <input {...register("payment")} type="hidden" name="payment" value="1" />
                                             <div className="col-md-6 col-sm-12 col-xs-12">
@@ -154,7 +154,7 @@ const AddressUser = () => {
                                                 </select>
                                                 {errors.building && (
                                                     <span className="d-block text-danger mt-3">
-                                                        This field is required
+                                                        Không bỏ trống trường này!
                                                     </span>
                                                 )}
                                             </div>
@@ -172,7 +172,7 @@ const AddressUser = () => {
                                                     </select>
                                                     {errors.classroom && (
                                                         <span className="d-block text-danger mt-3">
-                                                            This field is required
+                                                            Không bỏ trống trường này!
                                                         </span>
                                                     )}
                                                 </div>
@@ -196,7 +196,7 @@ const AddressUser = () => {
                                         <div className="shop-checkout-box">
                                             <h5>ĐƠN HÀNG CỦA BẠN</h5>
                                             <div className="shop-checkout-title">
-                                                <h6>SẢN PHẨM <span>TOTAL</span></h6>
+                                                <h6>SẢN PHẨM <span>TỔNG CỘNG</span></h6>
                                             </div>
                                             <div className="shop-checkout-row">
                                                 {cartItems && cartItems.map((items, index) => (

@@ -1,7 +1,5 @@
 import { formatNumber } from "../../../../Helpers/utils"
-import { Link } from "react-router-dom"
 const CheckOrderScreenApp = ({ orders, onCancel }) => {
-    console.log(orders)
     return (
         <>
             {orders && orders.map((order, index) => (
@@ -20,7 +18,7 @@ const CheckOrderScreenApp = ({ orders, onCancel }) => {
                         {order.products && order.products.map((product, key) => (
                             <div className="row mb-2" key={key}>
                                 <div className="col-2">
-                                    <img src={product.image} width="55" className=" rounded" />
+                                    <img src={product.image} width="100" className="rounded" />
                                 </div>
                                 <div className="col-8">
                                     <span className="font-weight-bold">{product.name} {product.type ? `(${product.type})` : ""}</span><br />

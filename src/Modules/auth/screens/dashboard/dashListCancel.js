@@ -7,6 +7,7 @@ const DashListCancelData = ({ data }) => {
     const [page, setPage] = useState(0);
     const [pages, setPages] = useState(0);
 
+    console.log(dataItems)
     const handlePageClick = (event) => {
         let page = event.selected;
         setPage(page)
@@ -54,7 +55,7 @@ const DashListCancelData = ({ data }) => {
                 </div>
             </div>
 
-            {dataItems.map((items, index) => (
+            {dataItems && dataItems.map((items, index) => (
                 <div className="row m-2" key={index}>
                     <div className="col-12">
                         <img src={items.user.image} style={{ borderRadius: '50px', width: '30px' }} />

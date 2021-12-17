@@ -125,6 +125,9 @@ const ListOrderComponent = () => {
                         <option value="1">Hôm nay</option>
                         <option value="7">7 ngày qua</option>
                         <option value="30">30 ngày qua</option>
+                        <option value="60">2 tháng trước</option>
+                        <option value="90">3 tháng trước</option>
+                        <option value="180">6 tháng trước</option>
                       </select>
                     </div>
 

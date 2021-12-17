@@ -131,6 +131,11 @@ const DashboardScreen = () => {
                                                             30 Ngày qua
                                                         </a>
                                                     </li>
+                                                    <li className="nav-item m-tabs__item">
+                                                        <a className={`nav-link m-tabs__link ${date == 60 ? "active" : ''}`} data-toggle="tab" onClick={() => setDate(60)}>
+                                                            60 Ngày qua
+                                                        </a>
+                                                    </li>
                                                 </ul>
                                             </div>
                                         </div>

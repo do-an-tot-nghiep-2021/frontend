@@ -57,6 +57,10 @@ const CheckOrderScreenApp = ({ orders, onCancel }) => {
                                             <h6>Phương Thức Thanh Toán :</h6>
                                             <span class="m-badge m-badge--danger m-badge--wide m-badge--rounded m-1">{order.payment}</span>
                                         </div>
+                                        <div className="mt-2">
+                                            <h6>Ghi chú đơn hàng :</h6>
+                                            <span class="m-1 mt-2">{order.note}</span>
+                                        </div>
                                     </div>
                                     <div className="modal-footer">
                                         <button type="button" className="btn-cancel" data-dismiss="modal">Đóng</button>

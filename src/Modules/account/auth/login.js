@@ -32,7 +32,7 @@ const LoginAuth = () => {
             Swal.fire({
                 icon: 'error',
                 text: 'Tài khoản hoặc mật khẩu không chính xác',
-              })
+            })
         }
 
     }
@@ -82,12 +82,27 @@ const LoginAuth = () => {
                                             <form className="form-dark" onSubmit={handleSubmit(onSubmit)}>
                                                 <div className="mb-3">
                                                     <label className="form-label text-light" htmlFor="emailAddress">Tài khoản</label>
-                                                    <input type="email" className="form-control" required placeholder="@gmail.com" {...register("email", { required: true })} />
+                                                    <input type="email" className="form-control"  placeholder="@gmail.com" {...register("email", { required: true })} />
+                                                    {errors.email?.type === "required" && (
+                                                        <span className="d-block text-danger">
+                                                            Không được để trống trường này!
+                                                        </span>
+                                                    )}
                                                 </div>
                                                 <div className="mb-3">
                                                     <label className="form-label text-light" htmlFor="loginPassword" >Mật khẩu</label>
                                                     <Link className="float-end text-5" to="/forgot-password/account">Quên mật khẩu ?</Link>
-                                                    <input type="password" className="form-control" required placeholder="********" {...register("password", { required: true })} />
+                                                    <input type="password" className="form-control"  placeholder="********" {...register("password", { required: true,pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?\s]*$/ })} />
+                                                    {errors.password?.type === "required" && (
+                                                        <span className="text-danger">
+                                                            Không được để trống trường này!
+                                                        </span>
+                                                    )}
+                                                    {errors.password?.type === "pattern" &&
+                                                        <span className=" text-danger m-form__help">
+                                                            Mật khẩu chỉ bao gồm chữ và số.
+                                                        </span>
+                                                    }
                                                 </div>
                                                 <button type="submit" className="btn btn-primary my-2" style={{ fontSize: "14px" }} type="submit">Đăng nhập</button>
                                             </form>

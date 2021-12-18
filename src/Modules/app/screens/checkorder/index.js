@@ -69,7 +69,6 @@ const CheckOrderScreenApp = ({ orders, onCancel }) => {
                             </div>
                         </div>
                     </td>
-
                 </tr>
             ))}
         </>

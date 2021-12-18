@@ -55,14 +55,14 @@ const AddressUser = () => {
     const renderPreview = () => {
         if (loading) {
             return (
-                <div style={{ 
+                <div style={{
                     "position": "relative",
-                    "left": "500px", 
+                    "left": "500px",
                     "top": "280px",
-                    "zIndex" : "999", 
-                    "fontSize" : "20px",
-                    "fontWeight" : "700"
-                   }}>
+                    "zIndex": "999",
+                    "fontSize": "20px",
+                    "fontWeight": "700"
+                }}>
                     Đang đặt hàng <PulseLoader color="#f4516c" size={12} />
                 </div>
             );
@@ -70,10 +70,10 @@ const AddressUser = () => {
     };
 
     const onSubmit = async (data) => {
-        
+
         const checkoutData = {
             userId: SetUserGoogle.getUserGoogle().id,
-            code_order : Math.floor((Math.random()*100000000)+1),
+            code_order: Math.floor((Math.random() * 100000000) + 1),
             phone: data.phone,
             building: data.building,
             classroom: data.classroom,
@@ -156,7 +156,17 @@ const AddressUser = () => {
                                                 <input type="text" defaultValue={SetUserGoogle.getUserGoogle().name} {...register("name")} readOnly />
                                             </div>
                                             <div className="col-md-6 col-sm-12 col-xs-12">
-                                                <input type="text" defaultValue={SetUserGoogle.getUserGoogle().phone} {...register("phone")} required placeholder="Số điện thoại" />
+                                                <input type="text" defaultValue={SetUserGoogle.getUserGoogle().phone} {...register("phone", { required: true, pattern: /((09|03|07|08|05)+([0-9]{8})\b)/g })} placeholder="Số điện thoại" />
+                                                {errors.phone?.type === "required" && (
+                                                    <span className="d-block text-danger">
+                                                        Không được để trống trường này!
+                                                    </span>
+                                                )}
+                                                {errors.phone?.type === "pattern" &&
+                                                    <span className=" text-danger m-form__help">
+                                                        Số điện thoại không đúng định dạng.
+                                                    </span>
+                                                }
                                             </div>
                                             <div className="col-md-12 col-sm-12 col-xs-12">
                                                 <input type="text" defaultValue={SetUserGoogle.getUserGoogle().email} {...register("email")} name="email" readOnly />
@@ -165,10 +175,11 @@ const AddressUser = () => {
                                             <div className="col-md-12 col-sm-12 col-xs-12">
                                                 <select
                                                     className="select-dropbox"
-                                                    {...register("building")}
+                                                    {...register("building", { required: true })}
                                                     onChange={handleSelect}
-                                                    required
+
                                                 >
+                                                    <option value="">Chọn tòa nhà</option>
                                                     {buildings && buildings.map((item, index) => (
                                                         <option value={item.id} key={index} id={item.id}>
                                                             {item.name}
@@ -177,8 +188,8 @@ const AddressUser = () => {
 
                                                 </select>
                                                 {errors.building && (
-                                                    <span className="d-block text-danger mt-3">
-                                                        Không bỏ trống trường này!
+                                                    <span className="d-block text-danger ">
+                                                        Không để trống trường này.
                                                     </span>
                                                 )}
                                             </div>
@@ -186,8 +197,9 @@ const AddressUser = () => {
                                                 <div className="col-md-12 col-sm-12 col-xs-12">
                                                     <select
                                                         className="select-dropbox"
-                                                        {...register("classroom")}
+                                                        {...register("classroom",{required:true})}
                                                     >
+                                                        <option value="">Chọn phòng học</option>
                                                         {classroom && classroom.map((item, index) => (
                                                             <option value={item.id} key={index} id={item.id}>
                                                                 {item.name}
@@ -195,7 +207,7 @@ const AddressUser = () => {
                                                         ))}
                                                     </select>
                                                     {errors.classroom && (
-                                                        <span className="d-block text-danger mt-3">
+                                                        <span className="d-block text-danger">
                                                             Không bỏ trống trường này!
                                                         </span>
                                                     )}

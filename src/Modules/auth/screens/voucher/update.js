@@ -125,13 +125,18 @@ const UpdateVoucherScreen = () => {
                           type="text"
                           className="form-control"
                           placeholder="vd: Sale10%, BLACKFIREDAY,..."
-                          {...register("name", { required: true })}
+                          {...register("name", { required: true, maxLength: 25 })}
                         />
-                        {errors.name && (
+                        {errors.name?.type === "required" && (
                           <span className="d-block text-danger mt-3">
                             Trường này không để trống.
                           </span>
                         )}
+                        {errors.name?.type === "maxLength" &&
+                          <span className=" text-danger m-form__help">
+                            Nhập tối đa 25 ký tự.
+                          </span>
+                        }
                       </div>
                       <div className="mb-3">
                         <label className="form-label">Số điểm</label>
@@ -158,13 +163,18 @@ const UpdateVoucherScreen = () => {
                           type="text"
                           className="form-control"
                           placeholder="vd: 10%, 20%,..."
-                          {...register("value", { required: true })}
+                          {...register("value", { required: true, maxLength: 25 })}
                         />
-                        {errors.name && (
+                        {errors.value?.type === "required" && (
                           <span className="d-block text-danger mt-3">
                             Trường này không để trống.
                           </span>
                         )}
+                        {errors.value?.type === "maxLength" &&
+                          <span className=" text-danger m-form__help">
+                            Nhập tối đa 25 ký tự.
+                          </span>
+                        }
                       </div>
                       <div className="form-group mb-3">
                         <div className="custom-file">

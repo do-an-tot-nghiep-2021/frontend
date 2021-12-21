@@ -103,7 +103,7 @@ const UpdateClassroomScreen = () => {
                                                     id="name"
                                                     className="form-control m-input"
                                                     placeholder="vd: p101, p102, L101,...."
-                                                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
+                                                    {...register("name", { required: true, minLength: 3,maxLength:25, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                                                 />
                                                 {errors.name?.type === "required" && (
                                                     <span className="d-block text-danger mt-3">
@@ -120,13 +120,19 @@ const UpdateClassroomScreen = () => {
                                                         Tên phòng học phải lớn hơn 3 ký tự.
                                                     </span>
                                                 }
+                                                {errors.name?.type === "maxLength" &&
+                                                    <span className=" text-danger m-form__help">
+                                                        Nhập tối đa 25 ký tự.
+                                                    </span>
+                                                }
                                             </div>
                                             <div className="mb-5">
                                                 <label className="form-label">Tòa</label>
                                                 <select
                                                     className="form-control"
-                                                    {...register("building_id")}
+                                                    {...register("building_id", {required:true})}
                                                 >
+                                                    <option value="">Chọn tòa nhà</option>
                                                     {buildings.map((item, index) => (
                                                         <option value={item.id} key={index}>
                                                             {item.name}

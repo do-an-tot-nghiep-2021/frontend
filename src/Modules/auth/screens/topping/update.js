@@ -89,7 +89,7 @@ const UpdateToppingScreen = () => {
                             id="name"
                             className="form-control m-input"
                             placeholder="vd: Trân trâu trắng, trân trâu đen,...."
-                            {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
+                            {...register("name", { required: true, minLength: 3,maxLength:25, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                           />
                           {errors.name?.type === "required" && (
                             <span className="d-block text-danger">
@@ -104,6 +104,11 @@ const UpdateToppingScreen = () => {
                           {errors.name?.type === "minLength" &&
                             <span className=" text-danger m-form__help">
                               Tên topping phải lớn hơn 3 ký tự.
+                            </span>
+                          }
+                          {errors.name?.type === "maxLength" &&
+                            <span className=" text-danger m-form__help">
+                              Nhập tối đa 25 ký tự.
                             </span>
                           }
                         </div>
@@ -134,7 +139,7 @@ const UpdateToppingScreen = () => {
                             <option value="1">còn hàng</option>
                           </select>
                         </div>
-                        
+
                       </div>
                       <button type="submit" className="btn btn-primary mt-3">
                         Cập nhật

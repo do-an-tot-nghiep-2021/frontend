@@ -47,7 +47,7 @@ const CreateTypeScreen = ({onRefeshData}) => {
                     id="name"
                     className="form-control m-input"
                     placeholder="vd: nóng, mát, đá,...."
-                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/  })}
+                    {...register("name", { required: true, minLength: 3,maxLength:25, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/  })}
                   />
                   {errors.name?.type === "required" && (
                     <span className="d-block text-danger mt-3">
@@ -62,6 +62,11 @@ const CreateTypeScreen = ({onRefeshData}) => {
                   {errors.name?.type === "minLength" &&
                     <span className=" text-danger m-form__help">
                       Tên thuộc tính phải lớn hơn 3 ký tự.
+                    </span>
+                  }
+                  {errors.name?.type === "maxLength" &&
+                    <span className=" text-danger m-form__help">
+                      Nhập tối đa 25 ký tự.
                     </span>
                   }
                 </div>

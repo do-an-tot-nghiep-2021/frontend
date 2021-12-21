@@ -40,7 +40,7 @@ const UpdateProductScreen = () => {
   useEffect(() => {
     const getTopping = async () => {
       const newData = {
-        status : 1
+        status: 1
       }
       try {
         const { data } = await alltopping(newData);
@@ -173,23 +173,38 @@ const UpdateProductScreen = () => {
                       <div className="row">
                         <div className="col-6">
                           <div className="mb-3">
-                            <label className="form-label">Name</label>
+                            <label className="form-label">Tên sản phẩm</label>
                             <input
                               type="text"
                               className="form-control"
-                              placeholder="Name product ..."
-                              {...register("name", { required: true })}
+                              placeholder="vd: trà sữa, cà phê,..."
+                              {...register("name", { required: true, minLength: 3, maxLength: 25, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                             />
-                            {errors.name && (
+                            {errors.name?.type === "required" && (
                               <span className="d-block text-danger mt-3">
-                                This field is required
+                                Không được để trống trường này!
                               </span>
                             )}
+                            {errors.name?.type === "pattern" &&
+                              <span className=" text-danger m-form__help">
+                                Tên sản phẩm không chứa ký tự đăc biệt.
+                              </span>
+                            }
+                            {errors.name?.type === "minLength" &&
+                              <span className=" text-danger m-form__help">
+                                Tên sản phẩm phải lớn hơn 3 ký tự.
+                              </span>
+                            }
+                            {errors.name?.type === "maxLength" &&
+                              <span className=" text-danger m-form__help">
+                                Nhập tối đa 25 ký tự.
+                              </span>
+                            }
                           </div>
                         </div>
                         <div className="col-6">
                           <div className="mb-3">
-                            <label className="form-label">Price</label>
+                            <label className="form-label">Giá sản phẩm</label>
                             <input
                               type="number"
                               className="form-control"
@@ -197,15 +212,15 @@ const UpdateProductScreen = () => {
                               {...register("price", { required: true })}
                             />
                             {errors.name && (
-                              <span className="d-block text-danger mt-3">
-                                This field is required
+                              <span className="d-block text-danger">
+                                Không được để trống trường này!
                               </span>
                             )}
                           </div>
                         </div>
                         <div className="col-6">
                           <div className="mb-3">
-                            <label className="form-label">Categories</label>
+                            <label className="form-label">Loại sản phẩm</label>
                             <select
                               className="form-control"
                               {...register("cate_id", { required: true })}
@@ -216,11 +231,16 @@ const UpdateProductScreen = () => {
                                 </option>
                               ))}
                             </select>
+                            {errors.name && (
+                              <span className="d-block text-danger">
+                                Không được để trống trường này!
+                              </span>
+                            )}
                           </div>
                         </div>
                         <div className="col-6">
                           <div className="mb-3">
-                            <label className="form-label">Image</label>
+                            <label className="form-label">Hình ảnh</label>
                             <div className="custom-file">
                               <input
                                 type="file"
@@ -252,7 +272,7 @@ const UpdateProductScreen = () => {
                         </div>
                         <div className="col-3">
                           <div className="mb-3">
-                            <label className="form-label">Type</label>
+                            <label className="form-label">Thuộc tính</label>
                             {type.map((item, index) => (
                               <section key={index}>
                                 <input
@@ -272,7 +292,7 @@ const UpdateProductScreen = () => {
                         </div>
                       </div>
                       <button type="submit" className="btn btn-primary mt-2">
-                        update
+                        Cập nhật
                       </button>
                     </form>
                   </div>

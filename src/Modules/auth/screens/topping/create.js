@@ -3,7 +3,7 @@ import Swal from "sweetalert2";
 import { createtopping } from "../../../../Api/topping";
 import { TokenAccount, SetUser } from '../../../../hooks/useAccount';
 
-const CreateToppingScreen = ({onRefeshData}) => {
+const CreateToppingScreen = ({ onRefeshData }) => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const onSubmit = async (data) => {
     const newData = {
@@ -47,7 +47,7 @@ const CreateToppingScreen = ({onRefeshData}) => {
                     id="name"
                     className="form-control m-input"
                     placeholder="vd: Trân trâu trắng, trân trâu đen,...."
-                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
+                    {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/,maxLength: 25 })}
                   />
                   {errors.name?.type === "required" && (
                     <span className="d-block text-danger mt-3">
@@ -64,6 +64,11 @@ const CreateToppingScreen = ({onRefeshData}) => {
                       Tên topping phải lớn hơn 3 ký tự.
                     </span>
                   }
+                  {errors.name?.type === "maxLength" &&
+                    <span className=" text-danger m-form__help">
+                      Nhập tối đa 25 ký tự.
+                    </span>
+                  }
                 </div>
 
                 <div class="form-group m-form__group">
@@ -73,7 +78,7 @@ const CreateToppingScreen = ({onRefeshData}) => {
                     id="name"
                     className="form-control m-input"
                     placeholder="vd: 7000đ,...."
-                    {...register("price", { required: true, min:0})}
+                    {...register("price", { required: true, min: 0 })}
                   />
                   {errors.price?.type === "required" && (
                     <span className="d-block text-danger mt-3">

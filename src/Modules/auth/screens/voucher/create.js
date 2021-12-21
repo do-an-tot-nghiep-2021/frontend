@@ -103,13 +103,18 @@ const CreateVoucherScreen = ({onRefeshData}) => {
                     type="text"
                     placeholder="vd: Sale10%, BLACKFIREDAY,..."
                     className="form-control m-input"
-                    {...register("name", { required: true })}
+                    {...register("name", { required: true,maxLength:25 })}
                   />
-                  {errors.name && (
+                  {errors.name?.type === "required" && (
                     <span className="d-block text-danger">
                       Không được để trống trường này!
                     </span>
                   )}
+                  {errors.name?.type === "maxLength" &&
+                    <span className=" text-danger m-form__help">
+                      Nhập tối đa 25 ký tự.
+                    </span>
+                  }
                 </div>
                 <div class="form-group m-form__group">
                   <label for="name">Số điểm</label>
@@ -138,13 +143,18 @@ const CreateVoucherScreen = ({onRefeshData}) => {
                     id="name"
                     placeholder="vd: 10%, 20%,..."
                     className="form-control m-input"
-                    {...register("value", { required: true })}
+                    {...register("value", { required: true,maxLength:25 })}
                   />
-                  {errors.name && (
+                  {errors.value?.type === "required" && (
                     <span className="d-block text-danger">
                       Không được để trống trường này!
                     </span>
                   )}
+                  {errors.value?.type === "maxLength" &&
+                    <span className=" text-danger m-form__help">
+                      Nhập tối đa 25 ký tự.
+                    </span>
+                  }
                 </div>
                 <div class="form-group m-form__group">
                 <div className="custom-file">

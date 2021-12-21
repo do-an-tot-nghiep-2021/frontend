@@ -5,7 +5,7 @@ import { createclass } from '../../../../Api/classroom';
 import { TokenAccount, SetUser } from '../../../../hooks/useAccount';
 import Swal from 'sweetalert2';
 
-const CreateClassroomScreen = ({onRefeshData}) => {
+const CreateClassroomScreen = ({ onRefeshData }) => {
     const { register, handleSubmit, formState: { errors } } = useForm();
     const [buildings, setBuildings] = useState([]);
     useEffect(() => {
@@ -62,7 +62,7 @@ const CreateClassroomScreen = ({onRefeshData}) => {
                                         id="name"
                                         className="form-control m-input"
                                         placeholder="vd: p101, p102, L101,...."
-                                        {...register("name", { required: true, minLength: 3, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
+                                        {...register("name", { required: true, minLength: 3,maxLength:25, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })}
                                     />
                                     {errors.name?.type === "required" && (
                                         <span className="d-block text-danger mt-3">
@@ -79,10 +79,16 @@ const CreateClassroomScreen = ({onRefeshData}) => {
                                             Tên phòng học phải lớn hơn 3 ký tự.
                                         </span>
                                     }
+                                    {errors.name?.type === "maxLength" &&
+                                        <span className=" text-danger m-form__help">
+                                            Nhập tối đa 25 ký tự.
+                                        </span>
+                                    }
                                 </div>
                                 <div class="form-group m-form__group">
                                     <label for="building">Chọn tòa nhà</label>
-                                    <select class="form-control m-input m-input--square" id="building" {...register("building_id", { required: true })}>
+                                    <select class="form-control m-input " id="building" {...register("building_id", { required: true })}>
+                                    <option value="">Chọn tòa nhà</option>
                                         {buildings && buildings.map((item, index) => (
                                             <option value={item.id} key={index}>
                                                 {item.name}

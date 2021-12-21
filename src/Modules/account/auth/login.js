@@ -92,7 +92,7 @@ const LoginAuth = () => {
                                                 <div className="mb-3">
                                                     <label className="form-label text-light" htmlFor="loginPassword" >Mật khẩu</label>
                                                     <Link className="float-end text-5" to="/forgot-password/account">Quên mật khẩu ?</Link>
-                                                    <input type="password" className="form-control"  placeholder="********" {...register("password", { required: true,pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?\s]*$/ })} />
+                                                    <input type="password" className="form-control"  placeholder="********" {...register("password", { required: true })} />
                                                     {errors.password?.type === "required" && (
                                                         <span className="text-danger">
                                                             Không được để trống trường này!

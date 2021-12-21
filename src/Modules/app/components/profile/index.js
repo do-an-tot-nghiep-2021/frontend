@@ -129,12 +129,17 @@ const ProfileComponentApp = () => {
                                                 <div className="row">
                                                     <div className="form-group col-12">
                                                         <label htmlFor="exampleFormControlInput1">Tên đăng ký  <span className="text-danger" style={{ fontSize: '20px' }}>*</span></label>
-                                                        <input type="text" className="form-control" {...register("name", { required: true, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })} />
+                                                        <input type="text" className="form-control" {...register("name", { required: true,maxLength:25, pattern: /^[^!@#$%~`^&*()_+\-=\[\]{};':"\\|.,<>\/?]*$/ })} />
                                                         {errors.name?.type === "required" && (
                                                             <span className="d-block text-danger">
                                                                 Không được để trống trường này!
                                                             </span>
                                                         )}
+                                                        {errors.name?.type === "maxLength" &&
+                                                            <span className=" text-danger m-form__help">
+                                                                Tối đa 25 ký tự.
+                                                            </span>
+                                                        }
                                                         {errors.name?.type === "pattern" &&
                                                             <span className=" text-danger m-form__help">
                                                                 Tên không chứa ký tự đăc biệt.
@@ -147,7 +152,7 @@ const ProfileComponentApp = () => {
                                                     </div>
                                                     <div className="form-group col-6">
                                                         <label htmlFor="exampleFormControlInput1">Số điện thoại  <span className="text-danger" style={{ fontSize: '20px' }}>*</span></label>
-                                                        <input type="text" className="form-control" {...register("phone", { required: true, pattern: /((09|03|07|08|05)+([0-9]{8})\b)/g })}  />
+                                                        <input type="text" className="form-control" {...register("phone", { required: true, pattern: /((09|03|07|08|06|05)+([0-9]{8})\b)/g })}  />
                                                         {errors.phone?.type === "required" && (
                                                             <span className="d-block text-danger">
                                                                 Không được để trống trường này!

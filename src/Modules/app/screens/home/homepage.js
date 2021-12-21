@@ -6,7 +6,7 @@ import ModalProduct from '../../components/home/modal';
 const HomeScreen = ({ product }) => {
     const [modalOpen, setModalOpen] = useState(false);
     return (
-        <div className="col-6 col-md-6 col-sm-6 col-lg-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms">
+        <div className="col-6 col-md-6 col-sm-6 col-lg-4 wow fadeInDown" data-wow-duration="1000ms" data-wow-delay="300ms" >
             <div className="shop-main-list">
                 <div className="shop-product">
                     <img src={product.image} alt="" />
@@ -16,7 +16,7 @@ const HomeScreen = ({ product }) => {
                         </div>
                     </div>
                 </div>
-                <Link className='text-name' to={`/product/${product.id}`}><h5>{product.name}</h5></Link>
+                <Link className='text-name d-inline-block '   to={`/product/${product.id}`}><h5 className='text-truncate' style={{maxWidth:'250px'}}>{product.name}</h5></Link>
                 <h5><strong><NumberFormat value={product.price} displayType={'text'} thousandSeparator={true} suffix={'đ'} /></strong></h5>
             </div>
             {modalOpen && <ModalProduct setOpenModal={setModalOpen} idproduct={product.id} />}
